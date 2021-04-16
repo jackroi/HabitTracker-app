@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialIcons } from '@expo/vector-icons';
-// import { t } from 'i18n-js';
+import { t } from 'i18n-js';
 
 import {
   HomeScreen,
@@ -11,6 +11,27 @@ import {
 } from '../screens';
 
 import { TabParamList } from '../types/types';
+
+
+const getTabBarLabel = (routeName: keyof TabParamList): string => {
+  switch (routeName) {
+    case 'Home':
+      return t('homeScreenTitle');
+
+    case 'History':
+      return t('historyScreenTitle');
+
+    case 'Statistics':
+      return t('statisticsScreenTitle');
+
+    case 'Settings':
+      return t('settingsScreenTitle');
+
+    default:
+      const _exhaustiveCheck: never = routeName;
+      return _exhaustiveCheck;
+  }
+};
 
 
 const TabNavigator = createBottomTabNavigator<TabParamList>();
@@ -43,7 +64,7 @@ function AppNavigator() {
 
           return <MaterialIcons name={iconName} size={size} color={color} />
         },
-        // tabBarLabel: getTabBarLabel(route.name),
+        tabBarLabel: getTabBarLabel(route.name),
       })}
       tabBarOptions={{
         activeTintColor: 'tomato',

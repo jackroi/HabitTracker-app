@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   Button,
   StyleSheet,
@@ -11,14 +11,18 @@ import {
   Keyboard,
   TouchableOpacity
 } from 'react-native';
+import { t } from 'i18n-js';
 
 import { RegisterScreenNavigationProps } from '../types/types';
+import AuthContext from '../contexts/AuthContext';
 
 
 const LoginScreen = ({ navigation }: RegisterScreenNavigationProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
+  const { register } = useContext(AuthContext);
 
   return (
     <KeyboardAvoidingView
@@ -55,8 +59,11 @@ const LoginScreen = ({ navigation }: RegisterScreenNavigationProps) => {
             placeholder={'Confirm password'}
           />
 
-          <TouchableOpacity style={styles.registerButton}>
-            <Text>Register</Text>
+          <TouchableOpacity
+            style={styles.registerButton}
+            onPress={() => register({ email, password })}
+          >
+            <Text>{t('register')}</Text>
           </TouchableOpacity>
         </View>
       </TouchableWithoutFeedback>

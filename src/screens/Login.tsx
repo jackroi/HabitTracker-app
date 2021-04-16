@@ -11,6 +11,7 @@ import {
   Keyboard,
   TouchableOpacity
 } from 'react-native';
+import { t } from 'i18n-js';
 
 import { LoginScreenNavigationProps } from '../types/types';
 
@@ -47,14 +48,14 @@ const LoginScreen = ({ navigation }: LoginScreenNavigationProps) => {
           />
 
           <TouchableOpacity style={styles.loginButton}>
-            <Text>LOGIN</Text>
+            <Text>{t('login').toUpperCase()}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.registerButton}
             onPress={() => navigation.navigate('Register')}
           >
-            <Text>Register</Text>
+            <Text>{t('register')}</Text>
           </TouchableOpacity>
         </View>
       </TouchableWithoutFeedback>

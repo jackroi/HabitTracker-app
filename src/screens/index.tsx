@@ -4,7 +4,7 @@ import StatisticsScreen from './Statistics';
 import SettingsScreen from './Settings';
 import LoginScreen from './Login';
 import RegisterScreen from './Register';
-// import SplashScreen from './Splash';
+import SplashScreen from './Splash';
 
 export {
   HomeScreen,
@@ -13,5 +13,5 @@ export {
   SettingsScreen,
   LoginScreen,
   RegisterScreen,
-  // SplashScreen
+  SplashScreen
 };
