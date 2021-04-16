@@ -1,8 +1,14 @@
 import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Ionicons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
+// import { t } from 'i18n-js';
 
-import { HomeScreen, SettingsScreen } from '../screens';
+import {
+  HomeScreen,
+  HistoryScreen,
+  StatisticsScreen,
+  SettingsScreen
+} from '../screens';
 
 import { TabParamList } from '../types/types';
 
@@ -14,26 +20,30 @@ function AppNavigator() {
     <TabNavigator.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
+          // TODO probabilmente passare al metodo non dinamico di settare le icone
           type UsedIcons =
-            | 'ios-information-circle'
-            | 'ios-information-circle-outline'
-            | 'ios-list-circle'
-            | 'ios-list';
+            | 'home'
+            | 'history'
+            | 'bar-chart'
+            | 'settings';
 
           let iconName: UsedIcons;
 
           if (route.name === 'Home') {
-            iconName = focused
-              ? 'ios-information-circle'
-              : 'ios-information-circle-outline';
+            iconName = 'home';
+          } else if (route.name === 'History') {
+            iconName = 'history';
+          } else if (route.name === 'Statistics') {
+            iconName = 'bar-chart';
           } else if (route.name === 'Settings') {
-            iconName = focused ? 'ios-list-circle' : 'ios-list';
+            iconName = 'settings';
           } else {
             throw new Error('Invalid route name');
           }
 
-          return <Ionicons name={iconName} size={size} color={color} />
+          return <MaterialIcons name={iconName} size={size} color={color} />
         },
+        // tabBarLabel: getTabBarLabel(route.name),
       })}
       tabBarOptions={{
         activeTintColor: 'tomato',
@@ -41,6 +51,8 @@ function AppNavigator() {
       }}
     >
       <TabNavigator.Screen name="Home" component={HomeScreen} />
+      <TabNavigator.Screen name="History" component={HistoryScreen} />
+      <TabNavigator.Screen name="Statistics" component={StatisticsScreen} />
       <TabNavigator.Screen name="Settings" component={SettingsScreen} />
     </TabNavigator.Navigator>
   );
