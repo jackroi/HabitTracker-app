@@ -1,6 +1,6 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useMemo } from 'react';
 import {
-  Button,
+  useColorScheme,
   StyleSheet,
   Text,
   View,
@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import { t } from 'i18n-js';
 
+import { Theme, getTheme } from '../styles/themes';
 import { RegisterScreenNavigationProps } from '../types/types';
 import AuthContext from '../contexts/AuthContext';
 
@@ -24,15 +25,20 @@ const LoginScreen = ({ navigation }: RegisterScreenNavigationProps) => {
 
   const { register } = useContext(AuthContext);
 
+  // dynamic styles for light/dark theme
+  const theme = getTheme(useColorScheme());
+  const dynamicStyles = useMemo(() => styles(theme), [theme]);
+
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={styles.container}
+      style={dynamicStyles.container}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={styles.innerContainer}>
+        <View style={dynamicStyles.innerContainer}>
           <TextInput
-            style={styles.input}
+            style={dynamicStyles.input}
             value={email}
             onChangeText={setEmail}
             keyboardType={'email-address'}
@@ -43,7 +49,7 @@ const LoginScreen = ({ navigation }: RegisterScreenNavigationProps) => {
             placeholder={'Email'}
           />
           <TextInput
-            style={styles.input}
+            style={dynamicStyles.input}
             value={password}
             onChangeText={setPassword}
             secureTextEntry={true}
@@ -51,7 +57,7 @@ const LoginScreen = ({ navigation }: RegisterScreenNavigationProps) => {
             placeholder={'Password'}
           />
           <TextInput
-            style={styles.input}
+            style={dynamicStyles.input}
             value={confirmPassword}
             onChangeText={setConfirmPassword}
             secureTextEntry={true}
@@ -60,7 +66,7 @@ const LoginScreen = ({ navigation }: RegisterScreenNavigationProps) => {
           />
 
           <TouchableOpacity
-            style={styles.registerButton}
+            style={dynamicStyles.registerButton}
             onPress={() => register({ email, password })}
           >
             <Text>{t('register')}</Text>
@@ -71,13 +77,13 @@ const LoginScreen = ({ navigation }: RegisterScreenNavigationProps) => {
   );
 };
 
-const styles = StyleSheet.create({
+const styles = (theme: Theme) => StyleSheet.create({
   container: {
     flex: 1,
   },
   innerContainer: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colorBackground,
     alignItems: 'center',
     justifyContent: 'center',
     padding: 10,
@@ -90,6 +96,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     borderWidth: 1,
     borderRadius: 30,
+    borderColor: theme.colorOnBackground,
     alignItems: 'center',
     fontSize: 20,
   },

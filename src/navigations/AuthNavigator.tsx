@@ -29,7 +29,9 @@ function AuthNavigator() {
     <StackNavigator.Navigator
       screenOptions={({ route }) => ({
         headerTitle: getHeaderTitle(route.name),
+        detachPreviousScreen: false,
       })}
+      // detachInactiveScreens={false}
     >
       <StackNavigator.Screen name="Login" component={LoginScreen} />
       <StackNavigator.Screen name="Register" component={RegisterScreen} />

@@ -1,5 +1,5 @@
 import React, { useReducer, useEffect, useMemo } from 'react';
-import { View } from 'react-native';
+import { useColorScheme, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import * as SecureStore from 'expo-secure-store';
@@ -7,6 +7,8 @@ import * as Localization from 'expo-localization';
 import i18n from 'i18n-js';
 import en from './src/i18n/en';
 import it from './src/i18n/it';
+
+import { getNavigationTheme } from './src/styles/themes'
 
 import { AuthNavigator, AppNavigator } from './src/navigations';
 import { SplashScreen } from './src/screens';
@@ -16,9 +18,9 @@ import AuthContext from './src/contexts/AuthContext'
 // set up i18n
 i18n.translations = {
   en,
-  "it-IT": it
+  it
 };
-i18n.locale = Localization.locale;
+i18n.locale = Localization.locale.split('-')[0];
 
 
 interface State {
@@ -61,6 +63,8 @@ export default function App() {
       userToken: null,
     }
   );
+
+  const theme = getNavigationTheme(useColorScheme());
 
   useEffect(() => {
     const bootstrapAsync = async () => {
@@ -130,7 +134,9 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
+    <NavigationContainer
+      theme={theme}
+    >
       <StatusBar style="auto" />
       <AuthContext.Provider value={authContext}>
         {state.userToken === null ? (
