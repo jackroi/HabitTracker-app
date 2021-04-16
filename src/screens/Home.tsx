@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Button, StyleSheet, Text, View, FlatList, StatusBar } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { t } from 'i18n-js';
+import { Theme, lightTheme, darkTheme } from '../styles/themes'
 
 import { HomeScreenNavigationProps, HabitState } from '../types/types';
 import HabitButton from '../components/HabitButton';
@@ -37,21 +38,27 @@ const FAKE_DATA: Habit[] = [
   },
 ];
 
-const renderItem = ({ item }: { item: Habit }) => {
-  return (
-    <View style={styles.item}>
-      <HabitButton
-        habitName={item.habitName}
-        habitState={item.habitState}
-      />
-    </View>
-  );
-};
-
 
 const HomeScreen = ({ navigation }: HomeScreenNavigationProps) => {
+  const theme = {
+    primary: 'ciao',
+    secondary: 'pippo',
+  }
+  const dynamicStyles = useMemo(() => styles(theme), [theme])
+
+  const renderItem = ({ item }: { item: Habit }) => {
+    return (
+      <View style={dynamicStyles.item}>
+        <HabitButton
+          habitName={item.habitName}
+          habitState={item.habitState}
+        />
+      </View>
+    );
+  };
+
   return (
-    <View style={styles.container}>
+    <View style={dynamicStyles.container}>
       <FlatList
         data={FAKE_DATA}
         renderItem={renderItem}
@@ -77,7 +84,7 @@ const HomeStackScreen = () => {
 }
 
 
-const styles = StyleSheet.create({
+const styles = (theme: { primary: string, secondary: string }) => StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
