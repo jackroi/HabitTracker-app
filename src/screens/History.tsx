@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-// import { t } from 'i18n-js';
+import { t } from 'i18n-js';
 
 import { HistoryScreenNavigationProps } from '../types/types';
 
@@ -8,7 +8,7 @@ import { HistoryScreenNavigationProps } from '../types/types';
 const HistoryScreen = ({ navigation }: HistoryScreenNavigationProps) => {
   return (
     <View style={styles.container}>
-      {/* <Text>{t('historyScreenTitle')}!</Text> */}
+      <Text>{t('historyScreenTitle')}!</Text>
     </View>
   );
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-// import { t } from 'i18n-js';
+import { t } from 'i18n-js';
 
 import { StatisticsScreenNavigationProps } from '../types/types';
 
@@ -8,7 +8,7 @@ import { StatisticsScreenNavigationProps } from '../types/types';
 const StatisticsScreen = ({ navigation }: StatisticsScreenNavigationProps) => {
   return (
     <View style={styles.container}>
-      {/* <Text>{t('statisticsScreenTitle')}!</Text> */}
+      <Text>{t('statisticsScreenTitle')}!</Text>
     </View>
   );
 };
