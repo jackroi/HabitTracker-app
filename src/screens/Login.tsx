@@ -41,7 +41,7 @@ const LoginScreen = ({ navigation }: LoginScreenNavigationProps) => {
             autoCompleteType={'email'}
             autoCorrect={false}
             textContentType={'emailAddress'}
-            placeholder={'Email'}
+            placeholder={t('email')}
           />
           <TextInput
             style={dynamicStyles.input}
@@ -49,7 +49,7 @@ const LoginScreen = ({ navigation }: LoginScreenNavigationProps) => {
             onChangeText={setPassword}
             secureTextEntry={true}
             textContentType={'password'}
-            placeholder={'Password'}
+            placeholder={t('password')}
           />
 
           <TouchableOpacity style={dynamicStyles.loginButton}>

@@ -46,7 +46,7 @@ const LoginScreen = ({ navigation }: RegisterScreenNavigationProps) => {
             autoCompleteType={'email'}
             autoCorrect={false}
             textContentType={'emailAddress'}
-            placeholder={'Email'}
+            placeholder={t('email')}
           />
           <TextInput
             style={dynamicStyles.input}
@@ -54,7 +54,7 @@ const LoginScreen = ({ navigation }: RegisterScreenNavigationProps) => {
             onChangeText={setPassword}
             secureTextEntry={true}
             textContentType={'newPassword'}
-            placeholder={'Password'}
+            placeholder={t('password')}
           />
           <TextInput
             style={dynamicStyles.input}
@@ -62,7 +62,7 @@ const LoginScreen = ({ navigation }: RegisterScreenNavigationProps) => {
             onChangeText={setConfirmPassword}
             secureTextEntry={true}
             textContentType={'newPassword'}
-            placeholder={'Confirm password'}
+            placeholder={t('confirmPassword')}
           />
 
           <TouchableOpacity

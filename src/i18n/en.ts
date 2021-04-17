@@ -16,6 +16,10 @@ const mapping: Translation = {
   register: 'Register',
   email: 'Email',
   password: 'Password',
+  confirmPassword: 'Confirm password',
+
+  /* Habit */
+  habit: 'Habit',
 }
 
 export default mapping;

@@ -14,4 +14,8 @@ export default interface Translation {
   register: string;
   email: string;
   password: string;
+  confirmPassword: string;
+
+  /* Habit */
+  habit: string;
 }
