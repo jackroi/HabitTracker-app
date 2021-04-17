@@ -80,6 +80,7 @@ const StatisticsStack = createStackNavigator<StatisticsStackParamList>();
 const StatisticsStackScreen = () => {
   return (
     <StatisticsStack.Navigator
+      initialRouteName={'Statistics'}
       screenOptions={({ route }) => ({
         headerTitle: t('statisticsScreenTitle'),
       })}

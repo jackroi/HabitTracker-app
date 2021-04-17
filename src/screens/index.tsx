@@ -1,4 +1,4 @@
-import HomeScreen from './Home';
+import HomeScreen from './Home/Home';
 import HistoryScreen from './History';
 import StatisticsScreen from './Statistics';
 import SettingsScreen from './Settings';

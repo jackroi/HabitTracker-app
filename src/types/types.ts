@@ -11,6 +11,7 @@ export type AuthStackParamList = {
 
 export type HomeStackParamList = {
   Home: undefined;
+  AddHabit: undefined;
 };
 
 export type HistoryStackParamList = {
@@ -54,6 +55,16 @@ type HomeScreenNavigationProp = CompositeNavigationProp<
 
 export type HomeScreenNavigationProps = {
   navigation: HomeScreenNavigationProp;
+};
+
+type AddHabitScreenNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<HomeStackParamList, 'Home'>,
+  BottomTabNavigationProp<AppTabParamList>
+>
+
+// AddHabitScreen
+export type AddHabitScreenNavigationProps = {
+  navigation: AddHabitScreenNavigationProp;
 };
 
 // HistoryScreen

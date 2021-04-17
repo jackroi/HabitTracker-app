@@ -1,13 +1,14 @@
 import React, { useMemo } from 'react';
-import { Button, StyleSheet, Text, View, FlatList, StatusBar, useColorScheme } from 'react-native';
+import { Button, StyleSheet, Text, View, FlatList, StatusBar, useColorScheme, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { MaterialIcons } from '@expo/vector-icons';
 import { t } from 'i18n-js';
 
-import { Theme, getTheme } from '../styles/themes';
-import { HomeStackParamList, HomeScreenNavigationProps, HabitState } from '../types/types';
-import HabitButton from '../components/HabitButton';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Theme, getTheme } from '../../styles/themes';
+import { HomeStackParamList, HomeScreenNavigationProps, HabitState } from '../../types/types';
+import HabitButton from '../../components/HabitButton';
+import AddHabitScreen from './AddHabit'
 
 
 
@@ -73,8 +74,11 @@ const HomeStackScreen = () => {
   const theme = getTheme(useColorScheme());
   const dynamicStyles = useMemo(() => styles(theme), [theme]);
 
+  const navigation = useNavigation();
+
   return (
     <HomeStack.Navigator
+      initialRouteName={'Home'}
       screenOptions={({ route }) => ({
         headerTitle: t('homeScreenTitle'),
       })}
@@ -85,7 +89,7 @@ const HomeStackScreen = () => {
         options={{
           headerRight: () => (
             <TouchableOpacity
-              onPress={() => console.log("Add button pressed")}
+              onPress={() => navigation.navigate('AddHabit')}
               style={dynamicStyles.addButton}
             >
               <MaterialIcons name={'add'} size={30} color={theme.colorOnBackground} />
@@ -93,6 +97,7 @@ const HomeStackScreen = () => {
           )
         }}
       />
+      <HomeStack.Screen name={'AddHabit'} component={AddHabitScreen} />
     </HomeStack.Navigator>
   );
 }
