@@ -6,7 +6,7 @@ import { HabitState } from '../types/types';
 
 
 
-type habitButtonProps = {
+type HabitButtonProps = {
   habitName: string;
   habitState: HabitState;
   onPress?: (event: GestureResponderEvent) => void;
@@ -31,7 +31,7 @@ const getButtonConfig = (habitState: HabitState): [UsedIcon, string] => {
   }
 }
 
-const HabitButton = ({ habitName, habitState, onPress }: habitButtonProps) => {
+const HabitButton = ({ habitName, habitState, onPress }: HabitButtonProps) => {
   const [currentHabitState, setCurrentHabitState] = useState(habitState);
 
   const onPressCallback = (event: GestureResponderEvent) => {

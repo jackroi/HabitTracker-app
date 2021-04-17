@@ -10,10 +10,10 @@ import {
   SettingsScreen
 } from '../screens';
 
-import { TabParamList } from '../types/types';
+import { AppTabParamList } from '../types/types';
 
 
-const getTabBarLabel = (routeName: keyof TabParamList): string => {
+const getTabBarLabel = (routeName: keyof AppTabParamList): string => {
   switch (routeName) {
     case 'Home':
       return t('homeScreenTitle');
@@ -34,7 +34,7 @@ const getTabBarLabel = (routeName: keyof TabParamList): string => {
 };
 
 
-const TabNavigator = createBottomTabNavigator<TabParamList>();
+const TabNavigator = createBottomTabNavigator<AppTabParamList>();
 
 function AppNavigator() {
   return (
@@ -67,7 +67,7 @@ function AppNavigator() {
         tabBarLabel: getTabBarLabel(route.name),
       })}
       tabBarOptions={{
-        activeTintColor: 'tomato',
+        activeTintColor: 'tomato',  // TODO theme colors
         inactiveTintColor: 'gray',
       }}
     >

@@ -65,8 +65,7 @@ const HomeScreen = ({ navigation }: HomeScreenNavigationProps) => {
 };
 
 
-// TODO aggiungere tipi e aggiungere stack anche nelle altre schermate
-const HomeStack = createStackNavigator();
+const HomeStack = createStackNavigator<HomeStackParamList>();
 
 const HomeStackScreen = () => {
   return (

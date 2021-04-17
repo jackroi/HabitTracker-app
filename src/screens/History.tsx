@@ -13,7 +13,23 @@ const HistoryScreen = ({ navigation }: HistoryScreenNavigationProps) => {
   );
 };
 
-const styles = StyleSheet.create({
+
+const HistoryStack = createStackNavigator<HistoryStackParamList>();
+
+const HistoryStackScreen = () => {
+  return (
+    <HistoryStack.Navigator
+      screenOptions={({ route }) => ({
+        headerTitle: t('historyScreenTitle'),
+      })}
+    >
+      <HistoryStack.Screen name="History" component={HistoryScreen} />
+    </HistoryStack.Navigator>
+  );
+};
+
+
+const styles = (theme: Theme) => StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',

@@ -4,10 +4,10 @@ import { t } from 'i18n-js';
 
 import { LoginScreen, RegisterScreen } from '../screens';
 
-import { StackParamList } from '../types/types';
+import { AuthStackParamList } from '../types/types';
 
 
-const getHeaderTitle = (routeName: keyof StackParamList): string => {
+const getHeaderTitle = (routeName: keyof AuthStackParamList): string => {
   switch (routeName) {
     case 'Login':
       return t('loginScreenTitle');
@@ -22,7 +22,7 @@ const getHeaderTitle = (routeName: keyof StackParamList): string => {
 }
 
 
-const StackNavigator = createStackNavigator<StackParamList>();
+const StackNavigator = createStackNavigator<AuthStackParamList>();
 
 function AuthNavigator() {
   return (
