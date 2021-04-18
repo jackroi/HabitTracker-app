@@ -9,6 +9,10 @@ interface Theme {
   colorBackground: string;
   colorOnBackground: string;
 
+  /* Surface color */
+  colorSurface: string;
+  colorOnSurface: string;
+
   /* Primary brand color */
   // colorPrimary: string;
   // colorPrimaryVariant: string;
@@ -19,8 +23,15 @@ interface Theme {
   // colorSecondaryVariant: string;
   // colorOnSecondary: string;
 
-  /* Tab bar */
+  /* Tab bar color */
   colorSelectedTab: string;
+
+  /* List colors */
+  colorListItem: string;
+  colorListItemSeparator: string;
+  colorOnListItem: string;
+
+  /* TODO Placeholder text color */
 }
 
 
@@ -29,6 +40,10 @@ const lightTheme: Theme = {
   colorBackground: Colors.white,
   colorOnBackground: Colors.black,
 
+  /* Surface color */
+  colorSurface: '#eeeeee',
+  colorOnSurface: Colors.black,
+
   /* Primary brand color */
   // colorPrimary: '#ff6347',
   // colorPrimaryVariant: '#ffa592',
@@ -41,13 +56,22 @@ const lightTheme: Theme = {
 
   /* Tab bar */
   colorSelectedTab: '#ff6347',
-}
+
+  /* List colors */
+  colorListItem: Colors.white,
+  colorListItemSeparator: '#dddddd',
+  colorOnListItem: Colors.black,
+};
 
 const darkTheme: Theme = {
   /* Background color */
   colorBackground: Colors.black,
   colorOnBackground: Colors.white,
 
+  /* Surface color */
+  colorSurface: '#3b3b3b',
+  colorOnSurface: Colors.white,
+
   /* Primary brand color */
   // colorPrimary: '#ff6347',
   // colorPrimaryVariant: '#ffa592',
@@ -60,7 +84,12 @@ const darkTheme: Theme = {
 
   /* Tab bar */
   colorSelectedTab: '#ff6347',
-}
+
+  /* List colors */
+  colorListItem: '#2b2b2b',
+  colorListItemSeparator: Colors.black,
+  colorOnListItem: Colors.white,
+};
 
 
 const navigationLightTheme = {
