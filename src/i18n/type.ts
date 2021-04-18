@@ -18,4 +18,13 @@ export default interface Translation {
 
   /* Habit */
   habit: string;
+  category: string;
+
+  /* Habit creation */
+  selectCategory: string;
+  categorySelectionHeader: string;
+
+  /* Misc */
+  confirm: string;
+  create: string;
 }

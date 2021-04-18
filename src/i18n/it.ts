@@ -20,6 +20,15 @@ const mapping: Translation = {
 
   /* Habit */
   habit: 'Habit',
+  category: 'Categoria',
+
+  /* Habit creation */
+  selectCategory: 'Seleziona categoria',
+  categorySelectionHeader: 'Seleziona una categoria esistente o creane una nuova',
+
+  /* Misc */
+  confirm: 'Conferma',
+  create: 'Crea',
 }
 
 export default mapping;
