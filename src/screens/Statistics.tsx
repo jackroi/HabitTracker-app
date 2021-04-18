@@ -45,7 +45,7 @@ const StatisticsScreen = ({ navigation }: StatisticsScreenNavigationProps) => {
 
   const renderItem = ({ item }: { item: Habit }) => {
     return (
-      <View style={dynamicStyles.itemContainer}>
+      <View>
         <StatisticsListItem
           habitName={item.habitName}
           onPress={() => navigation.navigate('StatisticsDetails' as any)}
@@ -59,6 +59,15 @@ const StatisticsScreen = ({ navigation }: StatisticsScreenNavigationProps) => {
       <FlatList
         data={FAKE_DATA}
         renderItem={renderItem}
+        ItemSeparatorComponent={() => (
+          <View style={dynamicStyles.itemSeparatorView} />
+        )}
+        ListHeaderComponent={() => (
+          <View style={dynamicStyles.itemSeparatorView} />
+        )}
+        ListFooterComponent={() => (
+          <View style={dynamicStyles.itemSeparatorView} />
+        )}
       />
     </View>
   );
@@ -101,8 +110,10 @@ const styles = (theme: Theme) => StyleSheet.create({
   text: {
     color: theme.colorOnBackground,
   },
-  itemContainer: {
-    marginVertical: 1,
+  itemSeparatorView: {
+    height: 1,
+    width: '100%',
+    backgroundColor: theme.colorListItemSeparator,
   },
 });
 
