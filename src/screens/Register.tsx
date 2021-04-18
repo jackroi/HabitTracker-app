@@ -89,7 +89,6 @@ const styles = (theme: Theme) => StyleSheet.create({
     padding: 10,
   },
   input: {
-    // height: 40,
     width: '100%',
     margin: 12,
     paddingVertical:10,
@@ -99,6 +98,7 @@ const styles = (theme: Theme) => StyleSheet.create({
     borderColor: theme.colorOnBackground,
     alignItems: 'center',
     fontSize: 20,
+    color: theme.colorOnBackground,
   },
   registerButton: {
     width: "100%",

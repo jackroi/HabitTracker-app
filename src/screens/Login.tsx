@@ -90,6 +90,7 @@ const styles = (theme: Theme) => StyleSheet.create({
     borderColor: theme.colorOnBackground,
     alignItems: 'center',
     fontSize: 20,
+    color: theme.colorOnBackground,
   },
   loginButton: {
     width: "100%",
