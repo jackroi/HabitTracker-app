@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
-import { GestureResponderEvent, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import React, { useState, useMemo } from 'react';
+import { useColorScheme, GestureResponderEvent, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+
+import { Theme, getTheme } from '../styles/themes';
 
 
 type StatisticsListItemProps = {
@@ -10,19 +12,22 @@ type StatisticsListItemProps = {
 
 
 const StatisticsListitem = ({ habitName, onPress }: StatisticsListItemProps) => {
+  const theme = getTheme(useColorScheme());
+  const dynamicStyles = useMemo(() => styles(theme), [theme]);
+
   return (
     <TouchableOpacity
-      style={styles.button}
+      style={dynamicStyles.button}
       onPress={onPress}
       activeOpacity={0.5}
     >
-      <Text style={styles.text}>{habitName}</Text>
+      <Text style={dynamicStyles.text}>{habitName}</Text>
       <MaterialCommunityIcons name={'greater-than'} size={18} color={'#FFFFFF'}/>
     </TouchableOpacity>
   );
 };
 
-const styles = StyleSheet.create({
+const styles = (theme: Theme) => StyleSheet.create({
   button: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -30,12 +35,12 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingHorizontal: 12,
     paddingVertical: 30,
-    backgroundColor: '#2b2b2b',
+    backgroundColor: theme.colorListItem,
   },
   text: {
     fontSize: 18,
-    color: "#FFFFFF",
-    fontWeight: "bold",
+    color: theme.colorOnListItem,
+    fontWeight: 'bold',
   }
 });
 
