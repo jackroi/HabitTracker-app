@@ -1,4 +1,4 @@
-import { CompositeNavigationProp, NavigatorScreenParams, ParamListBase } from '@react-navigation/native';
+import { CompositeNavigationProp, NavigatorScreenParams, RouteProp } from '@react-navigation/native';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -20,7 +20,7 @@ export type HistoryStackParamList = {
 
 export type StatisticsStackParamList = {
   Statistics: undefined;
-  StatisticsDetails: undefined;
+  StatisticsDetails: { habitId: string };
 };
 
 export type SettingsStackParamList = {
@@ -93,8 +93,11 @@ type StatisticsDetailsScreenNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<AppTabParamList>
 >
 
+type StatisticsDetailsScreenRouteProp = RouteProp<StatisticsStackParamList, 'StatisticsDetails'>
+
 export type StatisticsDetailsScreenNavigationProps = {
   navigation: StatisticsDetailsScreenNavigationProp;
+  route: StatisticsDetailsScreenRouteProp;
 };
 
 // SettingsScreen

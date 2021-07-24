@@ -3,10 +3,10 @@ import { useColorScheme, StyleSheet, Text, View, FlatList } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { t } from 'i18n-js';
 
-import { Theme, getTheme } from '../styles/themes';
-import { StatisticsStackParamList, StatisticsScreenNavigationProps, StatisticsDetailsScreenNavigationProps, HabitState } from '../types/types';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import StatisticsListItem from '../components/StatisticsListItem';
+import { Theme, getTheme } from '../../styles/themes';
+import { StatisticsStackParamList, StatisticsScreenNavigationProps, StatisticsDetailsScreenNavigationProps, HabitState } from '../../types/types';
+import StatisticsListItem from '../../components/StatisticsListItem';
+import StatisticsDetailsScreen from './StatisticsDetails';
 
 
 interface Habit {
@@ -48,7 +48,11 @@ const StatisticsScreen = ({ navigation }: StatisticsScreenNavigationProps) => {
       <View>
         <StatisticsListItem
           habitName={item.habitName}
-          onPress={() => navigation.navigate('StatisticsDetails' as any)}
+          onPress={() => {
+            navigation.navigate('StatisticsDetails' as any, {
+              habitId: item.id,
+            } as never);
+          }}
         />
       </View>
     );
@@ -73,15 +77,7 @@ const StatisticsScreen = ({ navigation }: StatisticsScreenNavigationProps) => {
   );
 };
 
-const StatisticsDetailsScreen = ({ navigation }: StatisticsDetailsScreenNavigationProps) => {
-  const theme = getTheme(useColorScheme());
-  const dynamicStyles = useMemo(() => styles(theme), [theme]);
 
-  return (
-    <View style={dynamicStyles.container}>
-    </View>
-  );
-};
 
 
 const StatisticsStack = createStackNavigator<StatisticsStackParamList>();
