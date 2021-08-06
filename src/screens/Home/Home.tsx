@@ -9,6 +9,8 @@ import { Theme, getTheme } from '../../styles/themes';
 import { HomeStackParamList, HomeScreenNavigationProps, HabitState } from '../../types/types';
 import HabitButton from '../../components/HabitButton';
 import AddHabitScreen from './AddHabit'
+import DatePicker from '../../components/DatePicker';
+import { DateTime } from 'luxon';
 
 
 
@@ -100,6 +102,10 @@ const HomeScreen = ({ navigation }: HomeScreenNavigationProps) => {
 
   return (
     <View style={dynamicStyles.container}>
+      <DatePicker
+        fromDate={DateTime.now().startOf('day').minus({ days: 15 })}    // TODO
+        onChange={(date) => console.info(date)}                         // TODO
+      />
       <SectionList
         sections={DATA}
         renderItem={renderItem}
@@ -150,6 +156,7 @@ const styles = (theme: Theme) => StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: theme.colorBackground,
+    flexDirection: 'column',
   },
   sectionHeader: {
     backgroundColor: theme.colorBackground,
