@@ -9,7 +9,7 @@ import { HabitState } from '../types/types';
 type HabitButtonProps = {
   habitName: string;
   habitState: HabitState;
-  onPress?: (event: GestureResponderEvent) => void;
+  onPress?: (event: GestureResponderEvent) => void;   // TODO probabilmente togliere il '?'
 }
 
 type UsedIcon =
