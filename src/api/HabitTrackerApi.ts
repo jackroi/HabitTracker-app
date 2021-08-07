@@ -30,6 +30,16 @@ class HabitTrackerApi {
   private http: AxiosInstance;
   private token: string | null;
 
+  private static instance: HabitTrackerApi | null = null;
+
+  static getInstance(): HabitTrackerApi {
+    if (!this.instance) {
+      this.instance = new HabitTrackerApi();
+    }
+
+    return this.instance;
+  }
+
   // TODO probabilmente singleton
   constructor() {
     this.http = axios.create({
