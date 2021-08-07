@@ -24,9 +24,9 @@ import { HistoryEntryType } from "./models/HistoryEntry";
 
 // TODO valutare se fare qualche validazione parametri
 
-class HabitTrackerApi {
+export class HabitTrackerApi {
   // TODO .env
-  private static BASE_URL = 'http://localhost:8000/v0.0.1/';
+  private static BASE_URL = 'http://192.168.1.14:8000/v0.0.1/';
   private http: AxiosInstance;
   private token: string | null;
 
@@ -57,6 +57,10 @@ class HabitTrackerApi {
 
   setToken(token: string) {
     this.token = token;
+  }
+
+  unsetToken() {
+    this.token = null;
   }
 
   // TODO metterlo all'inizio dei metodi che richiedono autorizzazione

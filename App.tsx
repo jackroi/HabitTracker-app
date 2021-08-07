@@ -12,7 +12,13 @@ import { getNavigationTheme } from './src/styles/themes'
 
 import { AuthNavigator, AppNavigator } from './src/navigations';
 import { SplashScreen } from './src/screens';
-import AuthContext from './src/contexts/AuthContext'
+import AuthContext from './src/contexts/AuthContext';
+import { HabitTrackerApi } from './src/api/HabitTrackerApi';
+
+// Fix missing 'btoa' and 'atob'
+import { encode, decode } from 'base-64';
+if (!global.btoa) { global.btoa = encode; }
+if (!global.atob) { global.atob = decode; }
 
 
 // set up i18n
@@ -66,12 +72,17 @@ export default function App() {
 
   const theme = getNavigationTheme(useColorScheme());
 
+  const habitTrackerApi = HabitTrackerApi.getInstance();
+
   useEffect(() => {
     const bootstrapAsync = async () => {
       let userToken: string | null = null;
 
       try {
         userToken = await SecureStore.getItemAsync('userToken');
+        if (userToken) {
+          habitTrackerApi.setToken(userToken);
+        }
       } catch (error) {
         // Restoring token failed
         // TODO
@@ -93,16 +104,21 @@ export default function App() {
         // After getting token, we need to persist the token using `SecureStore`
         // In the example, we'll use a dummy token
 
-        // TODO
-
-        let token = data.email + '-dummy-auth-token';
-        SecureStore.setItemAsync('userToken', token);
-
-        dispatch({ type: 'LOG_IN', token: token });
+        const result = await habitTrackerApi.login(data.email, data.password);
+        let token;
+        if (result.success) {
+          token = result.value;
+          SecureStore.setItemAsync('userToken', token);
+          dispatch({ type: 'LOG_IN', token: token });
+        }
+        else {
+          // TODO error handling
+          console.warn('Login went wrong');
+        }
       },
       logout: () => {
         SecureStore.deleteItemAsync('userToken');
-
+        habitTrackerApi.unsetToken();
         dispatch({ type: 'LOG_OUT' })
       },
       register: async (data : { email: string, password: string }) => {
@@ -112,12 +128,17 @@ export default function App() {
         // After getting token, we need to persist the token using `SecureStore`
         // In the example, we'll use a dummy token
 
-        // TODO
-
-        let token = data.email + '-dummy-auth-token';
-        SecureStore.setItemAsync('userToken', token);
-
-        dispatch({ type: 'LOG_IN', token: token });
+        const result = await habitTrackerApi.login(data.email, data.password);
+        let token;
+        if (result.success) {
+          token = result.value;
+          SecureStore.setItemAsync('userToken', token);
+          dispatch({ type: 'LOG_IN', token: token });
+        }
+        else {
+          // TODO error handling
+          console.warn('Registration went wrong');
+        }
       },
     }),
     []

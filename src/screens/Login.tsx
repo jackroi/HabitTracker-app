@@ -15,11 +15,14 @@ import { t } from 'i18n-js';
 
 import { Theme, getTheme } from '../styles/themes';
 import { LoginScreenNavigationProps } from '../types/types';
+import AuthContext from '../contexts/AuthContext';
 
 
 const LoginScreen = ({ navigation }: LoginScreenNavigationProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const { login } = React.useContext(AuthContext);
 
   // dynamic styles for light/dark theme
   const theme = getTheme(useColorScheme());
@@ -52,7 +55,10 @@ const LoginScreen = ({ navigation }: LoginScreenNavigationProps) => {
             placeholder={t('password')}
           />
 
-          <TouchableOpacity style={dynamicStyles.loginButton}>
+          <TouchableOpacity
+            style={dynamicStyles.loginButton}
+            onPress={() => login({ email, password })}
+          >
             <Text>{t('login').toUpperCase()}</Text>
           </TouchableOpacity>
 
