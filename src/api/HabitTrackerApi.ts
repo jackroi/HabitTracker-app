@@ -6,7 +6,7 @@
 
 import { DateTime } from "luxon";
 import axios, { AxiosInstance, AxiosError } from 'axios';
-import { AddHabitResponseBody, ErrorResponseBody, GetCategoriesResponseBody, GetGeneralStatsResponseBody, GetHabitHistoryResponseBody, GetHabitResponseBody, GetHabitsResponseBody, GetHabitStatsResponseBody, GetUserResponseBody, LoginResponseBody, RegistrationResponseBody, SuccessResponseBody } from "./httpTypes/responses";
+import { AddHabitResponseBody, ErrorResponseBody, GetCategoriesResponseBody, GetGeneralStatsResponseBody, GetHabitHistoryResponseBody, GetHabitResponseBody, GetHabitsForDateResponseBody, GetHabitsResponseBody, GetHabitStatsResponseBody, GetUserResponseBody, LoginResponseBody, RegistrationResponseBody, SuccessResponseBody } from "./httpTypes/responses";
 import { HabitType } from "./models/Habit";
 import { HistoryEntryType } from "./models/HistoryEntry";
 
@@ -186,6 +186,38 @@ export class HabitTrackerApi {
           'Authorization': `Bearer ${this.token}`,
         },
         params: {
+          skip: skip,
+          limit: limit,
+          category: category,
+          filter: filter,
+        },
+      });
+      return ok(response.data.habits);
+    }
+    catch (error) {
+      const errorMessage: string = this.handleError(error);
+      return err(errorMessage);
+    }
+  }
+
+  async getHabitsForDate(
+    date: string,
+    skip?: number,
+    limit?: number,
+    category?: string,
+    filter?: 'all' | 'archived' | 'active'
+  ): Promise<Result<GetHabitsForDateResponseBody['habits'],string>> {
+    this.ensureToken();
+
+    try {
+      const response = await this.http.request<GetHabitsForDateResponseBody>({
+        method: 'GET',
+        url: '/habits',
+        headers: {
+          'Authorization': `Bearer ${this.token}`,
+        },
+        params: {
+          date: date,
           skip: skip,
           limit: limit,
           category: category,
