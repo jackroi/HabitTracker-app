@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { GestureResponderEvent, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
+import { HabitState } from '../api/models/Habit';
 
-import { HabitState } from '../types/types';
 
 
 
 type HabitButtonProps = {
+  habitId: string;
   habitName: string;
   habitState: HabitState;
-  onPress?: (event: GestureResponderEvent) => void;   // TODO probabilmente togliere il '?'
+  onPress: (habitId: string, habitState: HabitState) => void;
 }
 
 type UsedIcon =
@@ -31,15 +32,27 @@ const getButtonConfig = (habitState: HabitState): [UsedIcon, string] => {
   }
 }
 
-const HabitButton = ({ habitName, habitState, onPress }: HabitButtonProps) => {
+const HabitButton = ({ habitId, habitName, habitState, onPress }: HabitButtonProps) => {
   const [currentHabitState, setCurrentHabitState] = useState(habitState);
 
   const onPressCallback = (event: GestureResponderEvent) => {
-    if (onPress) {
-      onPress(event);
+    let nextHabitState: HabitState;
+    switch (currentHabitState) {
+      case HabitState.NOT_COMPLETED:
+        nextHabitState = HabitState.COMPLETED;
+        break;
+      case HabitState.COMPLETED:
+        nextHabitState = HabitState.SKIPPED;
+        break;
+      case HabitState.SKIPPED:
+        nextHabitState = HabitState.NOT_COMPLETED;
+        break;
+      default:
+        const _exhaustiveCheck: never = currentHabitState;
+        return _exhaustiveCheck;
     }
-
-    setCurrentHabitState((currentHabitState + 1) % (Object.keys(HabitState).length / 2))
+    setCurrentHabitState(nextHabitState);
+    onPress(habitId, nextHabitState);
   }
 
   let [iconName, color] = getButtonConfig(currentHabitState);

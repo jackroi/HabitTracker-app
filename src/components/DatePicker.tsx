@@ -8,12 +8,13 @@ import { Theme, getTheme } from '../styles/themes';
 
 type DatePickerProps = {
   fromDate: DateTime;
+  currentDate: DateTime;
   onChange: (date: DateTime) => void;
 }
 
 
-const DatePicker = ({ fromDate, onChange }: DatePickerProps) => {
-  const [date, setDate] = useState(DateTime.now().startOf('day'));
+const DatePicker = ({ fromDate, currentDate, onChange }: DatePickerProps) => {
+  // const [date, setDate] = useState(currentDate);
 
   const theme = getTheme(useColorScheme());
   const dynamicStyles = useMemo(() => styles(theme), [theme]);
@@ -22,10 +23,10 @@ const DatePicker = ({ fromDate, onChange }: DatePickerProps) => {
     let newDate;
     switch (which) {
       case 'prev':
-        newDate = date.minus({ days: 1 });
+        newDate = currentDate.minus({ days: 1 });
         break;
       case 'next':
-        newDate = date.plus({ days: 1 });
+        newDate = currentDate.plus({ days: 1 });
         break;
       default:
         const _exhaustiveCheck: never = which;
@@ -33,7 +34,7 @@ const DatePicker = ({ fromDate, onChange }: DatePickerProps) => {
     }
     // modify date iff it is in the range [fromDate, today]
     if (newDate >= fromDate && newDate <= DateTime.now().startOf('day')) {
-      setDate(newDate)
+      // setDate(newDate);
       onChange(newDate);
     }
   };
@@ -42,10 +43,10 @@ const DatePicker = ({ fromDate, onChange }: DatePickerProps) => {
     let disabled: boolean;
     switch (which) {
       case 'prev':
-        disabled = date <= fromDate;
+        disabled = currentDate <= fromDate;
         break;
       case 'next':
-        disabled = date >= DateTime.now().startOf('day');
+        disabled = currentDate >= DateTime.now().startOf('day');
         break;
       default:
         const _exhaustiveCheck: never = which;
@@ -74,7 +75,7 @@ const DatePicker = ({ fromDate, onChange }: DatePickerProps) => {
         // TODO double press reset date to today
       >
         <Text style={dynamicStyles.text}>
-          {date.year}/{date.month}/{date.day}
+          {currentDate.year}/{currentDate.month}/{currentDate.day}
         </Text>
       </View>
 
