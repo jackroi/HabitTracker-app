@@ -12,6 +12,7 @@ export default interface Translation {
   /* Auth */
   login: string;
   register: string;
+  name: string;
   email: string;
   password: string;
   confirmPassword: string;

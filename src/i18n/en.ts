@@ -14,6 +14,7 @@ const mapping: Translation = {
   /* Auth */
   login: 'Login',
   register: 'Register',
+  name: 'Name',
   email: 'Email',
   password: 'Password',
   confirmPassword: 'Confirm password',
