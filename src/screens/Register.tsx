@@ -19,6 +19,7 @@ import AuthContext from '../contexts/AuthContext';
 
 
 const LoginScreen = ({ navigation }: RegisterScreenNavigationProps) => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -37,6 +38,17 @@ const LoginScreen = ({ navigation }: RegisterScreenNavigationProps) => {
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={dynamicStyles.innerContainer}>
+          <TextInput
+            style={dynamicStyles.input}
+            value={name}
+            onChangeText={setName}
+            keyboardType={'default'}
+            autoCapitalize={'words'}
+            autoCompleteType={'name'}
+            autoCorrect={false}
+            textContentType={'name'}
+            placeholder={t('name')}
+          />
           <TextInput
             style={dynamicStyles.input}
             value={email}
@@ -67,7 +79,7 @@ const LoginScreen = ({ navigation }: RegisterScreenNavigationProps) => {
 
           <TouchableOpacity
             style={dynamicStyles.registerButton}
-            onPress={() => register({ email, password })}
+            onPress={() => register({ name, email, password })}
           >
             <Text>{t('register')}</Text>
           </TouchableOpacity>

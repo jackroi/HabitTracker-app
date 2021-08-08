@@ -109,6 +109,7 @@ export default function App() {
         if (result.success) {
           token = result.value;
           SecureStore.setItemAsync('userToken', token);
+          habitTrackerApi.setToken(token);
           dispatch({ type: 'LOG_IN', token: token });
         }
         else {
@@ -121,18 +122,19 @@ export default function App() {
         habitTrackerApi.unsetToken();
         dispatch({ type: 'LOG_OUT' })
       },
-      register: async (data : { email: string, password: string }) => {
+      register: async (data : { name: string, email: string, password: string }) => {
 
         // In a production app, we need to send user data to server and get a token
         // We will also need to handle errors if sign up failed
         // After getting token, we need to persist the token using `SecureStore`
         // In the example, we'll use a dummy token
 
-        const result = await habitTrackerApi.login(data.email, data.password);
+        const result = await habitTrackerApi.register(data.name, data.email, data.password);
         let token;
         if (result.success) {
           token = result.value;
           SecureStore.setItemAsync('userToken', token);
+          habitTrackerApi.setToken(token);
           dispatch({ type: 'LOG_IN', token: token });
         }
         else {
