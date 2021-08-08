@@ -17,16 +17,53 @@ import { t } from 'i18n-js';
 
 import { Theme, getTheme } from '../../styles/themes';
 import { AddHabitScreenNavigationProps } from '../../types/types';
-import CategoryPickerModal from '../../components/CategoryPickerModal';
+import ModalPicker from '../../components/ModalPicker';
+import { HabitTrackerApi } from '../../api/HabitTrackerApi';
+import { HabitType } from '../../api/models/Habit';
+
+
+const validateHabitName = (habitName: string): string | null => {
+  let cleanedName = habitName.trim();
+  return (cleanedName.length > 0) ? cleanedName : null;
+};
+
+const validateHabitCategory = (habitCategory: string): string | null => {
+  let cleanedCategory = habitCategory.trim();
+  return (cleanedCategory.length > 0) ? cleanedCategory : null;
+};
+
+const validateHabitType = (habitType: string): HabitType | null => {
+  let cleanedType: HabitType | null;
+  switch (habitType.toUpperCase()) {
+    case HabitType.DAILY:
+      cleanedType = HabitType.DAILY;
+      break;
+    case HabitType.WEEKLY:
+      cleanedType = HabitType.WEEKLY;
+      break;
+    case HabitType.MONTHLY:
+      cleanedType = HabitType.MONTHLY;
+      break;
+    default:
+      cleanedType = null;
+  }
+  return cleanedType;
+};
+
 
 
 const AddHabitScreen = ({ navigation }: AddHabitScreenNavigationProps) => {
+  const [errorMessage, setErrorMessage] = useState('');
   const [habitName, setHabitName] = useState('');
-  const [category, setCategory] = useState('');
-  const [modalVisible, setModalVisible] = useState(false);
+  const [habitCategory, setHabitCategory] = useState('');
+  const [habitType, setHabitType] = useState('');
+  const [categoryModalVisible, setCategoryModalVisible] = useState(false);
+  const [habitTypeModalVisible, setHabitTypeModalVisible] = useState(false);
 
   const theme = getTheme(useColorScheme());
   const dynamicStyles = useMemo(() => styles(theme), [theme]);
+
+  const habitTrackerApi = HabitTrackerApi.getInstance();
 
   return (
     <View style={dynamicStyles.container}>
@@ -48,42 +85,111 @@ const AddHabitScreen = ({ navigation }: AddHabitScreenNavigationProps) => {
             placeholder={t('habit')}
           />
 
+          {/* Category field */}
           <Text style={dynamicStyles.sectionText}>
             {t('category')}
           </Text>
 
-          {/* Category field */}
           <TouchableWithoutFeedback
-            onPress={() => setModalVisible(true)}
+            onPress={() => setCategoryModalVisible(true)}
           >
             <Text
-              style={[dynamicStyles.categoryText, category === '' ? dynamicStyles.categoryTextPlaceholder : {}]}
+              style={[dynamicStyles.categoryText, habitCategory === '' ? dynamicStyles.categoryTextPlaceholder : {}]}
             >
-              {category === '' ? t('selectCategory') : category}
+              {habitCategory === '' ? t('selectCategory') : habitCategory}
+            </Text>
+          </TouchableWithoutFeedback>
+
+          {/* Habit type field */}
+          <Text style={dynamicStyles.sectionText}>
+            Type
+          </Text>
+
+          <TouchableWithoutFeedback
+            onPress={() => setHabitTypeModalVisible(true)}
+          >
+            <Text
+              style={[dynamicStyles.categoryText, habitType === '' ? dynamicStyles.categoryTextPlaceholder : {}]}
+            >
+              {habitType === '' ? 'Select habit type' : habitType}
             </Text>
           </TouchableWithoutFeedback>
 
           {/* Create habit button */}
           <TouchableOpacity
             style={dynamicStyles.createButton}
-            onPress={() => {
+            onPress={async () => {
               // TODO validate input
+              const cleanedName = validateHabitName(habitName);
+              if (!cleanedName) {
+                setErrorMessage('Missing habit name');
+                return;
+              }
+              const cleanedCategory = validateHabitCategory(habitCategory);
+              if (!cleanedCategory) {
+                setErrorMessage('Missing category');
+                return;
+              }
+              const cleanedType = validateHabitType(habitType);
+              if (!cleanedType) {
+                setErrorMessage('Missing type');
+                return;
+              }
               // TODO send input to server
+              const result = await habitTrackerApi.createHabit(cleanedName, cleanedCategory, cleanedType);
+              if (!result.success) {
+                console.warn('Create habit failed');
+                setErrorMessage(result.error);
+                return;
+              }
               // TODO add newly created habit to locally stored habit list
               navigation.goBack();
             }}
           >
             <Text style={dynamicStyles.createButtonText}>{t('create')}</Text>
           </TouchableOpacity>
+
+          {/* Error message banner */}
+          {/* TODO use toast maybe */}
+          <Text style={{ color: '#FF0000'}}>{errorMessage}</Text>
+
         </View>
       </TouchableWithoutFeedback>
 
-      <CategoryPickerModal
-        visible={modalVisible}
-        onRequestClose={() => setModalVisible(false)}
+      {/* Category picker modal */}
+      <ModalPicker
+        // data={['Productivity','Learn','Sport','Football','Test']}
+        data={async () => {
+          const result = await habitTrackerApi.getCategories();
+          if (result.success) {
+            return result.value;
+          }
+          else {
+            console.warn('Get categories failed');
+            return [];
+          }
+        }}
+        withTextInput={true}
+        headerText={t('categorySelectionHeader')}
+        textInputText={t('category')}
+        visible={categoryModalVisible}
+        onRequestClose={() => setCategoryModalVisible(false)}
         onSelect={(category) => {
-          setCategory(category);
-          setModalVisible(false);
+          setHabitCategory(category);
+          setCategoryModalVisible(false);
+        }}
+      />
+
+      {/* Habit type picker modal */}
+      <ModalPicker
+        data={['Daily','Weekly','Monthly']}
+        withTextInput={false}
+        headerText={'Seleziona una tipologia di habit'}
+        visible={habitTypeModalVisible}
+        onRequestClose={() => setHabitTypeModalVisible(false)}
+        onSelect={(habitType) => {
+          setHabitType(habitType);
+          setHabitTypeModalVisible(false);
         }}
       />
     </View>
@@ -117,7 +223,7 @@ const styles = (theme: Theme) => StyleSheet.create({
     fontSize: 20,
     color: theme.colorOnBackground,
   },
-  categoryText: {
+  categoryText: {   // TODO rename
     width: '100%',
     color: theme.colorOnBackground,
     paddingVertical: 10,

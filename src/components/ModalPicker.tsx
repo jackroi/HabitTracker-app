@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import {
   useColorScheme,
   GestureResponderEvent,
@@ -31,12 +31,30 @@ const CATEGORIES = [
 
 type CategoryPickerModalProps = {
   visible: boolean;
-  onSelect: (category: string) => void;
+  data: string[] | (() => Promise<string[]>);
+  withTextInput: boolean;
+  headerText: string;
+  textInputText?: string;
+  onSelect: (selected: string) => void;
   onRequestClose: () => void;
 }
 
-const CategoryPickerModal = ({ visible, onRequestClose, onSelect }: CategoryPickerModalProps) => {
-  const [category, setCategory] = useState('');
+const ModalPicker = ({ visible, data, withTextInput, headerText, textInputText, onRequestClose, onSelect }: CategoryPickerModalProps) => {
+  const [selected, setSelected] = useState('');
+  const [list, setList] = useState([] as string[]);
+
+  useEffect(() => {
+    if (!visible) {
+      return;
+    }
+    if (data instanceof Array) {
+      setList(data);
+    }
+    else {
+      // TODO valutare se usare async/await
+      data().then((list) => setList(list));
+    }
+  }, [visible]);
 
   const theme = getTheme(useColorScheme());
   const dynamicStyles = useMemo(() => styles(theme), [theme]);
@@ -59,7 +77,7 @@ const CategoryPickerModal = ({ visible, onRequestClose, onSelect }: CategoryPick
               <View style={dynamicStyles.container}>
                 <View style={dynamicStyles.headerContainer}>
                   <Text style={dynamicStyles.titleText}>
-                    {t('categorySelectionHeader')}
+                    {headerText}
                   </Text>
                   <TouchableOpacity
                     style={dynamicStyles.closeButton}
@@ -71,7 +89,7 @@ const CategoryPickerModal = ({ visible, onRequestClose, onSelect }: CategoryPick
 
                 <FlatList
                   style={{flexGrow: 0}}
-                  data={CATEGORIES}
+                  data={list}
                   keyExtractor={(item) => item}
                   renderItem={({ item }) => (
                     <TouchableOpacity
@@ -86,26 +104,32 @@ const CategoryPickerModal = ({ visible, onRequestClose, onSelect }: CategoryPick
                     <View style={dynamicStyles.itemSeparatorView} />
                   )}
                 />
-                <View style={dynamicStyles.inputTextContainer}>
-                  <TextInput
-                    style={dynamicStyles.inputText}
-                    value={category}
-                    onChangeText={setCategory}
-                    keyboardType={'default'}
-                    autoCapitalize={'sentences'}
-                    autoCompleteType={'off'}
-                    autoCorrect={true}
-                    textContentType={'none'}
-                    placeholder={t('category')}
-                    placeholderTextColor={theme.colorOnSurface}   // TODO colore migliore
-                  />
-                  <TouchableOpacity
-                    style={dynamicStyles.confirmButton}
-                    onPress={() => onSelect(category)}
-                  >
-                    <Text style={dynamicStyles.confirmButtonText}>{t('confirm')}</Text>
-                  </TouchableOpacity>
-                </View>
+                { withTextInput ? (
+                  <View style={dynamicStyles.inputTextContainer}>
+                    <TextInput
+                      style={dynamicStyles.inputText}
+                      value={selected}
+                      onChangeText={setSelected}
+                      keyboardType={'default'}
+                      autoCapitalize={'sentences'}
+                      autoCompleteType={'off'}
+                      autoCorrect={true}
+                      textContentType={'none'}
+                      placeholder={textInputText}
+                      placeholderTextColor={theme.colorOnSurface}   // TODO colore migliore
+                    />
+                    <TouchableOpacity
+                      style={dynamicStyles.confirmButton}
+                      onPress={() => onSelect(selected)}
+                    >
+                      <Text style={dynamicStyles.confirmButtonText}>{t('confirm')}</Text>
+                    </TouchableOpacity>
+                  </View>
+                  ) : (
+                  <View style={dynamicStyles.withoutTextInputFooter}></View>
+                  )
+                }
+
               </View>
 
             </View>
@@ -179,7 +203,10 @@ const styles = (theme: Theme) => StyleSheet.create({
     backgroundColor: theme.colorListItemSeparator,
   },
   inputTextContainer: {
-    padding: 10
+    padding: 10,
+  },
+  withoutTextInputFooter: {
+    height: 40,
   },
   inputText: {
     width: '100%',
@@ -207,4 +234,4 @@ const styles = (theme: Theme) => StyleSheet.create({
 });
 
 
-export default CategoryPickerModal;
+export default ModalPicker;
