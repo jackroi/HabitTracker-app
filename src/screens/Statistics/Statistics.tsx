@@ -4,9 +4,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { t } from 'i18n-js';
 
 import { Theme, getTheme } from '../../styles/themes';
-import { StatisticsStackParamList, StatisticsScreenNavigationProps, StatisticsDetailsScreenNavigationProps, HabitState } from '../../types/types';
+import { StatisticsStackParamList, StatisticsScreenNavigationProps, StatisticsDetailsScreenNavigationProps } from '../../types/types';
 import StatisticsListItem from '../../components/StatisticsListItem';
 import StatisticsDetailsScreen from './StatisticsDetails';
+import { HabitState } from '../../api/models/Habit';
 
 
 interface Habit {

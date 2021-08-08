@@ -125,9 +125,3 @@ export type SettingsScreenNavigationProps = {
 
 /////////////////////////////////////////////
 
-
-export enum HabitState {
-  COMPLETED,
-  SKIPPED,
-  NOT_COMPLETED
-}

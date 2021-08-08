@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import { HistoryEntry } from './HistoryEntry';
 
 
@@ -19,4 +20,21 @@ export interface Habit {
   history: HistoryEntry[];
 
   userEmail: string;
+}
+
+
+export interface ClientHabit {
+  id: string;
+  name: string;
+  creationDate: DateTime;       // TODO valutare se usare luxon
+  category: string;
+  type: HabitType;
+  archived: boolean;
+}
+
+
+export enum HabitState {
+  COMPLETED = 'COMPLETED',
+  SKIPPED = 'SKIPPED',
+  NOT_COMPLETED = 'NOT_COMPLETED',
 }
