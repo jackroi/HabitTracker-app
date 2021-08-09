@@ -11,6 +11,7 @@ export default interface Translation {
 
   /* Auth */
   login: string;
+  logout: string;
   register: string;
   name: string;
   email: string;
@@ -25,7 +26,18 @@ export default interface Translation {
   selectCategory: string;
   categorySelectionHeader: string;
 
+  /* Settings */
+  account: string;
+  about: string;
+  registrationDate: string;
+  deleteAccount: string;
+  deleteAccountAlertMessage: string;
+
   /* Misc */
   confirm: string;
   create: string;
+
+  /* Alert dialog */
+  cancel: string;
+  delete: string;
 }

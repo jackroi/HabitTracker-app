@@ -13,6 +13,7 @@ const mapping: Translation = {
 
   /* Auth */
   login: 'Login',
+  logout: 'Logout',
   register: 'Registrati',
   name: 'Nome',
   email: 'Email',
@@ -27,9 +28,20 @@ const mapping: Translation = {
   selectCategory: 'Seleziona categoria',
   categorySelectionHeader: 'Seleziona una categoria esistente o creane una nuova',
 
+  /* Settings */
+  account: 'Account',
+  about: 'About',
+  registrationDate: 'Data di registrazione',
+  deleteAccount: 'Elimina account',
+  deleteAccountAlertMessage: 'Sei sicuro di voler eliminare il tuo account?',
+
   /* Misc */
   confirm: 'Conferma',
   create: 'Crea',
+
+  /* Alert dialog */
+  cancel: 'Annulla',
+  delete: 'Elimina',
 }
 
 export default mapping;
