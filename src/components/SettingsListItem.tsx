@@ -5,13 +5,13 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Theme, getTheme } from '../styles/themes';
 
 
-type StatisticsListItemProps = {
-  habitName: string;
-  onPress?: (event: GestureResponderEvent) => void;
+type SettingsListItemProps = {
+  title: string;
+  onPress: () => void;
 }
 
 
-const StatisticsListitem = ({ habitName, onPress }: StatisticsListItemProps) => {
+const SettingsListItem = ({ title, onPress }: SettingsListItemProps) => {
   const theme = getTheme(useColorScheme());
   const dynamicStyles = useMemo(() => styles(theme), [theme]);
 
@@ -21,7 +21,7 @@ const StatisticsListitem = ({ habitName, onPress }: StatisticsListItemProps) => 
       onPress={onPress}
       activeOpacity={0.5}
     >
-      <Text style={dynamicStyles.text}>{habitName}</Text>
+      <Text style={dynamicStyles.text}>{title}</Text>
       <MaterialCommunityIcons name={'greater-than'} size={18} color={'#FFFFFF'}/>
     </TouchableOpacity>
   );
@@ -44,4 +44,4 @@ const styles = (theme: Theme) => StyleSheet.create({
   },
 });
 
-export default StatisticsListitem;
+export default SettingsListItem;
