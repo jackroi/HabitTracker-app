@@ -25,6 +25,8 @@ export type StatisticsStackParamList = {
 
 export type SettingsStackParamList = {
   Settings: undefined;
+  Account: undefined;
+  About: undefined;
 };
 
 
@@ -111,9 +113,32 @@ export type SettingsScreenNavigationProps = {
 };
 
 
+// AccountScreen
+type AccountScreenNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<SettingsStackParamList, 'Account'>,
+  BottomTabNavigationProp<AppTabParamList>
+>
+
+type AccountScreenRouteProp = RouteProp<SettingsStackParamList, 'Account'>
+
+export type AccountScreenNavigationProps = {
+  navigation: AccountScreenNavigationProp;
+  route: AccountScreenRouteProp;
+};
 
 
+// AboutScreen
+type AboutScreenNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<SettingsStackParamList, 'About'>,
+  BottomTabNavigationProp<AppTabParamList>
+>
 
+type AboutScreenRouteProp = RouteProp<SettingsStackParamList, 'About'>
+
+export type AboutScreenNavigationProps = {
+  navigation: AboutScreenNavigationProp;
+  route: AboutScreenRouteProp;
+};
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
