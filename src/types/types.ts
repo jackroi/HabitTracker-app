@@ -12,6 +12,7 @@ export type AuthStackParamList = {
 export type HomeStackParamList = {
   Home: undefined;
   AddHabit: undefined;
+  UpdateHabit: { habitId: string };
 };
 
 export type HistoryStackParamList = {
@@ -59,14 +60,27 @@ export type HomeScreenNavigationProps = {
   navigation: HomeScreenNavigationProp;
 };
 
+// AddHabitScreen
 type AddHabitScreenNavigationProp = CompositeNavigationProp<
-  StackNavigationProp<HomeStackParamList, 'Home'>,
+  StackNavigationProp<HomeStackParamList, 'AddHabit'>,
   BottomTabNavigationProp<AppTabParamList>
 >
 
-// AddHabitScreen
 export type AddHabitScreenNavigationProps = {
   navigation: AddHabitScreenNavigationProp;
+};
+
+// UpdateHabitScreen
+type UpdateHabitScreenNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<HomeStackParamList, 'UpdateHabit'>,
+  BottomTabNavigationProp<AppTabParamList>
+>
+
+type UpdateHabitScreenRouteProp = RouteProp<HomeStackParamList, 'UpdateHabit'>
+
+export type UpdateHabitScreenNavigationProps = {
+  navigation: UpdateHabitScreenNavigationProp;
+  route: UpdateHabitScreenRouteProp;
 };
 
 // HistoryScreen

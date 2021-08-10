@@ -14,6 +14,7 @@ import { DateTime } from 'luxon';
 import { HabitTrackerApi } from '../../api/HabitTrackerApi';
 import { ClientHabit, HabitState } from '../../api/models/Habit';
 import ModalMenu from '../../components/ModalMenu';
+import UpdateHabitScreen from './UpdateHabit';
 
 
 
@@ -292,6 +293,7 @@ const HomeStackScreen = () => {
         }}
       />
       <HomeStack.Screen name={'AddHabit'} component={AddHabitScreen} />
+      <HomeStack.Screen name={'UpdateHabit'} component={UpdateHabitScreen} />
     </HomeStack.Navigator>
   );
 }
