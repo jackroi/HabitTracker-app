@@ -558,9 +558,9 @@ export class HabitTrackerApi {
 
 /////////////////////////////////////////////////////////
 
-type Ok<T,E> = { success: true, value: T };
-type Err<T,E> = { success: false, error: E };
-type Result<T,E> = Ok<T,E> | Err<T,E>;
+export type Ok<T,E> = { success: true, value: T };
+export type Err<T,E> = { success: false, error: E };
+export type Result<T,E> = Ok<T,E> | Err<T,E>;
 
 const ok = <T, E>(value: T): Result<T, E> => ({ success: true, value: value });
 const err = <T, E>(error: E): Result<T, E> => ({ success: false, error: error });
