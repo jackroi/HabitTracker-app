@@ -22,9 +22,10 @@ export default interface Translation {
   habit: string;
   category: string;
 
-  /* Habit creation */
+  /* Habit creation/update */
   selectCategory: string;
   categorySelectionHeader: string;
+  update: string;
 
   /* Settings */
   account: string;
@@ -40,4 +41,9 @@ export default interface Translation {
   /* Alert dialog */
   cancel: string;
   delete: string;
+  archive: string;
+  deleteHabit: string;
+  deleteHabitAlertMessage: string;
+  archiveHabit: string;
+  archiveHabitAlertMessage: string;
 }

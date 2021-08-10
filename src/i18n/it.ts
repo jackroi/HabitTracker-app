@@ -24,9 +24,10 @@ const mapping: Translation = {
   habit: 'Habit',
   category: 'Categoria',
 
-  /* Habit creation */
+  /* Habit creation/update */
   selectCategory: 'Seleziona categoria',
   categorySelectionHeader: 'Seleziona una categoria esistente o creane una nuova',
+  update: 'Aggiorna',
 
   /* Settings */
   account: 'Account',
@@ -42,6 +43,11 @@ const mapping: Translation = {
   /* Alert dialog */
   cancel: 'Annulla',
   delete: 'Elimina',
+  archive: 'Archivia',
+  deleteHabit: 'Elimina habit',
+  deleteHabitAlertMessage: 'Sei sicuro di voler eliminare questo habit?',
+  archiveHabit: 'Archivia habit',
+  archiveHabitAlertMessage: 'Sei sicuro di voler archiviare questo habit?',
 }
 
 export default mapping;
