@@ -11,6 +11,7 @@ type HabitButtonProps = {
   habitName: string;
   habitState: HabitState;
   onPress: (habitId: string, habitState: HabitState) => void;
+  onLongPress: (habitId: string) => void;
 }
 
 type UsedIcon =
@@ -32,7 +33,7 @@ const getButtonConfig = (habitState: HabitState): [UsedIcon, string] => {
   }
 }
 
-const HabitButton = ({ habitId, habitName, habitState, onPress }: HabitButtonProps) => {
+const HabitButton = ({ habitId, habitName, habitState, onPress, onLongPress }: HabitButtonProps) => {
   const [currentHabitState, setCurrentHabitState] = useState(habitState);
 
   const onPressCallback = (event: GestureResponderEvent) => {
@@ -61,6 +62,7 @@ const HabitButton = ({ habitId, habitName, habitState, onPress }: HabitButtonPro
     <TouchableOpacity
       style={[styles.button, {backgroundColor: color}]}
       onPress={onPressCallback}
+      onLongPress={() => onLongPress(habitId)}
       activeOpacity={0.5}
     >
       <Text style={styles.text}>{habitName}</Text>

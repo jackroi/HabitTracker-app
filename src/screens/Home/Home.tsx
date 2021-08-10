@@ -13,6 +13,7 @@ import DatePicker from '../../components/DatePicker';
 import { DateTime } from 'luxon';
 import { HabitTrackerApi } from '../../api/HabitTrackerApi';
 import { ClientHabit, HabitState } from '../../api/models/Habit';
+import ModalMenu from '../../components/ModalMenu';
 
 
 
@@ -125,6 +126,8 @@ const HomeScreen = ({ navigation }: HomeScreenNavigationProps) => {
   const habitTrackerApi = HabitTrackerApi.getInstance();
 
   const [date, setDate] = useState(DateTime.now().startOf('day'));
+  const [menuModalVisible, setMenuModalVisible] = useState(false);
+  const [longPressSelected, setLongPressSelected] = useState(null as string | null);
 
   const [state, dispatch] = useReducer(
     (state: State, action: Action): State => {
@@ -218,6 +221,10 @@ const HomeScreen = ({ navigation }: HomeScreenNavigationProps) => {
               // TODO maybe i should change the UI state back
             }
           }}
+          onLongPress={(habitId) => {
+            setLongPressSelected(habitId);
+            setMenuModalVisible(true);
+          }}
         />
       </View>
     );
@@ -243,6 +250,12 @@ const HomeScreen = ({ navigation }: HomeScreenNavigationProps) => {
         stickySectionHeadersEnabled={false}
         keyExtractor={(item) => item.id + ' ' + date + ' ' + item.state}
         // extraData={date}
+      />
+
+      <ModalMenu
+        visible={menuModalVisible}
+        habitId={longPressSelected}
+        onRequestClose={() => setMenuModalVisible(false)}
       />
     </View>
   );
