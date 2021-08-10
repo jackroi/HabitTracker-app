@@ -8,20 +8,22 @@ import { StatisticsStackParamList, StatisticsScreenNavigationProps, StatisticsDe
 import HabitListItem from '../../components/HabitListItem';
 import StatisticsDetailsScreen from './StatisticsDetails';
 import { ClientHabit, HabitState } from '../../api/models/Habit';
-import { HabitTrackerApi } from '../../api/HabitTrackerApi';
-import { GetHabitsResponseBody } from '../../api/httpTypes/responses';
+import { HabitTrackerApi, Ok } from '../../api/HabitTrackerApi';
+import { GetGeneralStatsResponseBody, GetHabitsResponseBody, GetHabitStatsResponseBody } from '../../api/httpTypes/responses';
 import { DateTime } from 'luxon';
+import Box from '../../components/Box';
 
 
 interface State {
   habits: ClientHabit[];
+  stats: GetGeneralStatsResponseBody['stats'] | null;
   isLoading: boolean;
   errorMessage: string;
 }
 
 type Action =
   | { type: 'FETCH_INIT' }
-  | { type: 'FETCH_SUCCESS', habits: ClientHabit[] }
+  | { type: 'FETCH_SUCCESS', habits: ClientHabit[], stats: GetGeneralStatsResponseBody['stats'] }
   | { type: 'FETCH_FAILURE', errorMessage: string };
 
 
@@ -48,6 +50,7 @@ const StatisticsScreen = ({ navigation }: StatisticsScreenNavigationProps) => {
           return {
             ...state,
             habits: action.habits,
+            stats: action.stats,
             isLoading: false,
             errorMessage: '',
           };
@@ -56,6 +59,7 @@ const StatisticsScreen = ({ navigation }: StatisticsScreenNavigationProps) => {
           return {
             ...state,
             habits: [],     // TODO valutare se lasciare la lista precedente all'errore
+            stats: null,
             isLoading: false,
             errorMessage: action.errorMessage,
           };
@@ -63,27 +67,38 @@ const StatisticsScreen = ({ navigation }: StatisticsScreenNavigationProps) => {
     },
     {
       habits: [],
+      stats: null,
       isLoading: false,
       errorMessage: '',
     }
   );
 
   useEffect(() => {
-    const fetchHabits = async () => {
+    const fetchHabitsAndStats = async () => {
       dispatch({ type: 'FETCH_INIT' });
 
-      const result = await habitTrackerApi.getHabits();
-      if (result.success) {
-        // TODO sort alphabetically
-        const habits = result.value.map((habit) => ({ ...habit, creationDate: DateTime.fromISO(habit.creationDate) }));
-        dispatch({ type: 'FETCH_SUCCESS', habits: habits });
+      const results = await Promise.all([
+        habitTrackerApi.getHabits(),
+        habitTrackerApi.getGeneralStats(),
+      ]);
+
+      for (let result of results) {
+        if (!result.success) {
+          dispatch({ type: 'FETCH_FAILURE', errorMessage: result.error });
+          return;
+        }
       }
-      else {
-        dispatch({ type: 'FETCH_FAILURE', errorMessage: result.error });
-      }
+
+      const habitsResult = results[0] as Ok<GetHabitsResponseBody['habits'], never>;
+      const habits = habitsResult.value.map((habit) => ({ ...habit, creationDate: DateTime.fromISO(habit.creationDate) }));
+
+      const statsResult = results[1] as Ok<GetGeneralStatsResponseBody['stats'], never>;
+      const stats = statsResult.value;
+
+      dispatch({ type: 'FETCH_SUCCESS', habits: habits, stats: stats });
     }
 
-    fetchHabits();
+    fetchHabitsAndStats();
   }, []);   // TODO cosa mettere tra [] ???
 
   const renderItem = ({ item }: { item: ClientHabit }) => {
@@ -105,6 +120,16 @@ const StatisticsScreen = ({ navigation }: StatisticsScreenNavigationProps) => {
 
   return (
     <View style={dynamicStyles.container}>
+
+      {/* General habits statistics */}
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', padding: 10 }}>
+        <Box title={'Active habits'} value={state.stats && state.stats.activeHabitCount.toString()} />
+        <Box title={'Archived habits'} value={state.stats && state.stats.archivedHabitCount.toString()} />
+        <Box title={'Completed'} value={state.stats && state.stats.completedCount.toString()} />
+        <Box title={'Percentage'} value={state.stats && state.stats.completedPercentage.toFixed(2)} />
+      </View>
+
+      {/* Active habit list */}
       <FlatList
         data={state.habits}
         renderItem={renderItem}

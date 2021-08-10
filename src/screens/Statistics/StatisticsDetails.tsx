@@ -9,6 +9,7 @@ import { HabitTrackerApi, Ok, Result } from '../../api/HabitTrackerApi';
 import { DateTime, DurationInput, DurationObjectUnits } from 'luxon';
 import { ClientHabit, HabitState, HabitType } from '../../api/models/Habit';
 import { ClientHistoryEntry, HistoryEntry, HistoryEntryType } from '../../api/models/HistoryEntry';
+import Box from '../../components/Box';
 
 
 // Monthly status
@@ -208,25 +209,6 @@ const YearlyStatus = ({ history, habitType }: YearlyStatusProps) => {
 
 
 
-// NumberBox
-
-type BoxProps = {
-  title: string;
-  value: string | null;
-}
-
-const Box = ({ title, value }: BoxProps) => {
-  return (
-    <View style={{
-      width: '48%', flexDirection: 'column', backgroundColor: 'gray',
-      alignItems: 'center', justifyContent: 'center', marginVertical: 7,
-      paddingVertical: 30
-    }}>
-      <Text>{title}</Text>
-      <Text style={{ fontSize: 40 }}>{value ? value : ''}</Text>
-    </View>
-  );
-};
 
 
 
