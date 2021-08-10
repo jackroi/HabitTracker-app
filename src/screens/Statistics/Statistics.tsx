@@ -5,7 +5,7 @@ import { t } from 'i18n-js';
 
 import { Theme, getTheme } from '../../styles/themes';
 import { StatisticsStackParamList, StatisticsScreenNavigationProps, StatisticsDetailsScreenNavigationProps } from '../../types/types';
-import StatisticsListItem from '../../components/StatisticsListItem';
+import HabitListItem from '../../components/HabitListItem';
 import StatisticsDetailsScreen from './StatisticsDetails';
 import { ClientHabit, HabitState } from '../../api/models/Habit';
 import { HabitTrackerApi } from '../../api/HabitTrackerApi';
@@ -89,8 +89,10 @@ const StatisticsScreen = ({ navigation }: StatisticsScreenNavigationProps) => {
   const renderItem = ({ item }: { item: ClientHabit }) => {
     return (
       <View>
-        <StatisticsListItem
+        <HabitListItem
+          habitId={item.id}
           habitName={item.name}
+          withArrow={true}
           onPress={() => {
             navigation.navigate('StatisticsDetails' as any, {
               habitId: item.id,

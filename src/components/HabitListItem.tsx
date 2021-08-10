@@ -5,24 +5,32 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Theme, getTheme } from '../styles/themes';
 
 
-type StatisticsListItemProps = {
+type HabitListItemProps = {
+  habitId: string;
   habitName: string;
-  onPress?: (event: GestureResponderEvent) => void;
+  withArrow: boolean;
+  onPress: (habitId: string) => void;
+  onLongPress?: (habitId: string) => void;
 }
 
 
-const StatisticsListitem = ({ habitName, onPress }: StatisticsListItemProps) => {
+const HabitListitem = ({ habitId, habitName, withArrow, onPress, onLongPress }: HabitListItemProps) => {
   const theme = getTheme(useColorScheme());
   const dynamicStyles = useMemo(() => styles(theme), [theme]);
 
   return (
     <TouchableOpacity
       style={dynamicStyles.button}
-      onPress={onPress}
+      onPress={() => onPress(habitId)}
+      onLongPress={() => onLongPress && onLongPress(habitId)}
       activeOpacity={0.5}
     >
       <Text style={dynamicStyles.text}>{habitName}</Text>
-      <MaterialCommunityIcons name={'greater-than'} size={18} color={'#FFFFFF'}/>
+      { withArrow ? (
+        <MaterialCommunityIcons name={'greater-than'} size={18} color={'#FFFFFF'}/>
+      ) : (
+        null
+      )}
     </TouchableOpacity>
   );
 };
@@ -44,4 +52,4 @@ const styles = (theme: Theme) => StyleSheet.create({
   },
 });
 
-export default StatisticsListitem;
+export default HabitListitem;
