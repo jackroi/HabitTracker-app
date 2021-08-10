@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useReducer, useEffect } from 'react';
 import { useColorScheme, StyleSheet, Text, View, FlatList } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { t } from 'i18n-js';
@@ -7,48 +7,90 @@ import { Theme, getTheme } from '../../styles/themes';
 import { StatisticsStackParamList, StatisticsScreenNavigationProps, StatisticsDetailsScreenNavigationProps } from '../../types/types';
 import StatisticsListItem from '../../components/StatisticsListItem';
 import StatisticsDetailsScreen from './StatisticsDetails';
-import { HabitState } from '../../api/models/Habit';
+import { ClientHabit, HabitState } from '../../api/models/Habit';
+import { HabitTrackerApi } from '../../api/HabitTrackerApi';
+import { GetHabitsResponseBody } from '../../api/httpTypes/responses';
+import { DateTime } from 'luxon';
 
 
-interface Habit {
-  id: string;
-  habitName: string;
-  habitState: HabitState;
+interface State {
+  habits: ClientHabit[];
+  isLoading: boolean;
+  errorMessage: string;
 }
 
-const FAKE_DATA: Habit[] = [
-  {
-    id: "0",
-    habitName: "Run",
-    habitState: HabitState.NOT_COMPLETED,
-  },
-  {
-    id: "1",
-    habitName: "Study",
-    habitState: HabitState.NOT_COMPLETED,
-  },
-  {
-    id: "2",
-    habitName: "Watch",
-    habitState: HabitState.NOT_COMPLETED,
-  },
-  {
-    id: "3",
-    habitName: "Jump",
-    habitState: HabitState.NOT_COMPLETED,
-  },
-];
+type Action =
+  | { type: 'FETCH_INIT' }
+  | { type: 'FETCH_SUCCESS', habits: ClientHabit[] }
+  | { type: 'FETCH_FAILURE', errorMessage: string };
+
 
 
 const StatisticsScreen = ({ navigation }: StatisticsScreenNavigationProps) => {
+  const habitTrackerApi = HabitTrackerApi.getInstance();
+
   const theme = getTheme(useColorScheme());
   const dynamicStyles = useMemo(() => styles(theme), [theme]);
 
-  const renderItem = ({ item }: { item: Habit }) => {
+  const [state, dispatch] = useReducer(
+    (state: State, action: Action): State => {
+      switch (action.type) {
+        case 'FETCH_INIT':
+          // TODO aggiungere uno spinner per la fase di loading
+          return {
+            ...state,
+            // habits: [],     // TODO valutare
+            isLoading: true,
+            errorMessage: '',
+          };
+
+        case 'FETCH_SUCCESS':
+          return {
+            ...state,
+            habits: action.habits,
+            isLoading: false,
+            errorMessage: '',
+          };
+
+        case 'FETCH_FAILURE':
+          return {
+            ...state,
+            habits: [],     // TODO valutare se lasciare la lista precedente all'errore
+            isLoading: false,
+            errorMessage: action.errorMessage,
+          };
+      }
+    },
+    {
+      habits: [],
+      isLoading: false,
+      errorMessage: '',
+    }
+  );
+
+  useEffect(() => {
+    const fetchHabits = async () => {
+      dispatch({ type: 'FETCH_INIT' });
+
+      const result = await habitTrackerApi.getHabits();
+      if (result.success) {
+        // TODO sort alphabetically
+        const habits = result.value.map((habit) => ({ ...habit, creationDate: DateTime.fromISO(habit.creationDate) }));
+        dispatch({ type: 'FETCH_SUCCESS', habits: habits });
+      }
+      else {
+        dispatch({ type: 'FETCH_FAILURE', errorMessage: result.error });
+      }
+    }
+
+    fetchHabits();
+  }, []);   // TODO cosa mettere tra [] ???
+
+  const renderItem = ({ item }: { item: ClientHabit }) => {
     return (
       <View>
         <StatisticsListItem
-          habitName={item.habitName}
+          habitName={item.name}
           onPress={() => {
             navigation.navigate('StatisticsDetails' as any, {
               habitId: item.id,
@@ -62,7 +104,7 @@ const StatisticsScreen = ({ navigation }: StatisticsScreenNavigationProps) => {
   return (
     <View style={dynamicStyles.container}>
       <FlatList
-        data={FAKE_DATA}
+        data={state.habits}
         renderItem={renderItem}
         ItemSeparatorComponent={() => (
           <View style={dynamicStyles.itemSeparatorView} />
@@ -73,6 +115,7 @@ const StatisticsScreen = ({ navigation }: StatisticsScreenNavigationProps) => {
         ListFooterComponent={() => (
           <View style={dynamicStyles.itemSeparatorView} />
         )}
+        keyExtractor={(item) => item.id}
       />
     </View>
   );
