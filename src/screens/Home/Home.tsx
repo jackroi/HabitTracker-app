@@ -256,6 +256,7 @@ const HomeScreen = ({ navigation }: HomeScreenNavigationProps) => {
       <ModalMenu
         visible={menuModalVisible}
         habitId={longPressSelected}
+        forArchived={false}
         onRequestClose={() => setMenuModalVisible(false)}
       />
     </View>

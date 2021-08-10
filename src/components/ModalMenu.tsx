@@ -76,11 +76,11 @@ const MenuItem = ({ title, icon, onPress }: MenuItemProps) => {
 type CategoryPickerModalProps = {
   visible: boolean;
   habitId: string | null;
-  // onUpdatePressed: (habitId: string) => void;
+  forArchived: boolean;
   onRequestClose: () => void;
 }
 
-const ModalMenu = ({ visible, habitId, onRequestClose }: CategoryPickerModalProps) => {
+const ModalMenu = ({ visible, habitId, forArchived, onRequestClose }: CategoryPickerModalProps) => {
   const habitTrackerApi = HabitTrackerApi.getInstance();
 
   const theme = getTheme(useColorScheme());
@@ -118,6 +118,15 @@ const ModalMenu = ({ visible, habitId, onRequestClose }: CategoryPickerModalProp
       )
     );
   };
+
+  const unarchiveHabit = () => {
+    if (!habitId) {
+      return;
+    }
+
+    habitTrackerApi.unarchiveHabit(habitId);
+    onRequestClose();
+  }
 
   const showDeleteHabitDialog = () => {
     return (
@@ -170,15 +179,21 @@ const ModalMenu = ({ visible, habitId, onRequestClose }: CategoryPickerModalProp
           }}
         >
           <View style={{ backgroundColor: theme.colorBackground, paddingBottom: 36 }}>
+            {
+              forArchived ? (
+                null
+              ) : (
+                <MenuItem
+                  title={'Update'}
+                  icon={'pencil-box-outline'}
+                  onPress={onUpdateCallback}
+                />
+              )
+            }
             <MenuItem
-              title={'Update'}
-              icon={'pencil-box-outline'}
-              onPress={onUpdateCallback}
-            />
-            <MenuItem
-              title={'Archive'}
+              title={forArchived ? 'Unarchive' : 'Archive'}
               icon={'archive-arrow-down-outline'}
-              onPress={showArchiveHabitDialog}
+              onPress={forArchived ? unarchiveHabit : showArchiveHabitDialog}
             />
             <MenuItem
               title={'Delete'}
