@@ -30,6 +30,7 @@ export default interface Translation {
   /* Settings */
   account: string;
   about: string;
+  habitArchive: string;
   registrationDate: string;
   deleteAccount: string;
   deleteAccountAlertMessage: string;

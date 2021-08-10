@@ -32,6 +32,7 @@ const mapping: Translation = {
   /* Settings */
   account: 'Account',
   about: 'About',
+  habitArchive: 'Archivio habit',
   registrationDate: 'Data di registrazione',
   deleteAccount: 'Elimina account',
   deleteAccountAlertMessage: 'Sei sicuro di voler eliminare il tuo account?',

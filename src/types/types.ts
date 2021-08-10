@@ -28,6 +28,7 @@ export type SettingsStackParamList = {
   Settings: undefined;
   Account: undefined;
   About: undefined;
+  HabitArchive: undefined;
 };
 
 
@@ -152,6 +153,19 @@ type AboutScreenRouteProp = RouteProp<SettingsStackParamList, 'About'>
 export type AboutScreenNavigationProps = {
   navigation: AboutScreenNavigationProp;
   route: AboutScreenRouteProp;
+};
+
+// HabitArchive
+type HabitArchiveNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<SettingsStackParamList, 'HabitArchive'>,
+  BottomTabNavigationProp<AppTabParamList>
+>
+
+type HabitArchiveRouteProp = RouteProp<SettingsStackParamList, 'HabitArchive'>
+
+export type HabitArchiveNavigationProps = {
+  navigation: HabitArchiveNavigationProp;
+  route: HabitArchiveRouteProp;
 };
 
 

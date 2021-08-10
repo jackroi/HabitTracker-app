@@ -9,6 +9,7 @@ import AuthContext from '../../contexts/AuthContext';
 import SettingsListItem from '../../components/SettingsListItem';
 import AccountScreen from './Account';
 import AboutScreen from './About';
+import HabitArchiveScreen from './HabitArchive';
 
 
 // TODO elementi da tenere nei settings:
@@ -31,6 +32,12 @@ const SettingsScreen = ({ navigation }: SettingsScreenNavigationProps) => {
       key: 'account',
       onPress: () => {
         navigation.navigate('Account' as any);
+      },
+    },
+    {
+      key: 'habitArchive',
+      onPress: () => {
+        navigation.navigate('HabitArchive' as any);
       },
     },
     {
@@ -92,6 +99,7 @@ const SettingsStackScreen = () => {
       <SettingsStack.Screen name="Settings" component={SettingsScreen} />
       <SettingsStack.Screen name="Account" component={AccountScreen} />
       <SettingsStack.Screen name="About" component={AboutScreen} />
+      <SettingsStack.Screen name="HabitArchive" component={HabitArchiveScreen} />
 
     </SettingsStack.Navigator>
   );
