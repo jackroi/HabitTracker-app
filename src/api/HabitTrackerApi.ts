@@ -26,7 +26,8 @@ import { HistoryEntryType } from "./models/HistoryEntry";
 
 export class HabitTrackerApi {
   // TODO .env
-  private static BASE_URL = 'http://192.168.1.14:8000/v0.0.1/';
+  // private static BASE_URL = 'http://192.168.1.14:8000/v0.0.1/';
+  private static BASE_URL = 'http://192.168.1.136:8000/v0.0.1/';
   private http: AxiosInstance;
   private token: string | null;
 
@@ -516,9 +517,9 @@ export class HabitTrackerApi {
     if (error.response) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx
-      console.warn(error.response.data);
-      console.warn(error.response.status);
-      console.warn(error.response.headers);
+      // console.warn(error.response.data);
+      // console.warn(error.response.status);
+      // console.warn(error.response.headers);
       const errorBody = error.response.data as ErrorResponseBody;
       errorMessage = errorBody.errorMessage
     }
@@ -526,7 +527,7 @@ export class HabitTrackerApi {
       // The request was made but no response was received
       // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
       // http.ClientRequest in node.js
-      console.warn(error.request);
+      // console.warn(error.request);
       errorMessage = 'Timeout error';
       // TODO valutare un throw (in generale per gli errori di timeout)
     }
@@ -535,7 +536,7 @@ export class HabitTrackerApi {
       console.error('Error', error.message);
       errorMessage = 'Unknown error';
     }
-    console.warn(error.config);
+    console.warn(errorMessage);
     return errorMessage;
   }
 
