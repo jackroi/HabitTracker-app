@@ -17,9 +17,14 @@ import { HabitTrackerApi } from './src/api/HabitTrackerApi';
 
 // Fix missing 'btoa' and 'atob'
 import { encode, decode } from 'base-64';
+import getSocket from './src/utils/initialize-socket-io';
 if (!global.btoa) { global.btoa = encode; }
 if (!global.atob) { global.atob = decode; }
 
+// @ts-ignore
+navigator.__defineGetter__("userAgent", function () {   // you have to import rect native first !!
+  return "react-native";
+});
 
 // set up i18n
 i18n.translations = {
@@ -80,17 +85,22 @@ export default function App() {
 
       try {
         userToken = await SecureStore.getItemAsync('userToken');
+
         if (userToken) {
+          // TODO validate token
+
           habitTrackerApi.setToken(userToken);
+
+          const socket = getSocket();
+          socket.emit('online', userToken);
+
+          dispatch({ type: 'RESTORE_TOKEN', token: userToken });
         }
+
       } catch (error) {
         // Restoring token failed
         // TODO
       }
-
-      // TODO validate token
-
-      dispatch({ type: 'RESTORE_TOKEN', token: userToken });
     }
 
     bootstrapAsync();
@@ -109,7 +119,12 @@ export default function App() {
         if (result.success) {
           token = result.value;
           SecureStore.setItemAsync('userToken', token);
+
           habitTrackerApi.setToken(token);
+
+          const socket = getSocket();
+          socket.emit('online', token);
+
           dispatch({ type: 'LOG_IN', token: token });
         }
         else {
@@ -134,7 +149,12 @@ export default function App() {
         if (result.success) {
           token = result.value;
           SecureStore.setItemAsync('userToken', token);
+
           habitTrackerApi.setToken(token);
+
+          const socket = getSocket();
+          socket.emit('online', token);
+
           dispatch({ type: 'LOG_IN', token: token });
         }
         else {
