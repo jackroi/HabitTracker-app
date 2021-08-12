@@ -93,14 +93,14 @@ export default function App() {
 
           const socket = getSocket();
           socket.emit('online', userToken);
-
-          dispatch({ type: 'RESTORE_TOKEN', token: userToken });
         }
 
       } catch (error) {
         // Restoring token failed
         // TODO
       }
+
+      dispatch({ type: 'RESTORE_TOKEN', token: userToken });
     }
 
     bootstrapAsync();
@@ -135,6 +135,9 @@ export default function App() {
       logout: () => {
         SecureStore.deleteItemAsync('userToken');
         habitTrackerApi.unsetToken();
+        const socket = getSocket();
+        socket.emit('offline');
+
         dispatch({ type: 'LOG_OUT' })
       },
       register: async (data : { name: string, email: string, password: string }) => {
@@ -165,6 +168,13 @@ export default function App() {
     }),
     []
   );
+
+  useEffect(() => {
+    const socket = getSocket();
+    socket.on('accountDeleted', () => {
+      authContext.logout();
+    });
+  }, []);
 
 
   if (state.isLoading) {
