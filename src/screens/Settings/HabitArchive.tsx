@@ -11,6 +11,7 @@ import { HabitTrackerApi } from '../../api/HabitTrackerApi';
 import { GetHabitsResponseBody } from '../../api/httpTypes/responses';
 import { DateTime } from 'luxon';
 import ModalMenu from '../../components/ModalMenu';
+import getSocket from '../../utils/initialize-socket-io';
 
 
 interface State {
@@ -71,23 +72,35 @@ const HabitArchiveScreen = ({ navigation }: StatisticsScreenNavigationProps) => 
     }
   );
 
-  useEffect(() => {
-    const fetchHabits = async () => {
-      dispatch({ type: 'FETCH_INIT' });
+  const fetchArchivedHabits = async () => {
+    dispatch({ type: 'FETCH_INIT' });
 
-      const result = await habitTrackerApi.getHabits(undefined, undefined, undefined, 'archived');
-      if (result.success) {
-        // TODO sort alphabetically
-        const habits = result.value.map((habit) => ({ ...habit, creationDate: DateTime.fromISO(habit.creationDate) }));
-        dispatch({ type: 'FETCH_SUCCESS', habits: habits });
-      }
-      else {
-        dispatch({ type: 'FETCH_FAILURE', errorMessage: result.error });
-      }
+    const result = await habitTrackerApi.getHabits(undefined, undefined, undefined, 'archived');
+    if (result.success) {
+      // TODO sort alphabetically
+      const habits = result.value.map((habit) => ({ ...habit, creationDate: DateTime.fromISO(habit.creationDate) }));
+      dispatch({ type: 'FETCH_SUCCESS', habits: habits });
     }
+    else {
+      dispatch({ type: 'FETCH_FAILURE', errorMessage: result.error });
+    }
+  };
 
-    fetchHabits();
+  useEffect(() => {
+    fetchArchivedHabits();
   }, []);   // TODO cosa mettere tra [] ???
+
+  useEffect(() => {
+    const socket = getSocket();
+    socket.on('habitUpdated', () => {
+      console.info('received event:','habitUpdated')
+      fetchArchivedHabits();
+    });
+    socket.on('habitDeleted', () => {
+      console.info('received event:','habitDeleted')
+      fetchArchivedHabits();
+    });
+  }, []);
 
 
   const openModalMenu = (habitId: string) => {

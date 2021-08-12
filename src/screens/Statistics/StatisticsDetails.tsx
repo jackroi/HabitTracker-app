@@ -10,6 +10,7 @@ import { DateTime, DurationInput, DurationObjectUnits } from 'luxon';
 import { ClientHabit, HabitState, HabitType } from '../../api/models/Habit';
 import { ClientHistoryEntry, HistoryEntry, HistoryEntryType } from '../../api/models/HistoryEntry';
 import Box from '../../components/Box';
+import getSocket from '../../utils/initialize-socket-io';
 
 
 // Monthly status
@@ -282,37 +283,66 @@ const StatisticsDetailsScreen = ({ navigation, route }: StatisticsDetailsScreenN
     }
   );
 
-  useEffect(() => {
-    const fetchStats = async () => {
-      dispatch({ type: 'FETCH_INIT' });
+  const fetchStats = async () => {
+    dispatch({ type: 'FETCH_INIT' });
 
-      const results = await Promise.all([
-        habitTrackerApi.getHabit(habitId),
-        habitTrackerApi.getHabitStats(habitId),
-        habitTrackerApi.getHabitHistory(habitId),
-      ]);
+    const results = await Promise.all([
+      habitTrackerApi.getHabit(habitId),
+      habitTrackerApi.getHabitStats(habitId),
+      habitTrackerApi.getHabitHistory(habitId),
+    ]);
 
-      for (let result of results) {
-        if (!result.success) {
-          dispatch({ type: 'FETCH_FAILURE', errorMessage: result.error });
-          return;
-        }
+    for (let result of results) {
+      if (!result.success) {
+        dispatch({ type: 'FETCH_FAILURE', errorMessage: result.error });
+        return;
       }
-
-      const habitResult = results[0] as Ok<GetHabitResponseBody['habit'], never>;
-      const habit = { ...habitResult.value, creationDate: DateTime.fromISO(habitResult.value.creationDate) };
-
-      const statsResult = results[1] as Ok<GetHabitStatsResponseBody['stats'], never>;
-      const stats = statsResult.value;
-
-      const historyResult = results[2] as Ok<GetHabitHistoryResponseBody['history'], never>;
-      const history = historyResult.value.map((historyEntry) => ({ ...historyEntry, date: DateTime.fromISO(historyEntry.date) }));
-
-      dispatch({ type: 'FETCH_SUCCESS', habit: habit, stats: stats, history: history });
     }
 
+    const habitResult = results[0] as Ok<GetHabitResponseBody['habit'], never>;
+    const habit = { ...habitResult.value, creationDate: DateTime.fromISO(habitResult.value.creationDate) };
+
+    const statsResult = results[1] as Ok<GetHabitStatsResponseBody['stats'], never>;
+    const stats = statsResult.value;
+
+    const historyResult = results[2] as Ok<GetHabitHistoryResponseBody['history'], never>;
+    const history = historyResult.value.map((historyEntry) => ({ ...historyEntry, date: DateTime.fromISO(historyEntry.date) }));
+
+    dispatch({ type: 'FETCH_SUCCESS', habit: habit, stats: stats, history: history });
+  };
+
+  useEffect(() => {
     fetchStats();
   }, [habitId]);
+
+
+  useEffect(() => {
+    const socket = getSocket();
+    socket.on('habitCreated', (interestedHabitId) => {
+      console.info('received event:','habitCreated')
+      if (interestedHabitId === habitId) {
+        fetchStats();
+      }
+    });
+    socket.on('habitUpdated', (interestedHabitId) => {
+      console.info('received event:','habitUpdated')
+      if (interestedHabitId === habitId) {
+        fetchStats();
+      }
+    });
+    socket.on('habitHistoryUpdated', (interestedHabitId) => {
+      console.info('received event:','habitHistoryUpdated')
+      if (interestedHabitId === habitId) {
+        fetchStats();
+      }
+    });
+    socket.on('habitDeleted', (interestedHabitId) => {
+      console.info('received event:','habitDeleted')
+      if (interestedHabitId === habitId) {
+        fetchStats();
+      }
+    });
+  }, []);
 
   return (
     <View style={dynamicStyles.container}>

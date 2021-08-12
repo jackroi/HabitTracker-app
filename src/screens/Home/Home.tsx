@@ -8,13 +8,14 @@ import { t } from 'i18n-js';
 import { Theme, getTheme } from '../../styles/themes';
 import { HomeStackParamList, HomeScreenNavigationProps } from '../../types/types';
 import HabitButton from '../../components/HabitButton';
-import AddHabitScreen from './AddHabit'
+import AddHabitScreen from './AddHabit';
 import DatePicker from '../../components/DatePicker';
 import { DateTime } from 'luxon';
 import { HabitTrackerApi } from '../../api/HabitTrackerApi';
 import { ClientHabit, HabitState } from '../../api/models/Habit';
 import ModalMenu from '../../components/ModalMenu';
 import UpdateHabitScreen from './UpdateHabit';
+import getSocket from '../../utils/initialize-socket-io';
 
 
 
@@ -166,25 +167,45 @@ const HomeScreen = ({ navigation }: HomeScreenNavigationProps) => {
     }
   );
 
-  useEffect(() => {
-    const fetchHabits = async () => {
-      dispatch({ type: 'FETCH_INIT' });
+  const fetchHabits = async () => {
+    dispatch({ type: 'FETCH_INIT' });
 
-      const result = await habitTrackerApi.getHabitsForDate(date.toISODate());
-      if (result.success) {
-        const habits: (ClientHabit & { state: HabitState })[] = result.value.map(item => ({
-          ...item,
-          creationDate: DateTime.fromISO(item.creationDate),
-        }));
-        dispatch({ type: 'FETCH_SUCCESS', habits: habits });
-      }
-      else {
-        dispatch({ type: 'FETCH_FAILURE', errorMessage: result.error });
-      }
+    const result = await habitTrackerApi.getHabitsForDate(date.toISODate());
+    if (result.success) {
+      const habits: (ClientHabit & { state: HabitState })[] = result.value.map(item => ({
+        ...item,
+        creationDate: DateTime.fromISO(item.creationDate),
+      }));
+      dispatch({ type: 'FETCH_SUCCESS', habits: habits });
     }
+    else {
+      dispatch({ type: 'FETCH_FAILURE', errorMessage: result.error });
+    }
+  };
 
+  useEffect(() => {
     fetchHabits();
   }, [date]);
+
+  useEffect(() => {
+    const socket = getSocket();
+    socket.on('habitCreated', () => {
+      console.info('received event:','habitCreated')
+      fetchHabits();
+    });
+    socket.on('habitUpdated', () => {
+      console.info('received event:','habitUpdated')
+      fetchHabits();
+    });
+    socket.on('habitHistoryUpdated', () => {
+      console.info('received event:','habitHistoryUpdated')
+      fetchHabits();
+    });
+    socket.on('habitDeleted', () => {
+      console.info('received event:','habitDeleted')
+      fetchHabits();
+    });
+  }, []);
 
   const theme = getTheme(useColorScheme());
   const dynamicStyles = useMemo(() => styles(theme), [theme]);

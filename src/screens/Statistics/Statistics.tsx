@@ -12,6 +12,7 @@ import { HabitTrackerApi, Ok } from '../../api/HabitTrackerApi';
 import { GetGeneralStatsResponseBody, GetHabitsResponseBody, GetHabitStatsResponseBody } from '../../api/httpTypes/responses';
 import { DateTime } from 'luxon';
 import Box from '../../components/Box';
+import getSocket from '../../utils/initialize-socket-io';
 
 
 interface State {
@@ -73,33 +74,53 @@ const StatisticsScreen = ({ navigation }: StatisticsScreenNavigationProps) => {
     }
   );
 
-  useEffect(() => {
-    const fetchHabitsAndStats = async () => {
-      dispatch({ type: 'FETCH_INIT' });
+  const fetchHabitsAndStats = async () => {
+    dispatch({ type: 'FETCH_INIT' });
 
-      const results = await Promise.all([
-        habitTrackerApi.getHabits(),
-        habitTrackerApi.getGeneralStats(),
-      ]);
+    const results = await Promise.all([
+      habitTrackerApi.getHabits(),
+      habitTrackerApi.getGeneralStats(),
+    ]);
 
-      for (let result of results) {
-        if (!result.success) {
-          dispatch({ type: 'FETCH_FAILURE', errorMessage: result.error });
-          return;
-        }
+    for (let result of results) {
+      if (!result.success) {
+        dispatch({ type: 'FETCH_FAILURE', errorMessage: result.error });
+        return;
       }
-
-      const habitsResult = results[0] as Ok<GetHabitsResponseBody['habits'], never>;
-      const habits = habitsResult.value.map((habit) => ({ ...habit, creationDate: DateTime.fromISO(habit.creationDate) }));
-
-      const statsResult = results[1] as Ok<GetGeneralStatsResponseBody['stats'], never>;
-      const stats = statsResult.value;
-
-      dispatch({ type: 'FETCH_SUCCESS', habits: habits, stats: stats });
     }
 
+    const habitsResult = results[0] as Ok<GetHabitsResponseBody['habits'], never>;
+    const habits = habitsResult.value.map((habit) => ({ ...habit, creationDate: DateTime.fromISO(habit.creationDate) }));
+
+    const statsResult = results[1] as Ok<GetGeneralStatsResponseBody['stats'], never>;
+    const stats = statsResult.value;
+
+    dispatch({ type: 'FETCH_SUCCESS', habits: habits, stats: stats });
+  };
+
+  useEffect(() => {
     fetchHabitsAndStats();
   }, []);   // TODO cosa mettere tra [] ???
+
+  useEffect(() => {
+    const socket = getSocket();
+    socket.on('habitCreated', () => {
+      console.info('received event:','habitCreated')
+      fetchHabitsAndStats();
+    });
+    socket.on('habitUpdated', () => {
+      console.info('received event:','habitUpdated')
+      fetchHabitsAndStats();
+    });
+    socket.on('habitHistoryUpdated', () => {
+      console.info('received event:','habitHistoryUpdated')
+      fetchHabitsAndStats();
+    });
+    socket.on('habitDeleted', () => {
+      console.info('received event:','habitDeleted')
+      fetchHabitsAndStats();
+    });
+  }, []);
 
   const renderItem = ({ item }: { item: ClientHabit }) => {
     return (
