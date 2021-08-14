@@ -5,7 +5,7 @@ export default interface Translation {
   registerScreenTitle: string;
   // App
   homeScreenTitle: string;
-  historyScreenTitle: string;
+  remindersScreenTitle: string;
   statisticsScreenTitle: string;
   settingsScreenTitle: string;
 

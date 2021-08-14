@@ -15,8 +15,8 @@ export type HomeStackParamList = {
   UpdateHabit: { habitId: string };
 };
 
-export type HistoryStackParamList = {
-  History: undefined;
+export type RemindersStackParamList = {
+  Reminders: undefined;
 };
 
 export type StatisticsStackParamList = {
@@ -34,7 +34,7 @@ export type SettingsStackParamList = {
 
 export type AppTabParamList = {
   Home: NavigatorScreenParams<HomeStackParamList>;
-  History: NavigatorScreenParams<HistoryStackParamList>;
+  Reminders: NavigatorScreenParams<RemindersStackParamList>;
   Statistics: NavigatorScreenParams<StatisticsStackParamList>;
   Settings: NavigatorScreenParams<SettingsStackParamList>;
 };
@@ -84,14 +84,14 @@ export type UpdateHabitScreenNavigationProps = {
   route: UpdateHabitScreenRouteProp;
 };
 
-// HistoryScreen
-type HistoryScreenNavigationProp = CompositeNavigationProp<
-  StackNavigationProp<HistoryStackParamList, 'History'>,
+// RemindersScreen
+type RemindersScreenNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<RemindersStackParamList, 'Reminders'>,
   BottomTabNavigationProp<AppTabParamList>
 >
 
-export type HistoryScreenNavigationProps = {
-  navigation: HistoryScreenNavigationProp;
+export type RemindersScreenNavigationProps = {
+  navigation: RemindersScreenNavigationProp;
 };
 
 // StatisticsScreen

@@ -3,33 +3,33 @@ import { useColorScheme, StyleSheet, Text, View } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { t } from 'i18n-js';
 
-import { Theme, getTheme } from '../styles/themes';
-import { HistoryStackParamList, HistoryScreenNavigationProps } from '../types/types';
+import { Theme, getTheme } from '../../styles/themes';
+import { RemindersStackParamList, RemindersScreenNavigationProps } from '../../types/types';
 
 
-const HistoryScreen = ({ navigation }: HistoryScreenNavigationProps) => {
+const RemindersScreen = ({ navigation }: RemindersScreenNavigationProps) => {
   const theme = getTheme(useColorScheme());
   const dynamicStyles = useMemo(() => styles(theme), [theme]);
 
   return (
     <View style={dynamicStyles.container}>
-      <Text style={dynamicStyles.text}>{t('historyScreenTitle')}!</Text>
+      <Text style={dynamicStyles.text}>{t('remindersScreenTitle')}!</Text>
     </View>
   );
 };
 
 
-const HistoryStack = createStackNavigator<HistoryStackParamList>();
+const RemindersStack = createStackNavigator<RemindersStackParamList>();
 
-const HistoryStackScreen = () => {
+const RemindersStackScreen = () => {
   return (
-    <HistoryStack.Navigator
+    <RemindersStack.Navigator
       screenOptions={({ route }) => ({
-        headerTitle: t('historyScreenTitle'),
+        headerTitle: t('remindersScreenTitle'),
       })}
     >
-      <HistoryStack.Screen name="History" component={HistoryScreen} />
-    </HistoryStack.Navigator>
+      <RemindersStack.Screen name="Reminders" component={RemindersScreen} />
+    </RemindersStack.Navigator>
   );
 };
 
@@ -47,4 +47,4 @@ const styles = (theme: Theme) => StyleSheet.create({
 });
 
 
-export default HistoryStackScreen;
+export default RemindersStackScreen;

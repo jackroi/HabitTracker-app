@@ -5,7 +5,7 @@ import { t } from 'i18n-js';
 
 import {
   HomeScreen,
-  HistoryScreen,
+  RemindersScreen,
   StatisticsScreen,
   SettingsScreen
 } from '../screens';
@@ -18,8 +18,8 @@ const getTabBarLabel = (routeName: keyof AppTabParamList): string => {
     case 'Home':
       return t('homeScreenTitle');
 
-    case 'History':
-      return t('historyScreenTitle');
+    case 'Reminders':
+      return t('remindersScreenTitle');
 
     case 'Statistics':
       return t('statisticsScreenTitle');
@@ -44,7 +44,7 @@ function AppNavigator() {
           // TODO probabilmente passare al metodo non dinamico di settare le icone
           type UsedIcons =
             | 'home'
-            | 'history'
+            | 'notifications'
             | 'bar-chart'
             | 'settings';
 
@@ -52,8 +52,8 @@ function AppNavigator() {
 
           if (route.name === 'Home') {
             iconName = 'home';
-          } else if (route.name === 'History') {
-            iconName = 'history';
+          } else if (route.name === 'Reminders') {
+            iconName = 'notifications';
           } else if (route.name === 'Statistics') {
             iconName = 'bar-chart';
           } else if (route.name === 'Settings') {
@@ -72,7 +72,7 @@ function AppNavigator() {
       }}
     >
       <TabNavigator.Screen name="Home" component={HomeScreen} />
-      <TabNavigator.Screen name="History" component={HistoryScreen} />
+      <TabNavigator.Screen name="Reminders" component={RemindersScreen} />
       <TabNavigator.Screen name="Statistics" component={StatisticsScreen} />
       <TabNavigator.Screen name="Settings" component={SettingsScreen} />
     </TabNavigator.Navigator>

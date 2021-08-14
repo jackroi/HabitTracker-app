@@ -7,7 +7,7 @@ const mapping: Translation = {
   registerScreenTitle: 'Register',
   // App
   homeScreenTitle: 'Home',
-  historyScreenTitle: 'History',
+  remindersScreenTitle: 'Reminders',
   statisticsScreenTitle: 'Statistics',
   settingsScreenTitle: 'Settings',
 

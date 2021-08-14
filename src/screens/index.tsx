@@ -1,5 +1,5 @@
 import HomeScreen from './Home/Home';
-import HistoryScreen from './History';
+import RemindersScreen from './Reminders/Reminders';
 import StatisticsScreen from './Statistics/Statistics';
 import SettingsScreen from './Settings/Settings';
 import LoginScreen from './Login';
@@ -8,7 +8,7 @@ import SplashScreen from './Splash';
 
 export {
   HomeScreen,
-  HistoryScreen,
+  RemindersScreen,
   StatisticsScreen,
   SettingsScreen,
   LoginScreen,
