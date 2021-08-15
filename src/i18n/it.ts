@@ -37,6 +37,20 @@ const mapping: Translation = {
   deleteAccount: 'Elimina account',
   deleteAccountAlertMessage: 'Sei sicuro di voler eliminare il tuo account?',
 
+  /* Days of week */
+  monday: 'Lunedì',
+  tuesday: 'Martedì',
+  wednesday: 'Mercoledì',
+  thursday: 'Giovedì',
+  friday: 'Venerdi',
+  saturday: 'Sabato',
+  sunday: 'Domenica',
+
+  /* Time of month */
+  monthStart: 'Inizio mese',
+  monthHalf: 'Metà mese',
+  monthEnd: 'Fine mese',
+
   /* Misc */
   confirm: 'Conferma',
   create: 'Crea',

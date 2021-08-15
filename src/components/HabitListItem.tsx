@@ -14,7 +14,7 @@ type HabitListItemProps = {
 }
 
 
-const HabitListitem = ({ habitId, habitName, withArrow, onPress, onLongPress }: HabitListItemProps) => {
+const HabitListItem = ({ habitId, habitName, withArrow, onPress, onLongPress }: HabitListItemProps) => {
   const theme = getTheme(useColorScheme());
   const dynamicStyles = useMemo(() => styles(theme), [theme]);
 
@@ -52,4 +52,4 @@ const styles = (theme: Theme) => StyleSheet.create({
   },
 });
 
-export default HabitListitem;
+export default HabitListItem;

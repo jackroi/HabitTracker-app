@@ -39,6 +39,20 @@ export default interface Translation {
   confirm: string;
   create: string;
 
+  /* Days of week */
+  monday: string;
+  tuesday: string;
+  wednesday: string;
+  thursday: string;
+  friday: string;
+  saturday: string;
+  sunday: string;
+
+  /* Time of month */
+  monthStart: string;
+  monthHalf: string;
+  monthEnd: string;
+
   /* Alert dialog */
   cancel: string;
   delete: string;
