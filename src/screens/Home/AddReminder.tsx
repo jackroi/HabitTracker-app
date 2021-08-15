@@ -16,49 +16,28 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { t } from 'i18n-js';
 
 import { Theme, getTheme } from '../../styles/themes';
-import { AddHabitScreenNavigationProps } from '../../types/types';
+import { AddHabitScreenNavigationProps, AddReminderScreenNavigationProps } from '../../types/types';
 import ModalPicker from '../../components/ModalPicker';
 import { HabitTrackerApi } from '../../api/HabitTrackerApi';
 import { HabitType } from '../../api/models/Habit';
+import LocationReminderSelector from '../../components/ReminderSelector/LocationReminderSelector';
+import { ReminderInfo } from '../../types/Reminder';
+import DailyTimeReminderSelector from '../../components/ReminderSelector/DailyTimeReminderSelector';
+import WeeklyTimeReminderSelector from '../../components/ReminderSelector/WeeklyTimeReminderSelector';
+import TimeReminderSelector from '../../components/ReminderSelector/TimeReminderSelector';
 
 
-const validateHabitName = (habitName: string): string | null => {
-  let cleanedName = habitName.trim();
-  return (cleanedName.length > 0) ? cleanedName : null;
-};
-
-const validateHabitCategory = (habitCategory: string): string | null => {
-  let cleanedCategory = habitCategory.trim();
-  return (cleanedCategory.length > 0) ? cleanedCategory : null;
-};
-
-const validateHabitType = (habitType: string): HabitType | null => {
-  let cleanedType: HabitType | null;
-  switch (habitType.toUpperCase()) {
-    case HabitType.DAILY:
-      cleanedType = HabitType.DAILY;
-      break;
-    case HabitType.WEEKLY:
-      cleanedType = HabitType.WEEKLY;
-      break;
-    case HabitType.MONTHLY:
-      cleanedType = HabitType.MONTHLY;
-      break;
-    default:
-      cleanedType = null;
-  }
-  return cleanedType;
-};
-
-
-
-const AddReminderScreen = ({ navigation }: AddHabitScreenNavigationProps) => {
+const AddReminderScreen = ({ navigation, route }: AddReminderScreenNavigationProps) => {
   const [reminderType, setReminderType] = useState('time' as ('time' | 'location'));
 
   const theme = getTheme(useColorScheme());
   const dynamicStyles = useMemo(() => styles(theme), [theme]);
 
-  const habitTrackerApi = HabitTrackerApi.getInstance();
+  const { habitId } = route.params;
+
+  const onConfirmCallback = (reminderInfo: ReminderInfo) => {
+    console.log('TODO');
+  }
 
   return (
     <View style={dynamicStyles.container}>
@@ -94,6 +73,15 @@ const AddReminderScreen = ({ navigation }: AddHabitScreenNavigationProps) => {
       </View>
 
       {/* Time/Location selection view */}
+      { reminderType === 'time' ? (
+        <TimeReminderSelector
+          onConfirm={onConfirmCallback}
+        />
+      ) : (
+        <LocationReminderSelector
+          onConfirm={onConfirmCallback}
+        />
+      )}
       <View style={{ backgroundColor: 'red' }}>
 
       </View>
