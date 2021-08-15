@@ -164,6 +164,11 @@ const ModalMenu = ({ visible, habitId, forArchived, onRequestClose }: CategoryPi
     onRequestClose();
   };
 
+  const onAddReminderCallback = () => {
+    navigation.navigate('AddReminder', { habitId: habitId });
+    onRequestClose();
+  }
+
   return (
     <Modal
       animationType={'slide'}
@@ -179,6 +184,17 @@ const ModalMenu = ({ visible, habitId, forArchived, onRequestClose }: CategoryPi
           }}
         >
           <View style={{ backgroundColor: theme.colorBackground, paddingBottom: 36 }}>
+            {
+              forArchived ? (
+                null
+              ) : (
+                <MenuItem
+                  title={'Add reminder'}
+                  icon={'bell-outline'}
+                  onPress={onAddReminderCallback}
+                />
+              )
+            }
             {
               forArchived ? (
                 null

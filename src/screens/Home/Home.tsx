@@ -16,6 +16,7 @@ import { ClientHabit, HabitState } from '../../api/models/Habit';
 import ModalMenu from '../../components/ModalMenu';
 import UpdateHabitScreen from './UpdateHabit';
 import getSocket from '../../utils/initialize-socket-io';
+import AddReminderScreen from './AddReminder';
 
 
 
@@ -316,6 +317,7 @@ const HomeStackScreen = () => {
       />
       <HomeStack.Screen name={'AddHabit'} component={AddHabitScreen} />
       <HomeStack.Screen name={'UpdateHabit'} component={UpdateHabitScreen} />
+      <HomeStack.Screen name={'AddReminder'} component={AddReminderScreen} />
     </HomeStack.Navigator>
   );
 }

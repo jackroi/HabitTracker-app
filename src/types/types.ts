@@ -13,6 +13,7 @@ export type HomeStackParamList = {
   Home: undefined;
   AddHabit: undefined;
   UpdateHabit: { habitId: string };
+  AddReminder: { habitId: string };
 };
 
 export type RemindersStackParamList = {
@@ -83,6 +84,20 @@ export type UpdateHabitScreenNavigationProps = {
   navigation: UpdateHabitScreenNavigationProp;
   route: UpdateHabitScreenRouteProp;
 };
+
+// AddReminderScreen
+type AddReminderScreenNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<HomeStackParamList, 'AddReminder'>,
+  BottomTabNavigationProp<AppTabParamList>
+>
+
+type AddReminderScreenRouteProp = RouteProp<HomeStackParamList, 'AddReminder'>
+
+export type AddReminderScreenNavigationProps = {
+  navigation: AddReminderScreenNavigationProp;
+  route: AddReminderScreenRouteProp;
+};
+
 
 // RemindersScreen
 type RemindersScreenNavigationProp = CompositeNavigationProp<
