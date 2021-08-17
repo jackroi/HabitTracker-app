@@ -92,13 +92,14 @@ const LocationReminder = ({ habitName, name }: LocationReminderProps) => {
 
 
 type ReminderListItemProps = {
+  reminderId: number;
   habitName: string;
   reminderInfo: ReminderInfo;
-  onPress: (habitId: string) => void;
+  onPress: (reminderId: number) => void;
 }
 
 
-const ReminderListItem = ({ habitName, reminderInfo, onPress }: ReminderListItemProps) => {
+const ReminderListItem = ({ reminderId, habitName, reminderInfo, onPress }: ReminderListItemProps) => {
   const theme = getTheme(useColorScheme());
   const dynamicStyles = useMemo(() => styles(theme), [theme]);
 
@@ -151,7 +152,7 @@ const ReminderListItem = ({ habitName, reminderInfo, onPress }: ReminderListItem
   return (
     <TouchableOpacity
       style={dynamicStyles.container}
-      // onPress={() => onPress(habitId)}
+      onPress={() => onPress(reminderId)}
       activeOpacity={0.5}
     >
       { reminderView }
