@@ -51,6 +51,7 @@ const DailyTimeReminderSelector = ({ onConfirm }: DailyTimeReminderSelectorProps
           {
             Array.from(Array(24).keys()).map((hour) => (
               <Picker.Item
+                key={hour}
                 label={hour.toString()}
                 value={hour}
                 color={theme.colorOnBackground}
@@ -70,6 +71,7 @@ const DailyTimeReminderSelector = ({ onConfirm }: DailyTimeReminderSelectorProps
           {
             Array.from(Array(60).keys()).map((minute) => (
               <Picker.Item
+                key={minute}
                 label={minute.toString().padStart(2, '0')}
                 value={minute}
                 color={theme.colorOnBackground}
