@@ -67,7 +67,7 @@ const MonthlyTimeReminderSelector = ({ onConfirm }: MonthlyTimeReminderSelectorP
         <Text
           style={dynamicStyles.confirmButtonText}
         >
-          Confirm
+          {t('confirm')}
         </Text>
       </TouchableOpacity>
     </View>
@@ -97,16 +97,17 @@ const styles = (theme: Theme) => StyleSheet.create({
     borderColor: theme.colorSurface,
   },
   confirmButton: {
-    width: "100%",
+    width: '100%',
     borderRadius: 25,
     height: 50,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     marginTop: 10,
-    backgroundColor: "#ffc014",
+    backgroundColor: theme.colorButton,
   },
   confirmButtonText: {
     fontSize: 20,
+    color: theme.colorOnButton,
   },
 });
 

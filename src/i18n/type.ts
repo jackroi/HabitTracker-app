@@ -54,6 +54,7 @@ export default interface Translation {
   monthEnd: string;
 
   /* Reminders */
+  locationName: string;
   deleteReminder: string;
   deleteReminderAlertMessage: string;
 

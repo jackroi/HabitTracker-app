@@ -56,6 +56,7 @@ const mapping: Translation = {
   deleteReminderAlertMessage: 'Are you sure you want to delete this reminder?',
 
   /* Misc */
+  locationName: 'Location name',
   confirm: 'Confirm',
   create: 'Create',
 

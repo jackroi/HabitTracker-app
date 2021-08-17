@@ -31,6 +31,10 @@ interface Theme {
   colorListItemSeparator: string;
   colorOnListItem: string;
 
+  /* Button colors */
+  colorButton: string;
+  colorOnButton: string;
+
   /* TODO Placeholder text color */
 }
 
@@ -61,6 +65,10 @@ const lightTheme: Theme = {
   colorListItem: Colors.white,
   colorListItemSeparator: '#dddddd',
   colorOnListItem: Colors.black,
+
+  /* Button colors */
+  colorButton: '#ffc014',
+  colorOnButton: Colors.black,
 };
 
 const darkTheme: Theme = {
@@ -89,6 +97,10 @@ const darkTheme: Theme = {
   colorListItem: '#2b2b2b',
   colorListItemSeparator: Colors.black,
   colorOnListItem: Colors.white,
+
+  /* Button colors */
+  colorButton: '#ffc014',
+  colorOnButton: Colors.black,
 };
 
 
@@ -119,7 +131,6 @@ const navigationDarkTheme = {
   },
 };
 
-console.log(navigationDarkTheme.colors.background);
 
 const getTheme = (colorScheme: ColorSchemeName): Theme => {
   return colorScheme === 'light' ? lightTheme : darkTheme;

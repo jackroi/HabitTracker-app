@@ -87,7 +87,7 @@ const styles = (theme: Theme) => StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-  }
+  },
 });
 
 export default TimeReminderSelector;
