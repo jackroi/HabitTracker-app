@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   useColorScheme,
   StyleSheet,
@@ -13,6 +13,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
+import Constants from 'expo-constants';
 import { t } from 'i18n-js';
 
 import { Theme, getTheme } from '../../styles/themes';
@@ -21,10 +22,22 @@ import ModalPicker from '../../components/ModalPicker';
 import { HabitTrackerApi } from '../../api/HabitTrackerApi';
 import { HabitType } from '../../api/models/Habit';
 import LocationReminderSelector from '../../components/ReminderSelector/LocationReminderSelector';
-import { ReminderInfo } from '../../types/Reminder';
+import { DailyReminderInfo, MonthlyReminderInfo, ReminderInfo, ReminderType, WeeklyReminderInfo } from '../../types/Reminder';
 import DailyTimeReminderSelector from '../../components/ReminderSelector/DailyTimeReminderSelector';
 import WeeklyTimeReminderSelector from '../../components/ReminderSelector/WeeklyTimeReminderSelector';
 import TimeReminderSelector from '../../components/ReminderSelector/TimeReminderSelector';
+
+import * as RemindersDb from '../../db/reminders-db';
+import * as NotificationsHelper from '../../utils/NotificationsHelper';
+
+//////////////////////////////////
+
+import * as Notifications from 'expo-notifications';
+import { NotificationTriggerInput } from 'expo-notifications';
+
+////////////////////////////////
+
+
 
 
 const AddReminderScreen = ({ navigation, route }: AddReminderScreenNavigationProps) => {
@@ -33,11 +46,42 @@ const AddReminderScreen = ({ navigation, route }: AddReminderScreenNavigationPro
   const theme = getTheme(useColorScheme());
   const dynamicStyles = useMemo(() => styles(theme), [theme]);
 
+  useEffect(() => {
+    NotificationsHelper.askNotificationPermission();
+
+    // TODO probabilmente non serve
+    // If we want to do something with the notification when the app
+    // is active, we need to listen to notification events and
+    // handle them in a callback
+    // const listener = Notifications.addNotificationReceivedListener(handleNotification);
+    // return () => listener.remove();
+  }, []);
+
   const { habitId } = route.params;
 
-  const onConfirmCallback = (reminderInfo: ReminderInfo) => {
-    console.log('TODO');
-  }
+  const onConfirmCallback = async (reminderInfo: ReminderInfo) => {
+    const result = await HabitTrackerApi.getInstance().getHabit(habitId);
+    if (!result.success) {
+      // TODO eventuale toast di errore
+      return;
+    }
+
+    const habitName = result.value.name;
+
+    // Schedule the notification
+    const notificationId = await NotificationsHelper.scheduleNotification(habitName, reminderInfo);
+
+    // Save into db
+    const db = RemindersDb.openDatabase();
+    RemindersDb.addReminder(db, {
+      habitId: habitId,
+      notificationId: notificationId,
+      reminderInfo: reminderInfo,
+    });
+    console.info('Reminder added to db');
+
+    navigation.goBack();
+  };
 
   return (
     <View style={dynamicStyles.container}>
@@ -75,6 +119,7 @@ const AddReminderScreen = ({ navigation, route }: AddReminderScreenNavigationPro
       {/* Time/Location selection view */}
       { reminderType === 'time' ? (
         <TimeReminderSelector
+          habitId={habitId}
           onConfirm={onConfirmCallback}
         />
       ) : (
@@ -82,9 +127,6 @@ const AddReminderScreen = ({ navigation, route }: AddReminderScreenNavigationPro
           onConfirm={onConfirmCallback}
         />
       )}
-      <View style={{ backgroundColor: 'red' }}>
-
-      </View>
 
     </View>
   );
