@@ -1,5 +1,5 @@
-import React, { useReducer, useEffect, useMemo } from 'react';
-import { useColorScheme, View } from 'react-native';
+import React, { useReducer, useEffect, useMemo, useRef } from 'react';
+import { AppState, AppStateStatus, useColorScheme, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import * as SecureStore from 'expo-secure-store';
@@ -14,6 +14,10 @@ import { AuthNavigator, AppNavigator } from './src/navigations';
 import { SplashScreen } from './src/screens';
 import AuthContext from './src/contexts/AuthContext';
 import { HabitTrackerApi } from './src/api/HabitTrackerApi';
+import * as Notifications from 'expo-notifications';
+
+import * as RemindersDb from './src/db/reminders-db';
+import * as NotificationsHelper from './src/utils/NotificationsHelper';
 
 // Fix missing 'btoa' and 'atob'
 import { encode, decode } from 'base-64';
@@ -47,6 +51,8 @@ type Action =
 
 
 export default function App() {
+  const appState = useRef(AppState.currentState);
+
   const [state, dispatch] = useReducer(
     (state: State, action: Action): State => {
       switch (action.type) {
@@ -106,6 +112,13 @@ export default function App() {
     bootstrapAsync();
   }, []);
 
+  useEffect(() => {
+    console.info('Opening db...');
+    const db = RemindersDb.openDatabase();
+    console.info('Creating db table...');
+    RemindersDb.createTable(db);
+  }, []);
+
   const authContext = useMemo(() => ({
       login: async (data : { email: string, password: string }) => {
 
@@ -138,6 +151,8 @@ export default function App() {
         const socket = getSocket();
         socket.emit('offline');
 
+        // TODO eliminare tutte le notifiche
+
         dispatch({ type: 'LOG_OUT' })
       },
       register: async (data : { name: string, email: string, password: string }) => {
@@ -168,6 +183,51 @@ export default function App() {
     }),
     []
   );
+
+  const _handleAppStateChange = async (nextAppState: AppStateStatus) => {
+    if (
+      appState.current.match(/inactive|background/)
+      && nextAppState === "active"
+    ) {
+      // App has come to the foreground!
+      const socket = getSocket();
+      // TODO apparently this is not needed, because it auto reconnects
+      // socket.connect();
+
+      // TODO must find a way to send 'online' events
+
+
+      let userToken: string | null = null;
+
+      try {
+        userToken = await SecureStore.getItemAsync('userToken');
+        if (userToken) {
+          console.log('emit online')
+          socket.emit('online', userToken);
+        }
+
+      } catch (error) {
+        // Restoring token failed
+        // TODO
+      }
+
+      // if (state.userToken) {
+      //   socket.emit('online', state.userToken);
+      //   console.info('Reconnect to socket, sending online event, after coming to the foreground');
+      // }
+    }
+
+    appState.current = nextAppState;
+  };
+
+  useEffect(() => {
+    AppState.addEventListener('change', _handleAppStateChange);
+
+    return () => {
+      AppState.removeEventListener('change', _handleAppStateChange);
+    };
+  }, []);
+
 
   useEffect(() => {
     const socket = getSocket();
