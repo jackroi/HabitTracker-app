@@ -9,21 +9,49 @@ import { DailyReminderInfo, LocationReminderInfo, MonthlyReminderInfo, ReminderT
 import DailyTimeReminderSelector from './DailyTimeReminderSelector';
 import WeeklyTimeReminderSelector from './WeeklyTimeReminderSelector';
 import MonthlyTimeReminderSelector from './MonthlyTimeReminderSelector';
+import { HabitTrackerApi } from '../../api/HabitTrackerApi';
+import { useNavigation } from '@react-navigation/native';
 
 
 
 type TimeReminderSelectorProps = {
+  habitId: string;
   onConfirm: (reminderInfo: ReminderInfo) => void;
 }
 
 
 
-const TimeReminderSelector = ({ onConfirm }: TimeReminderSelectorProps) => {
+const TimeReminderSelector = ({ habitId, onConfirm }: TimeReminderSelectorProps) => {
+  const habitTrackerApi = HabitTrackerApi.getInstance();
+
   const theme = getTheme(useColorScheme());
   const dynamicStyles = useMemo(() => styles(theme), [theme]);
 
-  // TODO retrieve somewhere the habit type
-  const habitType: HabitType = HabitType.MONTHLY as HabitType;
+  const [habitType, setHabitType] = useState(null as HabitType | null);
+
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    const fetchHabitType = async () => {
+      const result = await habitTrackerApi.getHabit(habitId);
+      if (!result.success) {
+        navigation.goBack();
+        return;
+      }
+
+      setHabitType(result.value.type);
+    };
+
+    fetchHabitType();
+  });
+
+  if (!habitType) {
+    return (
+      <View style={dynamicStyles.activityIndicatorView}>
+        <ActivityIndicator size={'large'} />
+      </View>
+    );
+  }
 
   switch (habitType) {
     case HabitType.DAILY:
@@ -54,7 +82,12 @@ const TimeReminderSelector = ({ onConfirm }: TimeReminderSelectorProps) => {
 };
 
 const styles = (theme: Theme) => StyleSheet.create({
-
+  activityIndicatorView: {
+    flex: 1,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  }
 });
 
 export default TimeReminderSelector;
