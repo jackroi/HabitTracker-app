@@ -51,6 +51,10 @@ const mapping: Translation = {
   monthHalf: 'Mid month',
   monthEnd: 'End month',
 
+  /* Reminders */
+  deleteReminder: 'Delete reminder',
+  deleteReminderAlertMessage: 'Are you sure you want to delete this reminder?',
+
   /* Misc */
   confirm: 'Confirm',
   create: 'Create',

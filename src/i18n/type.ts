@@ -53,6 +53,10 @@ export default interface Translation {
   monthHalf: string;
   monthEnd: string;
 
+  /* Reminders */
+  deleteReminder: string;
+  deleteReminderAlertMessage: string;
+
   /* Alert dialog */
   cancel: string;
   delete: string;

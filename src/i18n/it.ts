@@ -51,6 +51,10 @@ const mapping: Translation = {
   monthHalf: 'Metà mese',
   monthEnd: 'Fine mese',
 
+  /* Reminders */
+  deleteReminder: 'Elimina promemoria',
+  deleteReminderAlertMessage: 'Sei sicuro di voler eliminare questo promemoria?',
+
   /* Misc */
   confirm: 'Conferma',
   create: 'Crea',
