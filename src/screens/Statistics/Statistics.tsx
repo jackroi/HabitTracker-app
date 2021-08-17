@@ -8,11 +8,12 @@ import { StatisticsStackParamList, StatisticsScreenNavigationProps, StatisticsDe
 import HabitListItem from '../../components/HabitListItem';
 import StatisticsDetailsScreen from './StatisticsDetails';
 import { ClientHabit, HabitState } from '../../api/models/Habit';
-import { HabitTrackerApi, Ok } from '../../api/HabitTrackerApi';
+import { HabitTrackerApi } from '../../api/HabitTrackerApi';
 import { GetGeneralStatsResponseBody, GetHabitsResponseBody, GetHabitStatsResponseBody } from '../../api/httpTypes/responses';
 import { DateTime } from 'luxon';
 import Box from '../../components/Box';
 import getSocket from '../../utils/initialize-socket-io';
+import { Ok } from '../../utils/Result';
 
 
 interface State {
