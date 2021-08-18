@@ -65,9 +65,9 @@ const MenuItem = ({ title, icon, onPress }: MenuItemProps) => {
       onPress={onPress}
       activeOpacity={0.5}
     >
-      <MaterialCommunityIcons name={icon as any} size={18} color={'#FFFFFF'}/>
+      <MaterialCommunityIcons name={icon as any} size={18} color={theme.colorOnListItem}/>
       <Text style={dynamicStyles.text}>{title}</Text>
-      <MaterialCommunityIcons name={'greater-than'} size={18} color={'#FFFFFF'}/>
+      <MaterialCommunityIcons name={'greater-than'} size={18} color={theme.colorOnListItem}/>
     </TouchableOpacity>
   );
 };
@@ -245,7 +245,6 @@ const styles = (theme: Theme) => StyleSheet.create({
   text: {
     fontSize: 18,
     color: theme.colorOnListItem,
-    // fontWeight: 'bold',
   },
 });
 

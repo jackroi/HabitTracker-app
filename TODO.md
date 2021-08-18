@@ -10,3 +10,11 @@
 predisporre un bottone in settings per eseguire rescheduling di tutte le notifiche)
 
 - Mostrare qualcosa quando le liste sono vuote (home habit list e reminders list)
+
+- Comments
+
+- Nella tesi potrei citare anche la creazione dei due temi (dark, light)
+
+- Ordinare habit in home, statistics e archive
+
+- Valutare se spostare logica current/best streak da backend a frontend

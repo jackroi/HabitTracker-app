@@ -145,10 +145,10 @@ const StatisticsScreen = ({ navigation }: StatisticsScreenNavigationProps) => {
 
       {/* General habits statistics */}
       <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', padding: 10 }}>
-        <Box title={'Active habits'} value={state.stats && state.stats.activeHabitCount.toString()} />
-        <Box title={'Archived habits'} value={state.stats && state.stats.archivedHabitCount.toString()} />
-        <Box title={'Completed'} value={state.stats && state.stats.completedCount.toString()} />
-        <Box title={'Percentage'} value={state.stats && state.stats.completedPercentage.toFixed(2)} />
+        <Box title={t('activeHabitsStats')} value={state.stats && state.stats.activeHabitCount.toString()} />
+        <Box title={t('archivedHabitsStats')} value={state.stats && state.stats.archivedHabitCount.toString()} />
+        <Box title={t('completedStats')} value={state.stats && state.stats.completedCount.toString()} />
+        <Box title={t('percentageStats')} value={state.stats && state.stats.completedPercentage.toFixed(2)} />
       </View>
 
       {/* Active habit list */}

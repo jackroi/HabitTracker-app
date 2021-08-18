@@ -191,6 +191,7 @@ const UpdateHabitScreen = ({ navigation, route }: UpdateHabitScreenNavigationPro
             autoCorrect={true}
             textContentType={'none'}
             placeholder={t('habit')}
+            placeholderTextColor={theme.colorPlaceholderText}
           />
 
           {/* Category field */}
@@ -311,19 +312,19 @@ const styles = (theme: Theme) => StyleSheet.create({
     fontSize: 20,
   },
   categoryTextPlaceholder: {
-    color: 'gray',      // TODO placeholderColor (theme)
+    color: theme.colorPlaceholderText,
   },
   createButton: {
-    width: "100%",
+    width: '100%',
     borderRadius: 25,
     height: 40,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     marginTop: 40,
-    backgroundColor: "#ffc014",
+    backgroundColor: theme.colorPrimaryButton,
   },
   updateButtonText: {
-    color: 'white'
+    color: theme.colorOnPrimaryButton,
   },
 });
 

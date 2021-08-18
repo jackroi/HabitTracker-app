@@ -23,11 +23,23 @@ const mapping: Translation = {
   /* Habit */
   habit: 'Habit',
   category: 'Category',
+  type: 'Type',
 
   /* Habit creation/update */
   selectCategory: 'Select category',
   categorySelectionHeader: 'Select an existing category or create a new one',
+  selectType: 'Select type',
+  typeSelectionHeader: 'Select a type of habit',
   update: 'Update',
+
+  /* Statistics */
+  activeHabitsStats: 'Active habits',
+  archivedHabitsStats: 'Archived habits',
+  completedStats: 'Completed',
+  percentageStats: 'Percentage',
+  bestStreakStats: 'Best streak',
+  currentStreakStats: 'Current streak',
+  creationDate: 'Creation date',
 
   /* Settings */
   account: 'Account',
@@ -52,13 +64,15 @@ const mapping: Translation = {
   monthEnd: 'End month',
 
   /* Reminders */
+  timeReminder: 'Time',
+  locationReminder: 'Location',
+  dailyReminders: 'Daily reminders',
+  weeklyReminders: 'Weekly reminders',
+  monthlyReminders: 'Monthly reminders',
+  locationReminders: 'Location reminders',
+  locationName: 'Location name',
   deleteReminder: 'Delete reminder',
   deleteReminderAlertMessage: 'Are you sure you want to delete this reminder?',
-
-  /* Misc */
-  locationName: 'Location name',
-  confirm: 'Confirm',
-  create: 'Create',
 
   /* Alert dialog */
   cancel: 'Cancel',
@@ -68,6 +82,12 @@ const mapping: Translation = {
   deleteHabitAlertMessage: 'Are you sure you want to delete this habit?',
   archiveHabit: 'Archive habit',
   archiveHabitAlertMessage: 'Are you sure you want to archive this habit?',
+
+  /* Misc */
+  confirm: 'Confirm',
+  create: 'Create',
+  author: 'Author',
+  version: 'Version',
 }
 
 export default mapping;

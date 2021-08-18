@@ -30,14 +30,6 @@ import TimeReminderSelector from '../../components/ReminderSelector/TimeReminder
 import * as RemindersDb from '../../db/reminders-db';
 import * as NotificationsHelper from '../../utils/NotificationsHelper';
 
-//////////////////////////////////
-
-import * as Notifications from 'expo-notifications';
-import { NotificationTriggerInput } from 'expo-notifications';
-
-////////////////////////////////
-
-
 
 
 const AddReminderScreen = ({ navigation, route }: AddReminderScreenNavigationProps) => {
@@ -93,12 +85,19 @@ const AddReminderScreen = ({ navigation, route }: AddReminderScreenNavigationPro
         <TouchableOpacity
           style={[
             dynamicStyles.reminderTypeButton,
-            reminderType === 'time' ? dynamicStyles.selectedReminderTypeButton : null
+            reminderType === 'time' ? dynamicStyles.selectedReminderTypeButton : null,
           ]}
           activeOpacity={0.5}
           onPress={() => setReminderType('time')}
         >
-          <Text style={dynamicStyles.reminderTypeButtonText}>Time</Text>
+          <Text
+            style={[
+              dynamicStyles.reminderTypeButtonText,
+              reminderType === 'time' ? dynamicStyles.SelectedReminderTypeButtonText : null,
+            ]}
+          >
+            {t('timeReminder')}
+          </Text>
         </TouchableOpacity>
 
 
@@ -106,12 +105,19 @@ const AddReminderScreen = ({ navigation, route }: AddReminderScreenNavigationPro
         <TouchableOpacity
           style={[
             dynamicStyles.reminderTypeButton,
-            reminderType === 'location' ? dynamicStyles.selectedReminderTypeButton : null
+            reminderType === 'location' ? dynamicStyles.selectedReminderTypeButton : null,
           ]}
           activeOpacity={0.5}
           onPress={() => setReminderType('location')}
         >
-          <Text style={dynamicStyles.reminderTypeButtonText}>Location</Text>
+          <Text
+            style={[
+              dynamicStyles.reminderTypeButtonText,
+              reminderType === 'location' ? dynamicStyles.SelectedReminderTypeButtonText : null,
+            ]}
+          >
+            {t('locationReminder')}
+          </Text>
         </TouchableOpacity>
 
       </View>
@@ -147,19 +153,24 @@ const styles = (theme: Theme) => StyleSheet.create({
   reminderTypeButton: {
     width: '40%',
     borderRadius: 25,
-    borderWidth: 1,
-    borderColor: theme.colorOnBackground,
+    // borderWidth: 1,
+    // borderColor: theme.colorOnBackground,
     alignItems: 'center',
     justifyContent: 'center',
     padding: 10,
-    backgroundColor: theme.colorBackground,
+    backgroundColor: theme.colorSurface,
   },
   selectedReminderTypeButton: {
-    backgroundColor: '#ffc014',
+    backgroundColor: theme.colorPrimaryButton,
+    color: theme.colorOnPrimaryButton,
   },
   reminderTypeButtonText: {
     fontSize: 18,
-    color: theme.colorOnBackground,
+    color: theme.colorOnSurface,
+  },
+  SelectedReminderTypeButtonText: {
+    fontSize: 18,
+    color: theme.colorOnPrimaryButton,
   },
 });
 

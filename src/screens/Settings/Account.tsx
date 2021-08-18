@@ -9,8 +9,6 @@ import { AccountScreenNavigationProps } from '../../types/types';
 import AuthContext from '../../contexts/AuthContext';
 
 
-
-
 const AccountScreen = ({ navigation, route }: AccountScreenNavigationProps) => {
   const [state, setState] = useState({
     name: '',
@@ -74,15 +72,15 @@ const AccountScreen = ({ navigation, route }: AccountScreenNavigationProps) => {
 
   return (
     <View style={dynamicStyles.container}>
-      <Text style={dynamicStyles.text}>Name: {state.name}</Text>
-      <Text style={dynamicStyles.text}>Email: {state.email}</Text>
-      <Text style={dynamicStyles.text}>Registration date: {state.registrationDate?.toISODate()}</Text>
+      <Text style={dynamicStyles.text}>{t('name')}: {state.name}</Text>
+      <Text style={dynamicStyles.text}>{t('email')}: {state.email}</Text>
+      <Text style={dynamicStyles.text}>{t('registrationDate')}: {state.registrationDate?.toISODate()}</Text>
 
       <TouchableOpacity
-        style={dynamicStyles.loginButton}
+        style={dynamicStyles.deleteButton}
         onPress={showConfirmDialog}
       >
-        <Text>{t('deleteAccount').toUpperCase()}</Text>
+        <Text style={dynamicStyles.deleteButtonText}>{t('deleteAccount').toUpperCase()}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -92,21 +90,24 @@ const AccountScreen = ({ navigation, route }: AccountScreenNavigationProps) => {
 const styles = (theme: Theme) => StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 0,
     backgroundColor: theme.colorBackground,
+    padding: 10,
   },
   text: {
     color: theme.colorOnBackground,
   },
-  loginButton: {
-    width: "100%",
+  deleteButton: {
+    width: '100%',
     borderRadius: 25,
     height: 50,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     marginTop: 40,
-    backgroundColor: "#ef233c",     // TODO insert into theme (maybe 'dangerColor')
+    backgroundColor: theme.colorDangerButton
   },
+  deleteButtonText: {
+    color: theme.colorOnDangerButton,
+  }
 });
 
 

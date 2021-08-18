@@ -83,6 +83,7 @@ const AddHabitScreen = ({ navigation }: AddHabitScreenNavigationProps) => {
             autoCorrect={true}
             textContentType={'none'}
             placeholder={t('habit')}
+            placeholderTextColor={theme.colorPlaceholderText}
           />
 
           {/* Category field */}
@@ -102,7 +103,7 @@ const AddHabitScreen = ({ navigation }: AddHabitScreenNavigationProps) => {
 
           {/* Habit type field */}
           <Text style={dynamicStyles.sectionText}>
-            Type
+            {t('type')}
           </Text>
 
           <TouchableWithoutFeedback
@@ -111,7 +112,7 @@ const AddHabitScreen = ({ navigation }: AddHabitScreenNavigationProps) => {
             <Text
               style={[dynamicStyles.categoryText, habitType === '' ? dynamicStyles.categoryTextPlaceholder : {}]}
             >
-              {habitType === '' ? 'Select habit type' : habitType}
+              {habitType === '' ? t('selectType') : habitType}
             </Text>
           </TouchableWithoutFeedback>
 
@@ -184,7 +185,7 @@ const AddHabitScreen = ({ navigation }: AddHabitScreenNavigationProps) => {
       <ModalPicker
         data={['Daily','Weekly','Monthly']}
         withTextInput={false}
-        headerText={'Seleziona una tipologia di habit'}
+        headerText={t('typeSelectionHeader')}
         visible={habitTypeModalVisible}
         onRequestClose={() => setHabitTypeModalVisible(false)}
         onSelect={(habitType) => {
@@ -235,19 +236,19 @@ const styles = (theme: Theme) => StyleSheet.create({
     fontSize: 20,
   },
   categoryTextPlaceholder: {
-    color: 'gray',      // TODO placeholderColor (theme)
+    color: theme.colorPlaceholderText,
   },
   createButton: {
-    width: "100%",
+    width: '100%',
     borderRadius: 25,
     height: 40,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     marginTop: 40,
-    backgroundColor: "#ffc014",
+    backgroundColor: theme.colorPrimaryButton,
   },
   createButtonText: {
-    color: 'white'
+    color: theme.colorOnPrimaryButton,
   },
 });
 

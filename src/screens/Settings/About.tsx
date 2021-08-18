@@ -19,8 +19,8 @@ const AboutScreen = ({ navigation, route }: AboutScreenNavigationProps) => {
   return (
     <View style={dynamicStyles.container}>
       <Text style={dynamicStyles.text}>Habit Tracker</Text>
-      <Text style={dynamicStyles.text}>Author: Giacomo Rosin</Text>
-      <Text style={dynamicStyles.text}>Version: {pkg.version}</Text>
+      <Text style={dynamicStyles.text}>{t('author')}: Giacomo Rosin</Text>
+      <Text style={dynamicStyles.text}>{t('version')}: {pkg.version}</Text>
     </View>
   );
 };
@@ -31,9 +31,13 @@ const styles = (theme: Theme) => StyleSheet.create({
     flex: 1,
     paddingHorizontal: 0,
     backgroundColor: theme.colorBackground,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   text: {
     color: theme.colorOnBackground,
+    fontSize: 20,
+    padding: 10,
   },
 });
 

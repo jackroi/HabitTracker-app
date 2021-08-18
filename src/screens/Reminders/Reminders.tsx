@@ -27,10 +27,10 @@ type ReminderItemData = {
 
 const getSectionName = (reminderType: ReminderType): string => {
   switch (reminderType) {
-    case ReminderType.DAILY: return 'Daily reminders';
-    case ReminderType.WEEKLY: return 'Weekly reminders';
-    case ReminderType.MONTHLY: return 'Monthly reminders';
-    case ReminderType.LOCATION: return 'Location reminders';
+    case ReminderType.DAILY: return t('dailyReminders');
+    case ReminderType.WEEKLY: return t('weeklyReminders');
+    case ReminderType.MONTHLY: return t('monthlyReminders');
+    case ReminderType.LOCATION: return t('locationReminders');
     default:
       const _exhaustiveCheck: never = reminderType;
       return _exhaustiveCheck;
@@ -101,7 +101,7 @@ const sortSectionElements = (sectionElements: ReminderItemData[]) => {
   };
 
   return sectionElements.sort(compareReminder);
-}
+};
 
 
 const divideRemindersBySection = (reminders: ReminderItemData[]) => {

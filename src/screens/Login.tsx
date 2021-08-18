@@ -45,6 +45,7 @@ const LoginScreen = ({ navigation }: LoginScreenNavigationProps) => {
             autoCorrect={false}
             textContentType={'emailAddress'}
             placeholder={t('email')}
+            placeholderTextColor={theme.colorPlaceholderText}
           />
           <TextInput
             style={dynamicStyles.input}
@@ -53,20 +54,21 @@ const LoginScreen = ({ navigation }: LoginScreenNavigationProps) => {
             secureTextEntry={true}
             textContentType={'password'}
             placeholder={t('password')}
+            placeholderTextColor={theme.colorPlaceholderText}
           />
 
           <TouchableOpacity
             style={dynamicStyles.loginButton}
             onPress={() => login({ email, password })}
           >
-            <Text>{t('login').toUpperCase()}</Text>
+            <Text style={dynamicStyles.loginButtonText}>{t('login').toUpperCase()}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={dynamicStyles.registerButton}
             onPress={() => navigation.navigate('Register')}
           >
-            <Text>{t('register')}</Text>
+            <Text style={dynamicStyles.registerButtonText}>{t('register')}</Text>
           </TouchableOpacity>
         </View>
       </TouchableWithoutFeedback>
@@ -99,22 +101,28 @@ const styles = (theme: Theme) => StyleSheet.create({
     color: theme.colorOnBackground,
   },
   loginButton: {
-    width: "100%",
+    width: '100%',
     borderRadius: 25,
     height: 50,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     marginTop: 40,
-    backgroundColor: "#ffc014",
+    backgroundColor: theme.colorPrimaryButton,
+  },
+  loginButtonText: {
+    color: theme.colorOnPrimaryButton,
   },
   registerButton: {
-    width: "100%",
+    width: '100%',
     borderRadius: 25,
     height: 50,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     marginTop: 10,
-    backgroundColor: "#e2e2e2",
+    backgroundColor: theme.colorSecondaryButton,
+  },
+  registerButtonText: {
+    color: theme.colorOnSecondaryButton,
   },
 });
 

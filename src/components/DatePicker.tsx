@@ -14,8 +14,6 @@ type DatePickerProps = {
 
 
 const DatePicker = ({ fromDate, currentDate, onChange }: DatePickerProps) => {
-  // const [date, setDate] = useState(currentDate);
-
   const theme = getTheme(useColorScheme());
   const dynamicStyles = useMemo(() => styles(theme), [theme]);
 
@@ -67,7 +65,7 @@ const DatePicker = ({ fromDate, currentDate, onChange }: DatePickerProps) => {
         activeOpacity={0.5}
         disabled={isButtonDisabled('prev')}
       >
-        <MaterialCommunityIcons name={'less-than'} size={30} color={'#FFFFFF'}/>
+        <MaterialCommunityIcons name={'less-than'} size={30} color={theme.colorOnBackground}/>
       </TouchableOpacity>
 
       {/* Date display */}
@@ -89,7 +87,7 @@ const DatePicker = ({ fromDate, currentDate, onChange }: DatePickerProps) => {
         activeOpacity={0.5}
         disabled={isButtonDisabled('next')}
       >
-        <MaterialCommunityIcons name={'greater-than'} size={30} color={'#FFFFFF'}/>
+        <MaterialCommunityIcons name={'greater-than'} size={30} color={theme.colorOnBackground}/>
       </TouchableOpacity>
     </View>
   );
@@ -109,10 +107,9 @@ const styles = (theme: Theme) => StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 30,
     paddingVertical: 20,
-    // backgroundColor: theme.colorListItem,
   },
   disabledButton: {
-    opacity: 0.5,
+    opacity: 0.3,
   },
   enabledButton: {
     opacity: 1,
@@ -121,7 +118,7 @@ const styles = (theme: Theme) => StyleSheet.create({
     fontSize: 30,
     color: theme.colorOnBackground,
     fontWeight: 'bold',
-  }
+  },
 });
 
 export default DatePicker;

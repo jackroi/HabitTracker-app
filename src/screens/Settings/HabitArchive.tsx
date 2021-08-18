@@ -26,7 +26,6 @@ type Action =
   | { type: 'FETCH_FAILURE', errorMessage: string };
 
 
-
 const HabitArchiveScreen = ({ navigation }: StatisticsScreenNavigationProps) => {
   const habitTrackerApi = HabitTrackerApi.getInstance();
 

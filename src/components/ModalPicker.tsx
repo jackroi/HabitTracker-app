@@ -21,14 +21,6 @@ import { t } from 'i18n-js';
 import { Theme, getTheme } from '../styles/themes';
 
 
-const CATEGORIES = [
-  'Productivity',
-  'Learn',
-  'Sport',
-  'Football',
-  'Test',
-];
-
 type CategoryPickerModalProps = {
   visible: boolean;
   data: string[] | (() => Promise<string[]>);
@@ -88,7 +80,7 @@ const ModalPicker = ({ visible, data, withTextInput, headerText, textInputText, 
                 </View>
 
                 <FlatList
-                  style={{flexGrow: 0}}
+                  style={{ flexGrow: 0 }}
                   data={list}
                   keyExtractor={(item) => item}
                   renderItem={({ item }) => (
@@ -116,7 +108,7 @@ const ModalPicker = ({ visible, data, withTextInput, headerText, textInputText, 
                       autoCorrect={true}
                       textContentType={'none'}
                       placeholder={textInputText}
-                      placeholderTextColor={theme.colorOnSurface}   // TODO colore migliore
+                      placeholderTextColor={theme.colorPlaceholderText}
                     />
                     <TouchableOpacity
                       style={dynamicStyles.confirmButton}
@@ -153,24 +145,24 @@ const styles = (theme: Theme) => StyleSheet.create({
   },
   centeredView: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   modalView: {
     backgroundColor: 'transparent',
     borderRadius: BORDER_RADIUS,
     padding: 0,
-    alignItems: "center",
-    shadowColor: "#000000",
+    alignItems: 'center',
+    shadowColor: '#000000',
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
     maxHeight: '70%',
-    width: '80%'
+    width: '80%',
   },
   headerContainer: {
     flexDirection: 'row',
@@ -220,16 +212,16 @@ const styles = (theme: Theme) => StyleSheet.create({
     color: theme.colorOnBackground,
   },
   confirmButton: {
-    width: "100%",
+    width: '100%',
     borderRadius: 25,
     height: 40,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     marginTop: 10,
-    backgroundColor: "#ffc014",
+    backgroundColor: theme.colorPrimaryButton,
   },
   confirmButtonText: {
-    color: 'black'
+    color: theme.colorOnPrimaryButton,
   },
 });
 

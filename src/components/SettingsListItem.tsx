@@ -22,7 +22,7 @@ const SettingsListItem = ({ title, onPress }: SettingsListItemProps) => {
       activeOpacity={0.5}
     >
       <Text style={dynamicStyles.text}>{title}</Text>
-      <MaterialCommunityIcons name={'greater-than'} size={18} color={'#FFFFFF'}/>
+      <MaterialCommunityIcons name={'greater-than'} size={18} color={theme.colorOnListItem} />
     </TouchableOpacity>
   );
 };

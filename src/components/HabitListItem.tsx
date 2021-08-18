@@ -27,7 +27,7 @@ const HabitListItem = ({ habitId, habitName, withArrow, onPress, onLongPress }: 
     >
       <Text style={dynamicStyles.text}>{habitName}</Text>
       { withArrow ? (
-        <MaterialCommunityIcons name={'greater-than'} size={18} color={'#FFFFFF'}/>
+        <MaterialCommunityIcons name={'greater-than'} size={18} color={theme.colorOnListItem}/>
       ) : (
         null
       )}

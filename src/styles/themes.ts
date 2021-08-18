@@ -32,8 +32,27 @@ interface Theme {
   colorOnListItem: string;
 
   /* Button colors */
-  colorButton: string;
-  colorOnButton: string;
+  colorPrimaryButton: string;
+  colorOnPrimaryButton: string;
+  colorSecondaryButton: string;
+  colorOnSecondaryButton: string;
+  colorDangerButton: string;
+  colorOnDangerButton: string;
+
+  /* Habit button colors */
+  colorCompletedHabitButton: string;
+  colorSkippedHabitButton: string;
+  colorNotCompletedHabitButton: string;
+  colorOnHabitButton: string;
+
+  /* Habit yearly overview colors */
+  colorCompletedHabitCell: string;
+  colorSkippedHabitCell: string;
+  colorNotCompletedHabitCell: string;
+
+  /* Placeholder text color */
+  colorPlaceholderText: string;     // TODO valutare meglio che colore usare
+                                    // TODO e usarlo nei vari text input
 
   /* TODO Placeholder text color */
 }
@@ -67,8 +86,26 @@ const lightTheme: Theme = {
   colorOnListItem: Colors.black,
 
   /* Button colors */
-  colorButton: '#ffc014',
-  colorOnButton: Colors.black,
+  colorPrimaryButton: '#ffc014',
+  colorOnPrimaryButton: Colors.black,
+  colorSecondaryButton: '#e2e2e2',
+  colorOnSecondaryButton: Colors.black,
+  colorDangerButton: '#ef233c',
+  colorOnDangerButton: Colors.white,
+
+  /* Habit button colors */
+  colorCompletedHabitButton: Colors.completedHabitButton,
+  colorSkippedHabitButton: Colors.skippedHabitButton,
+  colorNotCompletedHabitButton: Colors.notCompletedHabitButton,
+  colorOnHabitButton: Colors.white,
+
+  /* Habit yearly overview colors */
+  colorCompletedHabitCell: '#00EE88',
+  colorSkippedHabitCell: '#967a00',
+  colorNotCompletedHabitCell: '#cccccc',
+
+  /* Placeholder text color */
+  colorPlaceholderText: '#9b9b9b',
 };
 
 const darkTheme: Theme = {
@@ -99,8 +136,26 @@ const darkTheme: Theme = {
   colorOnListItem: Colors.white,
 
   /* Button colors */
-  colorButton: '#ffc014',
-  colorOnButton: Colors.black,
+  colorPrimaryButton: '#ffc014',
+  colorOnPrimaryButton: Colors.black,
+  colorSecondaryButton: '#e2e2e2',
+  colorOnSecondaryButton: Colors.black,
+  colorDangerButton: '#ef233c',
+  colorOnDangerButton: Colors.white,
+
+  /* Habit button colors */
+  colorCompletedHabitButton: Colors.completedHabitButton,
+  colorSkippedHabitButton: Colors.skippedHabitButton,
+  colorNotCompletedHabitButton: Colors.notCompletedHabitButton,
+  colorOnHabitButton: Colors.white,
+
+  /* Habit yearly overview colors */
+  colorCompletedHabitCell: '#00EE88',
+  colorSkippedHabitCell: '#967a00',
+  colorNotCompletedHabitCell: '#333333',
+
+  /* Placeholder text color */
+  colorPlaceholderText: '#7b7b7b',
 };
 
 

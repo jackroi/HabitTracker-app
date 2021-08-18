@@ -48,6 +48,7 @@ const LoginScreen = ({ navigation }: RegisterScreenNavigationProps) => {
             autoCorrect={false}
             textContentType={'name'}
             placeholder={t('name')}
+            placeholderTextColor={theme.colorPlaceholderText}
           />
           <TextInput
             style={dynamicStyles.input}
@@ -59,6 +60,7 @@ const LoginScreen = ({ navigation }: RegisterScreenNavigationProps) => {
             autoCorrect={false}
             textContentType={'emailAddress'}
             placeholder={t('email')}
+            placeholderTextColor={theme.colorPlaceholderText}
           />
           <TextInput
             style={dynamicStyles.input}
@@ -67,6 +69,7 @@ const LoginScreen = ({ navigation }: RegisterScreenNavigationProps) => {
             secureTextEntry={true}
             textContentType={'newPassword'}
             placeholder={t('password')}
+            placeholderTextColor={theme.colorPlaceholderText}
           />
           <TextInput
             style={dynamicStyles.input}
@@ -75,13 +78,14 @@ const LoginScreen = ({ navigation }: RegisterScreenNavigationProps) => {
             secureTextEntry={true}
             textContentType={'newPassword'}
             placeholder={t('confirmPassword')}
+            placeholderTextColor={theme.colorPlaceholderText}
           />
 
           <TouchableOpacity
             style={dynamicStyles.registerButton}
             onPress={() => register({ name, email, password })}
           >
-            <Text>{t('register')}</Text>
+            <Text style={dynamicStyles.registerButtonText}>{t('register')}</Text>
           </TouchableOpacity>
         </View>
       </TouchableWithoutFeedback>
@@ -113,13 +117,16 @@ const styles = (theme: Theme) => StyleSheet.create({
     color: theme.colorOnBackground,
   },
   registerButton: {
-    width: "100%",
+    width: '100%',
     borderRadius: 25,
     height: 50,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     marginTop: 40,
-    backgroundColor: "#ffc014",
+    backgroundColor: theme.colorPrimaryButton,
+  },
+  registerButtonText: {
+    color: theme.colorOnPrimaryButton,
   },
 });
 

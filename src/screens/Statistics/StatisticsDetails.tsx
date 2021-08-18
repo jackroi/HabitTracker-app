@@ -5,12 +5,13 @@ import { t } from 'i18n-js';
 import { Theme, getTheme } from '../../styles/themes';
 import { StatisticsDetailsScreenNavigationProps } from '../../types/types';
 import { GetHabitHistoryResponseBody, GetHabitResponseBody, GetHabitStatsResponseBody } from '../../api/httpTypes/responses';
-import { HabitTrackerApi, Ok, Result } from '../../api/HabitTrackerApi';
+import { HabitTrackerApi } from '../../api/HabitTrackerApi';
 import { DateTime, DurationInput, DurationObjectUnits } from 'luxon';
 import { ClientHabit, HabitState, HabitType } from '../../api/models/Habit';
 import { ClientHistoryEntry, HistoryEntry, HistoryEntryType } from '../../api/models/HistoryEntry';
 import Box from '../../components/Box';
 import getSocket from '../../utils/initialize-socket-io';
+import { Ok } from '../../utils/Result';
 
 
 // Monthly status
@@ -26,23 +27,25 @@ type ItemProps = {
 }
 
 const getItemColor = (state: HabitState): string => {
+  const theme = getTheme(useColorScheme());
+
   let backgroundColor: string;
   switch (state) {
     case HabitState.NOT_COMPLETED:
-      backgroundColor = '#333333';
+      backgroundColor = theme.colorNotCompletedHabitCell;
       break;
     case HabitState.SKIPPED:
-      backgroundColor = '#967a00';
+      backgroundColor = theme.colorSkippedHabitCell;
       break;
     case HabitState.COMPLETED:
-      backgroundColor = '#00EE88';
+      backgroundColor = theme.colorCompletedHabitCell;
       break;
     default:
       const _exhaustiveCheck: never = state;
       return _exhaustiveCheck;
   }
   return backgroundColor;
-}
+};
 
 const DailyItem = ({ state }: ItemProps) => {
   const backgroundColor = getItemColor(state);
@@ -149,20 +152,14 @@ const getDateStates = (history: ClientHistoryEntry[], habitType: HabitType): Hab
 
 
 const YearlyStatus = ({ history, habitType }: YearlyStatusProps) => {
+  const theme = getTheme(useColorScheme());
+  const dynamicStyles = useMemo(() => styles(theme), [theme]);
+
   const dateStates = getDateStates(history, habitType);
 
   return (
     <View
-      style={{
-        marginTop: 10,
-        flexDirection: 'column',
-        flexWrap: 'wrap',
-        width: '100%',
-        height: (5+2)*7+2,
-        // aspectRatio: 55/8,
-        borderWidth: 1,
-        borderColor: 'green',
-      }}
+      style={dynamicStyles.yearlyStatusContainer}
     >
       {
         dateStates.map((dateState, index) => {
@@ -347,14 +344,14 @@ const StatisticsDetailsScreen = ({ navigation, route }: StatisticsDetailsScreenN
   return (
     <View style={dynamicStyles.container}>
       <Text style={dynamicStyles.headerText}>{state.habit?.name}</Text>
-      <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
-        <Box title={'Current streak'} value={state.stats && state.stats.currentStreak.toString()} />
-        <Box title={'Best streak'} value={state.stats && state.stats.bestStreak.toString()} />
-        <Box title={'Completed'} value={state.stats && state.stats.completedCount.toString()} />
-        <Box title={'Percentage'} value={state.stats && state.stats.completedPercentage.toFixed(2)} />
+      <View style={dynamicStyles.boxesContainer}>
+        <Box title={t('currentStreakStats')} value={state.stats && state.stats.currentStreak.toString()} />
+        <Box title={t('bestStreakStats')} value={state.stats && state.stats.bestStreak.toString()} />
+        <Box title={t('completedStats')} value={state.stats && state.stats.completedCount.toString()} />
+        <Box title={t('percentageStats')} value={state.stats && state.stats.completedPercentage.toFixed(2)} />
       </View>
       <View style={dynamicStyles.creationDateView}>
-        <Text style={dynamicStyles.creationDateText}>Creation date: {state.habit?.creationDate.toISODate()}</Text>
+        <Text style={dynamicStyles.creationDateText}>{t('creationDate')}: {state.habit?.creationDate.toISODate()}</Text>
       </View>
       <YearlyStatus
         habitType={state.habit?.type || HabitType.DAILY}
@@ -378,22 +375,37 @@ const styles = (theme: Theme) => StyleSheet.create({
     alignSelf: 'center',
     padding: 10,
   },
+  boxesContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
   text: {
     color: theme.colorOnBackground,
   },
   creationDateView: {
-    width: "100%",
+    width: '100%',
     height: 50,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     marginTop: 15,
-    backgroundColor: "gray",
+    backgroundColor: theme.colorSurface,
   },
   creationDateText: {
     color: theme.colorOnSurface,
     fontSize: 20,
     alignSelf: 'center',
     padding: 10,
+  },
+  yearlyStatusContainer: {
+    marginTop: 10,
+    flexDirection: 'column',
+    flexWrap: 'wrap',
+    width: '100%',
+    height: (5+2)*7+2,
+    // aspectRatio: 55/8,
+    borderWidth: 1,
+    borderColor: theme.colorSurface,
   },
 });
 

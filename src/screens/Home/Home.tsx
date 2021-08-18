@@ -19,72 +19,11 @@ import getSocket from '../../utils/initialize-socket-io';
 import AddReminderScreen from './AddReminder';
 
 
-
 interface HabitView {
   id: string;
   name: string;
   state: HabitState;
 }
-
-
-const FAKE_DATA_1: HabitView[] = [
-  {
-    id: "0",
-    name: "Run",
-    state: HabitState.NOT_COMPLETED,
-  },
-  {
-    id: "1",
-    name: "Study",
-    state: HabitState.NOT_COMPLETED,
-  },
-  {
-    id: "2",
-    name: "Watch",
-    state: HabitState.NOT_COMPLETED,
-  },
-  {
-    id: "3",
-    name: "Jump",
-    state: HabitState.NOT_COMPLETED,
-  },
-];
-
-const FAKE_DATA_2: HabitView[] = [
-  {
-    id: "4",
-    name: "Hide",
-    state: HabitState.NOT_COMPLETED,
-  },
-  {
-    id: "5",
-    name: "Search",
-    state: HabitState.NOT_COMPLETED,
-  },
-  {
-    id: "6",
-    name: "Drive",
-    state: HabitState.NOT_COMPLETED,
-  },
-  {
-    id: "7",
-    name: "Go",
-    state: HabitState.NOT_COMPLETED,
-  },
-];
-
-const DATA = [
-  {
-    title: 'Productivity',
-    data: FAKE_DATA_1,
-  },
-  {
-    title: 'Sport',
-    data: FAKE_DATA_2,
-  },
-];
-
-
 
 const divideHabitBySection = (habits: (ClientHabit & { state: HabitState })[]) => {
   const sectionMap = new Map<string,HabitView[]>();
@@ -122,7 +61,6 @@ type Action =
   | { type: 'FETCH_INIT' }
   | { type: 'FETCH_SUCCESS', habits: (ClientHabit & { state: HabitState })[] }
   | { type: 'FETCH_FAILURE', errorMessage: string };
-
 
 
 const HomeScreen = ({ navigation }: HomeScreenNavigationProps) => {
@@ -335,7 +273,7 @@ const styles = (theme: Theme) => StyleSheet.create({
     fontSize: 20,
     paddingVertical: 10,
     marginLeft: 20,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   item: {
     marginVertical: 8,

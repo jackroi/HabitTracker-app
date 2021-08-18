@@ -145,11 +145,11 @@ const styles = (theme: Theme) => StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 10,
-    backgroundColor: theme.colorButton,
+    backgroundColor: theme.colorPrimaryButton,
   },
   confirmButtonText: {
     fontSize: 20,
-    color: theme.colorOnButton,
+    color: theme.colorOnPrimaryButton,
   },
 });
 

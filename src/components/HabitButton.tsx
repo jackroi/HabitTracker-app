@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
-import { GestureResponderEvent, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import React, { useMemo, useState } from 'react';
+import { GestureResponderEvent, StyleSheet, Text, TouchableOpacity, useColorScheme } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import { HabitState } from '../api/models/Habit';
-
-
+import { getTheme, Theme } from '../styles/themes';
 
 
 type HabitButtonProps = {
@@ -19,22 +18,25 @@ type UsedIcon =
   | 'minus'
   | 'cross'
 
-const getButtonConfig = (habitState: HabitState): [UsedIcon, string] => {
-  switch (habitState) {
-    case HabitState.COMPLETED:
-      return ['check', '#009688'];
-    case HabitState.SKIPPED:
-      return ['minus', '#967a00'];
-    case HabitState.NOT_COMPLETED:
-      return ['cross', '#e65441'];
-    default:
-      const _exhaustiveCheck: never = habitState;
-      return _exhaustiveCheck;
-  }
-}
-
 const HabitButton = ({ habitId, habitName, habitState, onPress, onLongPress }: HabitButtonProps) => {
+  const theme = getTheme(useColorScheme());
+  const dynamicStyles = useMemo(() => styles(theme), [theme]);
+
   const [currentHabitState, setCurrentHabitState] = useState(habitState);
+
+  const getButtonConfig = (habitState: HabitState): [UsedIcon, string] => {
+    switch (habitState) {
+      case HabitState.COMPLETED:
+        return ['check', theme.colorCompletedHabitButton];
+      case HabitState.SKIPPED:
+        return ['minus', theme.colorSkippedHabitButton];
+      case HabitState.NOT_COMPLETED:
+        return ['cross', theme.colorNotCompletedHabitButton];
+      default:
+        const _exhaustiveCheck: never = habitState;
+        return _exhaustiveCheck;
+    }
+  };
 
   const onPressCallback = (event: GestureResponderEvent) => {
     let nextHabitState: HabitState;
@@ -60,18 +62,18 @@ const HabitButton = ({ habitId, habitName, habitState, onPress, onLongPress }: H
 
   return (
     <TouchableOpacity
-      style={[styles.button, {backgroundColor: color}]}
+      style={[dynamicStyles.button, { backgroundColor: color }]}
       onPress={onPressCallback}
       onLongPress={() => onLongPress(habitId)}
       activeOpacity={0.5}
     >
-      <Text style={styles.text}>{habitName}</Text>
-      <Entypo name={iconName} size={18} color={'#FFFFFF'}/>
+      <Text style={dynamicStyles.text}>{habitName}</Text>
+      <Entypo name={iconName} size={18} color={theme.colorOnHabitButton}/>
     </TouchableOpacity>
   );
 };
 
-const styles = StyleSheet.create({
+const styles = (theme: Theme) => StyleSheet.create({
   button: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -80,14 +82,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 30,
     borderRadius: 10,
-    backgroundColor: "#009688",
   },
   text: {
     fontSize: 18,
-    color: "#fff",
-    fontWeight: "bold",
-    textTransform: "uppercase"
-  }
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+    color: theme.colorOnHabitButton,
+  },
 });
 
 export default HabitButton;

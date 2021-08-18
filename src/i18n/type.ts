@@ -21,11 +21,23 @@ export default interface Translation {
   /* Habit */
   habit: string;
   category: string;
+  type: string;
 
   /* Habit creation/update */
   selectCategory: string;
   categorySelectionHeader: string;
+  selectType: string;
+  typeSelectionHeader: string;
   update: string;
+
+  /* Statistics */
+  activeHabitsStats: string;
+  archivedHabitsStats: string;
+  completedStats: string;
+  percentageStats: string;
+  bestStreakStats: string;
+  currentStreakStats: string;
+  creationDate: string;
 
   /* Settings */
   account: string;
@@ -34,10 +46,6 @@ export default interface Translation {
   registrationDate: string;
   deleteAccount: string;
   deleteAccountAlertMessage: string;
-
-  /* Misc */
-  confirm: string;
-  create: string;
 
   /* Days of week */
   monday: string;
@@ -54,6 +62,12 @@ export default interface Translation {
   monthEnd: string;
 
   /* Reminders */
+  timeReminder: string;
+  locationReminder: string;
+  dailyReminders: string;
+  weeklyReminders: string;
+  monthlyReminders: string;
+  locationReminders: string;
   locationName: string;
   deleteReminder: string;
   deleteReminderAlertMessage: string;
@@ -66,4 +80,10 @@ export default interface Translation {
   deleteHabitAlertMessage: string;
   archiveHabit: string;
   archiveHabitAlertMessage: string;
+
+  /* Misc */
+  confirm: string;
+  create: string;
+  author: string;
+  version: string;
 }

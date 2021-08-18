@@ -23,11 +23,23 @@ const mapping: Translation = {
   /* Habit */
   habit: 'Habit',
   category: 'Categoria',
+  type: 'Tipologia',
 
   /* Habit creation/update */
   selectCategory: 'Seleziona categoria',
   categorySelectionHeader: 'Seleziona una categoria esistente o creane una nuova',
+  selectType: 'Seleziona tipologia',
+  typeSelectionHeader: 'Seleziona una tipologia di habit',
   update: 'Aggiorna',
+
+  /* Statistics */
+  activeHabitsStats: 'Habit attivi',
+  archivedHabitsStats: 'Habit archiviati',
+  completedStats: 'Completati',
+  percentageStats: 'Percentuale',
+  bestStreakStats: 'Serie migliore',
+  currentStreakStats: 'Serie attuale',
+  creationDate: 'Data di creazione',
 
   /* Settings */
   account: 'Account',
@@ -52,13 +64,15 @@ const mapping: Translation = {
   monthEnd: 'Fine mese',
 
   /* Reminders */
+  timeReminder: 'Tempo',
+  locationReminder: 'Luogo',
+  dailyReminders: 'Promemoria giornalieri',
+  weeklyReminders: 'Promemoria settimanali',
+  monthlyReminders: 'Promemoria mensili',
+  locationReminders: 'Promemoria luogo',
   locationName: 'Nome luogo',
   deleteReminder: 'Elimina promemoria',
   deleteReminderAlertMessage: 'Sei sicuro di voler eliminare questo promemoria?',
-
-  /* Misc */
-  confirm: 'Conferma',
-  create: 'Crea',
 
   /* Alert dialog */
   cancel: 'Annulla',
@@ -68,6 +82,12 @@ const mapping: Translation = {
   deleteHabitAlertMessage: 'Sei sicuro di voler eliminare questo habit?',
   archiveHabit: 'Archivia habit',
   archiveHabitAlertMessage: 'Sei sicuro di voler archiviare questo habit?',
-}
+
+  /* Misc */
+  confirm: 'Conferma',
+  create: 'Crea',
+  author: 'Autore',
+  version: 'Versione',
+};
 
 export default mapping;
