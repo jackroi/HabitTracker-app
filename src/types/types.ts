@@ -35,8 +35,8 @@ export type SettingsStackParamList = {
 
 export type AppTabParamList = {
   Home: NavigatorScreenParams<HomeStackParamList>;
-  Reminders: NavigatorScreenParams<RemindersStackParamList>;
   Statistics: NavigatorScreenParams<StatisticsStackParamList>;
+  Reminders: NavigatorScreenParams<RemindersStackParamList>;
   Settings: NavigatorScreenParams<SettingsStackParamList>;
 };
 
@@ -99,16 +99,6 @@ export type AddReminderScreenNavigationProps = {
 };
 
 
-// RemindersScreen
-type RemindersScreenNavigationProp = CompositeNavigationProp<
-  StackNavigationProp<RemindersStackParamList, 'Reminders'>,
-  BottomTabNavigationProp<AppTabParamList>
->
-
-export type RemindersScreenNavigationProps = {
-  navigation: RemindersScreenNavigationProp;
-};
-
 // StatisticsScreen
 type StatisticsScreenNavigationProp = CompositeNavigationProp<
   StackNavigationProp<StatisticsStackParamList, 'Statistics'>,
@@ -131,6 +121,18 @@ export type StatisticsDetailsScreenNavigationProps = {
   navigation: StatisticsDetailsScreenNavigationProp;
   route: StatisticsDetailsScreenRouteProp;
 };
+
+
+// RemindersScreen
+type RemindersScreenNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<RemindersStackParamList, 'Reminders'>,
+  BottomTabNavigationProp<AppTabParamList>
+>
+
+export type RemindersScreenNavigationProps = {
+  navigation: RemindersScreenNavigationProp;
+};
+
 
 // SettingsScreen
 type SettingsScreenNavigationProp = CompositeNavigationProp<
