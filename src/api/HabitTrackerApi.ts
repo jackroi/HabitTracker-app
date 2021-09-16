@@ -27,8 +27,8 @@ import { err, ok, Result } from "../utils/Result";
 
 export class HabitTrackerApi {
   // TODO .env
-  // private static BASE_URL = 'http://192.168.1.14:8000/v0.0.1/';
-  private static BASE_URL = 'http://192.168.1.136:8000/v0.0.1/';
+  private static BASE_URL = 'http://192.168.1.14:8000/v0.0.1/';
+  // private static BASE_URL = 'http://192.168.1.136:8000/v0.0.1/';
   private http: AxiosInstance;
   private token: string | null;
 

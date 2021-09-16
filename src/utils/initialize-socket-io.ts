@@ -3,7 +3,8 @@ import ClientEvents from '../api/models/eventTypes/ClientEvents';
 import ServerEvents from '../api/models/eventTypes/ServerEvents';
 
 // TODO .env ???
-const BASE_SOCKET_URL = 'http://192.168.1.136:8000';
+const BASE_SOCKET_URL = 'http://192.168.1.14:8000';
+// const BASE_SOCKET_URL = 'http://192.168.1.136:8000';
 
 let socket: Socket<ServerEvents, ClientEvents>;
 
