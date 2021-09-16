@@ -17,6 +17,9 @@ import { GetHabitsResponseBody } from '../../api/httpTypes/responses';
 import { DateTime } from 'luxon';
 
 
+// TODO mostrare testo "non hai impostato alcun promemoria" se non esiste nessun promemoria
+
+
 type ReminderItemData = {
   habit: ClientHabit;
   reminderId: number;
