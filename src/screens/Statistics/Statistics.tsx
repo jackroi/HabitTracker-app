@@ -105,22 +105,18 @@ const StatisticsScreen = ({ navigation }: StatisticsScreenNavigationProps) => {
 
   useEffect(() => {
     const socket = getSocket();
-    socket.on('habitCreated', () => {
-      console.info('received event:','habitCreated')
-      fetchHabitsAndStats();
-    });
-    socket.on('habitUpdated', () => {
-      console.info('received event:','habitUpdated')
-      fetchHabitsAndStats();
-    });
-    socket.on('habitHistoryUpdated', () => {
-      console.info('received event:','habitHistoryUpdated')
-      fetchHabitsAndStats();
-    });
-    socket.on('habitDeleted', () => {
-      console.info('received event:','habitDeleted')
-      fetchHabitsAndStats();
-    });
+
+    socket.on('habitCreated', fetchHabitsAndStats);
+    socket.on('habitUpdated', fetchHabitsAndStats);
+    socket.on('habitHistoryUpdated', fetchHabitsAndStats);
+    socket.on('habitDeleted', fetchHabitsAndStats);
+
+    return () => {
+      socket.off('habitCreated', fetchHabitsAndStats);
+      socket.off('habitUpdated', fetchHabitsAndStats);
+      socket.off('habitHistoryUpdated', fetchHabitsAndStats);
+      socket.off('habitDeleted', fetchHabitsAndStats);
+    };
   }, []);
 
   const renderItem = ({ item }: { item: ClientHabit }) => {

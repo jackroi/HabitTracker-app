@@ -315,31 +315,25 @@ const StatisticsDetailsScreen = ({ navigation, route }: StatisticsDetailsScreenN
 
   useEffect(() => {
     const socket = getSocket();
-    socket.on('habitCreated', (interestedHabitId) => {
-      console.info('received event:','habitCreated')
+
+    const listener = (interestedHabitId: string) => {
       if (interestedHabitId === habitId) {
         fetchStats();
       }
-    });
-    socket.on('habitUpdated', (interestedHabitId) => {
-      console.info('received event:','habitUpdated')
-      if (interestedHabitId === habitId) {
-        fetchStats();
-      }
-    });
-    socket.on('habitHistoryUpdated', (interestedHabitId) => {
-      console.info('received event:','habitHistoryUpdated')
-      if (interestedHabitId === habitId) {
-        fetchStats();
-      }
-    });
-    socket.on('habitDeleted', (interestedHabitId) => {
-      console.info('received event:','habitDeleted')
-      if (interestedHabitId === habitId) {
-        fetchStats();
-      }
-    });
-  }, []);
+    };
+
+    socket.on('habitCreated', listener);
+    socket.on('habitUpdated', listener);
+    socket.on('habitHistoryUpdated', listener);
+    socket.on('habitDeleted', listener);
+
+    return () => {
+      socket.off('habitCreated', listener);
+      socket.off('habitUpdated', listener);
+      socket.off('habitHistoryUpdated', listener);
+      socket.off('habitDeleted', listener);
+    };
+  }, [habitId]);
 
   return (
     <View style={dynamicStyles.container}>

@@ -128,23 +128,19 @@ const HomeScreen = ({ navigation }: HomeScreenNavigationProps) => {
 
   useEffect(() => {
     const socket = getSocket();
-    socket.on('habitCreated', () => {
-      console.info('received event:','habitCreated')
-      fetchHabits();
-    });
-    socket.on('habitUpdated', () => {
-      console.info('received event:','habitUpdated')
-      fetchHabits();
-    });
-    socket.on('habitHistoryUpdated', () => {
-      console.info('received event:','habitHistoryUpdated')
-      fetchHabits();
-    });
-    socket.on('habitDeleted', () => {
-      console.info('received event:','habitDeleted')
-      fetchHabits();
-    });
-  }, []);
+
+    socket.on('habitCreated', fetchHabits);
+    socket.on('habitUpdated', fetchHabits);
+    socket.on('habitHistoryUpdated', fetchHabits);
+    socket.on('habitDeleted', fetchHabits);
+
+    return () => {
+      socket.off('habitCreated', fetchHabits);
+      socket.off('habitUpdated', fetchHabits);
+      socket.off('habitHistoryUpdated', fetchHabits);
+      socket.off('habitDeleted', fetchHabits);
+    };
+  }, [date]);
 
   const theme = getTheme(useColorScheme());
   const dynamicStyles = useMemo(() => styles(theme), [theme]);

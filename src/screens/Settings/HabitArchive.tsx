@@ -91,14 +91,14 @@ const HabitArchiveScreen = ({ navigation }: StatisticsScreenNavigationProps) => 
 
   useEffect(() => {
     const socket = getSocket();
-    socket.on('habitUpdated', () => {
-      console.info('received event:','habitUpdated')
-      fetchArchivedHabits();
-    });
-    socket.on('habitDeleted', () => {
-      console.info('received event:','habitDeleted')
-      fetchArchivedHabits();
-    });
+
+    socket.on('habitUpdated', fetchArchivedHabits);
+    socket.on('habitDeleted', fetchArchivedHabits);
+
+    return () => {
+      socket.off('habitUpdated', fetchArchivedHabits);
+      socket.off('habitDeleted', fetchArchivedHabits);
+    };
   }, []);
 
 
