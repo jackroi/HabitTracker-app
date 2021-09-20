@@ -23,6 +23,7 @@ import { t } from 'i18n-js';
 import { Theme, getTheme } from '../styles/themes';
 import { HabitTrackerApi } from '../api/HabitTrackerApi';
 import { useNavigation } from '@react-navigation/native';
+import Toast from 'react-native-root-toast';
 
 
 // TODO
@@ -101,14 +102,26 @@ const ModalMenu = ({ visible, habitId, forArchived, onRequestClose }: CategoryPi
           {
             text: t('archive'),
             style: 'default',
-            onPress: () => {
+            onPress: async () => {
               if (!habitId) {
                 return;
               }
 
-              // TODO gestire errore
-              habitTrackerApi.archiveHabit(habitId);
               onRequestClose();
+
+              const result = await habitTrackerApi.archiveHabit(habitId);
+              if (!result.success) {
+                Toast.show(result.error, {
+                  duration: Toast.durations.LONG,
+                  position: -100,
+                  backgroundColor: theme.colorToastBackground,
+                  textColor: theme.colorToastText,
+                  shadow: true,
+                  animation: true,
+                  hideOnPress: true,
+                  delay: 0,
+                });
+              }
             },
           }
         ],
@@ -119,13 +132,27 @@ const ModalMenu = ({ visible, habitId, forArchived, onRequestClose }: CategoryPi
     );
   };
 
-  const unarchiveHabit = () => {
+  const unarchiveHabit = async () => {
     if (!habitId) {
       return;
     }
 
-    habitTrackerApi.unarchiveHabit(habitId);
     onRequestClose();
+
+    const result = await habitTrackerApi.unarchiveHabit(habitId);
+
+    if (!result.success) {
+      Toast.show(result.error, {
+        duration: Toast.durations.LONG,
+        position: -100,
+        backgroundColor: theme.colorToastBackground,
+        textColor: theme.colorToastText,
+        shadow: true,
+        animation: true,
+        hideOnPress: true,
+        delay: 0,
+      });
+    }
   }
 
   const showDeleteHabitDialog = () => {
@@ -141,14 +168,27 @@ const ModalMenu = ({ visible, habitId, forArchived, onRequestClose }: CategoryPi
           {
             text: t('delete'),
             style: 'destructive',
-            onPress: () => {
+            onPress: async () => {
               if (!habitId) {
                 return;
               }
 
-              // TODO gestire errore
-              habitTrackerApi.deleteHabit(habitId);
               onRequestClose();
+
+              const result = await habitTrackerApi.deleteHabit(habitId);
+
+              if (!result.success) {
+                Toast.show(result.error, {
+                  duration: Toast.durations.LONG,
+                  position: -100,
+                  backgroundColor: theme.colorToastBackground,
+                  textColor: theme.colorToastText,
+                  shadow: true,
+                  animation: true,
+                  hideOnPress: true,
+                  delay: 0,
+                });
+              }
             },
           }
         ],

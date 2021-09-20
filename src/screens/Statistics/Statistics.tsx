@@ -14,6 +14,7 @@ import { DateTime } from 'luxon';
 import Box from '../../components/Box';
 import getSocket from '../../utils/initialize-socket-io';
 import { Ok } from '../../utils/Result';
+import Toast from 'react-native-root-toast';
 
 
 interface State {
@@ -86,6 +87,16 @@ const StatisticsScreen = ({ navigation }: StatisticsScreenNavigationProps) => {
     for (let result of results) {
       if (!result.success) {
         dispatch({ type: 'FETCH_FAILURE', errorMessage: result.error });
+        Toast.show(result.error, {
+          duration: Toast.durations.LONG,
+          position: -100,
+          backgroundColor: theme.colorToastBackground,
+          textColor: theme.colorToastText,
+          shadow: true,
+          animation: true,
+          hideOnPress: true,
+          delay: 0,
+        });
         return;
       }
     }

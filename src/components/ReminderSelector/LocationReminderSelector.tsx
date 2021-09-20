@@ -8,6 +8,7 @@ import { Theme, getTheme } from '../../styles/themes';
 import { HabitType } from '../../api/models/Habit';
 import { t } from 'i18n-js';
 import { DailyReminderInfo, LocationReminderInfo, MonthlyReminderInfo, ReminderType, ReminderInfo, WeeklyReminderInfo } from '../../types/Reminder';
+import Toast from 'react-native-root-toast';
 
 
 
@@ -41,7 +42,18 @@ const LocationReminderSelector = ({ onConfirm }: LocationReminderSelectorProps) 
   const onConfirmCallback = () => {
     const cleanedLocationName = locationName.trim();
     if (!selectedLocation || !cleanedLocationName) {
-      // TODO eventuale Toast d'errore
+      // TODO i18n
+      Toast.show('Missing location name or location marker', {
+        duration: Toast.durations.LONG,
+        position: -100,
+        backgroundColor: theme.colorToastBackground,
+        textColor: theme.colorToastText,
+        opacity: 0.9,
+        shadow: true,
+        animation: true,
+        hideOnPress: true,
+        delay: 0,
+      });
       return;
     }
     const reminderInfo: LocationReminderInfo = {
@@ -81,9 +93,13 @@ const LocationReminderSelector = ({ onConfirm }: LocationReminderSelectorProps) 
           }}
           onPress={(e) => setSelectedLocation(e.nativeEvent.coordinate)}
         >
-          <Marker
-            coordinate={selectedLocation || { latitude: location.coords.latitude, longitude: location.coords.longitude }}
-          />
+          { selectedLocation ? (
+            <Marker
+              coordinate={selectedLocation || { latitude: location.coords.latitude, longitude: location.coords.longitude }}
+            />
+          ) : (
+            null
+          )}
         </MapView>
       ) : (
         <View style={dynamicStyles.activityIndicatorView}>

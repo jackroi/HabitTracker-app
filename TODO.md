@@ -18,3 +18,8 @@ predisporre un bottone in settings per eseguire rescheduling di tutte le notific
 - Ordinare habit in home, statistics e archive
 
 - Valutare se spostare logica current/best streak da backend a frontend
+
+- Creare schermate apposite per quando non ci sono habit ('non esistono ancora habit') e forse per
+quando ci sono errori di rete (magari refresh button)
+
+- i18n errori, (magari fare errori generali, tipo 'Something went wrong')

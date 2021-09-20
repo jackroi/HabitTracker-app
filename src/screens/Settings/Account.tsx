@@ -7,6 +7,7 @@ import { HabitTrackerApi } from '../../api/HabitTrackerApi';
 import { DateTime } from 'luxon';
 import { AccountScreenNavigationProps } from '../../types/types';
 import AuthContext from '../../contexts/AuthContext';
+import Toast from 'react-native-root-toast';
 
 
 const AccountScreen = ({ navigation, route }: AccountScreenNavigationProps) => {
@@ -36,7 +37,16 @@ const AccountScreen = ({ navigation, route }: AccountScreenNavigationProps) => {
         });
       }
       else {
-        // TODO maybe toast
+        Toast.show(result.error, {
+          duration: Toast.durations.LONG,
+          position: -100,
+          backgroundColor: theme.colorToastBackground,
+          textColor: theme.colorToastText,
+          shadow: true,
+          animation: true,
+          hideOnPress: true,
+          delay: 0,
+        });
         console.warn('An error occurred while fetching account information');
       }
     };

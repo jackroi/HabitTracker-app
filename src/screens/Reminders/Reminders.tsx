@@ -15,6 +15,7 @@ import * as RemindersDb from '../../db/reminders-db';
 import { Ok } from '../../utils/Result';
 import { GetHabitsResponseBody } from '../../api/httpTypes/responses';
 import { DateTime } from 'luxon';
+import Toast from 'react-native-root-toast';
 
 
 // TODO mostrare testo "non hai impostato alcun promemoria" se non esiste nessun promemoria
@@ -145,13 +146,13 @@ const getHabitFromId = (habits: ClientHabit[], habitId: string): ClientHabit | n
 interface State {
   reminders: ReminderItemData[];
   isLoading: boolean;
-  errorMessage: string;
+  // errorMessage: string;
 }
 
 type Action =
   | { type: 'FETCH_INIT' }
   | { type: 'FETCH_SUCCESS', reminders: ReminderItemData[] }
-  | { type: 'FETCH_FAILURE', errorMessage: string };
+  | { type: 'FETCH_FAILURE' /* , errorMessage: string */ };
 
 
 const RemindersScreen = ({ navigation }: RemindersScreenNavigationProps) => {
@@ -171,7 +172,7 @@ const RemindersScreen = ({ navigation }: RemindersScreenNavigationProps) => {
             ...state,
             // habits: [],     // TODO valutare
             isLoading: true,
-            errorMessage: '',
+            // errorMessage: '',
           };
 
         case 'FETCH_SUCCESS':
@@ -179,7 +180,7 @@ const RemindersScreen = ({ navigation }: RemindersScreenNavigationProps) => {
             ...state,
             reminders: action.reminders,
             isLoading: false,
-            errorMessage: '',
+            // errorMessage: '',
           };
 
         case 'FETCH_FAILURE':
@@ -187,14 +188,14 @@ const RemindersScreen = ({ navigation }: RemindersScreenNavigationProps) => {
             ...state,
             reminders: [],    // TODO valutare se lasciare la lista precedente all'errore
             isLoading: false,
-            errorMessage: action.errorMessage,
+            // errorMessage: action.errorMessage,
           };
       }
     },
     {
       reminders: [],
       isLoading: false,
-      errorMessage: '',
+      // errorMessage: '',
     }
   );
 
@@ -241,7 +242,17 @@ const RemindersScreen = ({ navigation }: RemindersScreenNavigationProps) => {
 
     for (let result of results) {
       if (!result.success) {
-        dispatch({ type: 'FETCH_FAILURE', errorMessage: result.error });
+        dispatch({ type: 'FETCH_FAILURE' /* , errorMessage: result.error */ });
+        Toast.show(result.error, {
+          duration: Toast.durations.LONG,
+          position: -100,
+          backgroundColor: theme.colorToastBackground,
+          textColor: theme.colorToastText,
+          shadow: true,
+          animation: true,
+          hideOnPress: true,
+          delay: 0,
+        });
         return;
       }
     }

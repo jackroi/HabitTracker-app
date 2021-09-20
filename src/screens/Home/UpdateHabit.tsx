@@ -21,6 +21,7 @@ import ModalPicker from '../../components/ModalPicker';
 import { HabitTrackerApi } from '../../api/HabitTrackerApi';
 import { ClientHabit, HabitType } from '../../api/models/Habit';
 import { DateTime } from 'luxon';
+import Toast from 'react-native-root-toast';
 
 
 const validateHabitName = (habitName: string): string | null => {
@@ -167,6 +168,17 @@ const UpdateHabitScreen = ({ navigation, route }: UpdateHabitScreenNavigationPro
       }
       else {
         dispatch({ type: 'FETCH_FAILURE', errorMessage: result.error });
+
+        Toast.show(result.error, {
+          duration: Toast.durations.LONG,
+          position: -100,
+          backgroundColor: theme.colorToastBackground,
+          textColor: theme.colorToastText,
+          shadow: true,
+          animation: true,
+          hideOnPress: true,
+          delay: 0,
+        });
       }
     }
 
@@ -217,11 +229,33 @@ const UpdateHabitScreen = ({ navigation, route }: UpdateHabitScreenNavigationPro
               const cleanedName = validateHabitName(state.habit.name);
               if (!cleanedName) {
                 dispatch({ type: 'VALIDATION_ERROR', errorMessage: 'Missing name' });
+
+                Toast.show('Missing name', {
+                  duration: Toast.durations.LONG,
+                  position: -100,
+                  backgroundColor: theme.colorToastBackground,
+                  textColor: theme.colorToastText,
+                  shadow: true,
+                  animation: true,
+                  hideOnPress: true,
+                  delay: 0,
+                });
                 return;
               }
               const cleanedCategory = validateHabitCategory(state.habit.category);
               if (!cleanedCategory) {
                 dispatch({ type: 'VALIDATION_ERROR', errorMessage: 'Missing category' });
+
+                Toast.show('Missing category', {
+                  duration: Toast.durations.LONG,
+                  position: -100,
+                  backgroundColor: theme.colorToastBackground,
+                  textColor: theme.colorToastText,
+                  shadow: true,
+                  animation: true,
+                  hideOnPress: true,
+                  delay: 0,
+                });
                 return;
               }
               // TODO send input to server
@@ -229,6 +263,17 @@ const UpdateHabitScreen = ({ navigation, route }: UpdateHabitScreenNavigationPro
               if (!result.success) {
                 console.warn('Update habit failed');
                 dispatch({ type: 'VALIDATION_ERROR', errorMessage: result.error });
+
+                Toast.show(result.error, {
+                  duration: Toast.durations.LONG,
+                  position: -100,
+                  backgroundColor: theme.colorToastBackground,
+                  textColor: theme.colorToastText,
+                  shadow: true,
+                  animation: true,
+                  hideOnPress: true,
+                  delay: 0,
+                });
                 return;
               }
               // TODO update local stored habit ???
@@ -240,7 +285,7 @@ const UpdateHabitScreen = ({ navigation, route }: UpdateHabitScreenNavigationPro
 
           {/* Error message banner */}
           {/* TODO use toast maybe */}
-          <Text style={{ color: '#FF0000'}}>{state.errorMessage}</Text>
+          {/* <Text style={{ color: '#FF0000'}}>{state.errorMessage}</Text> */}
 
         </View>
       </TouchableWithoutFeedback>

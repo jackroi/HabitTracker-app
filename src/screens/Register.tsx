@@ -83,7 +83,10 @@ const LoginScreen = ({ navigation }: RegisterScreenNavigationProps) => {
 
           <TouchableOpacity
             style={dynamicStyles.registerButton}
-            onPress={() => register({ name, email, password })}
+            onPress={() => {
+              Keyboard.dismiss();
+              register({ name, email, password });
+            }}
           >
             <Text style={dynamicStyles.registerButtonText}>{t('register')}</Text>
           </TouchableOpacity>

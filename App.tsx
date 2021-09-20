@@ -9,7 +9,7 @@ import i18n from 'i18n-js';
 import en from './src/i18n/en';
 import it from './src/i18n/it';
 
-import { getNavigationTheme } from './src/styles/themes'
+import { getNavigationTheme, getTheme } from './src/styles/themes'
 
 import { AuthNavigator, AppNavigator } from './src/navigations';
 import { SplashScreen } from './src/screens';
@@ -23,6 +23,7 @@ import * as NotificationsHelper from './src/utils/NotificationsHelper';
 // Fix missing 'btoa' and 'atob'
 import { encode, decode } from 'base-64';
 import getSocket from './src/utils/initialize-socket-io';
+import Toast from 'react-native-root-toast';
 if (!global.btoa) { global.btoa = encode; }
 if (!global.atob) { global.atob = decode; }
 
@@ -82,7 +83,8 @@ export default function App() {
     }
   );
 
-  const theme = getNavigationTheme(useColorScheme());
+  const theme = getTheme(useColorScheme());
+  const navigationTheme = getNavigationTheme(useColorScheme());
 
   const habitTrackerApi = HabitTrackerApi.getInstance();
 
@@ -142,7 +144,16 @@ export default function App() {
           dispatch({ type: 'LOG_IN', token: token });
         }
         else {
-          // TODO error handling
+          Toast.show(result.error, {
+            duration: Toast.durations.LONG,
+            position: -100,
+            backgroundColor: theme.colorToastBackground,
+            textColor: theme.colorToastText,
+            shadow: true,
+            animation: true,
+            hideOnPress: true,
+            delay: 0,
+          });
           console.warn('Login went wrong');
         }
       },
@@ -177,12 +188,24 @@ export default function App() {
           dispatch({ type: 'LOG_IN', token: token });
         }
         else {
-          // TODO error handling
+          // TODO error handling ???
+
+          Toast.show(result.error, {
+            duration: Toast.durations.LONG,
+            position: -100,
+            backgroundColor: theme.colorToastBackground,
+            textColor: theme.colorToastText,
+            shadow: true,
+            animation: true,
+            hideOnPress: true,
+            delay: 0,
+          });
+
           console.warn('Registration went wrong');
         }
       },
     }),
-    []
+    [theme]
   );
 
   const _handleAppStateChange = async (nextAppState: AppStateStatus) => {
@@ -249,7 +272,7 @@ export default function App() {
 
   return (
     <NavigationContainer
-      theme={theme}
+      theme={navigationTheme}
     >
       <StatusBar style="auto" />
       <RootSiblingParent>

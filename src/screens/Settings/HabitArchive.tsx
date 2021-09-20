@@ -12,6 +12,7 @@ import { GetHabitsResponseBody } from '../../api/httpTypes/responses';
 import { DateTime } from 'luxon';
 import ModalMenu from '../../components/ModalMenu';
 import getSocket from '../../utils/initialize-socket-io';
+import Toast from 'react-native-root-toast';
 
 
 interface State {
@@ -82,6 +83,17 @@ const HabitArchiveScreen = ({ navigation }: StatisticsScreenNavigationProps) => 
     }
     else {
       dispatch({ type: 'FETCH_FAILURE', errorMessage: result.error });
+
+      Toast.show(result.error, {
+        duration: Toast.durations.LONG,
+        position: -100,
+        backgroundColor: theme.colorToastBackground,
+        textColor: theme.colorToastText,
+        shadow: true,
+        animation: true,
+        hideOnPress: true,
+        delay: 0,
+      });
     }
   };
 

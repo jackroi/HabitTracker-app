@@ -17,6 +17,7 @@ import ModalMenu from '../../components/ModalMenu';
 import UpdateHabitScreen from './UpdateHabit';
 import getSocket from '../../utils/initialize-socket-io';
 import AddReminderScreen from './AddReminder';
+import Toast from 'react-native-root-toast';
 
 
 interface HabitView {
@@ -119,6 +120,17 @@ const HomeScreen = ({ navigation }: HomeScreenNavigationProps) => {
     }
     else {
       dispatch({ type: 'FETCH_FAILURE', errorMessage: result.error });
+
+      Toast.show(result.error, {
+        duration: Toast.durations.LONG,
+        position: -100,
+        backgroundColor: theme.colorToastBackground,
+        textColor: theme.colorToastText,
+        shadow: true,
+        animation: true,
+        hideOnPress: true,
+        delay: 0,
+      });
     }
   };
 
@@ -174,7 +186,17 @@ const HomeScreen = ({ navigation }: HomeScreenNavigationProps) => {
             }
             else {
               console.warn('An error occurred while updating habit state');
-              // TODO better error handling ?
+
+              Toast.show(result.error, {
+                duration: Toast.durations.LONG,
+                position: -100,
+                backgroundColor: theme.colorToastBackground,
+                textColor: theme.colorToastText,
+                shadow: true,
+                animation: true,
+                hideOnPress: true,
+                delay: 0,
+              });
               // TODO maybe i should change the UI state back
             }
           }}

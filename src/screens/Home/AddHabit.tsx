@@ -135,7 +135,6 @@ const AddHabitScreen = ({ navigation }: AddHabitScreenNavigationProps) => {
               };
 
               // TODO i18n
-              // TODO validate input
               const cleanedName = validateHabitName(habitName);
               if (!cleanedName) {
                 // setErrorMessage('Missing habit name');
@@ -154,7 +153,6 @@ const AddHabitScreen = ({ navigation }: AddHabitScreenNavigationProps) => {
                 Toast.show('Missing type', toastOptions);
                 return;
               }
-              // TODO send input to server
               const result = await habitTrackerApi.createHabit(cleanedName, cleanedCategory, cleanedType);
               if (!result.success) {
                 console.warn('Create habit failed');
@@ -162,7 +160,6 @@ const AddHabitScreen = ({ navigation }: AddHabitScreenNavigationProps) => {
                 Toast.show(result.error, toastOptions);
                 return;
               }
-              // TODO add newly created habit to locally stored habit list
               navigation.goBack();
             }}
           >

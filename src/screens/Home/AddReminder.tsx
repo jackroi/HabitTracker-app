@@ -29,6 +29,7 @@ import TimeReminderSelector from '../../components/ReminderSelector/TimeReminder
 
 import * as RemindersDb from '../../db/reminders-db';
 import * as NotificationsHelper from '../../utils/NotificationsHelper';
+import Toast from 'react-native-root-toast';
 
 
 
@@ -54,7 +55,16 @@ const AddReminderScreen = ({ navigation, route }: AddReminderScreenNavigationPro
   const onConfirmCallback = async (reminderInfo: ReminderInfo) => {
     const result = await HabitTrackerApi.getInstance().getHabit(habitId);
     if (!result.success) {
-      // TODO eventuale toast di errore
+      Toast.show(result.error, {
+        duration: Toast.durations.LONG,
+        position: -100,
+        backgroundColor: theme.colorToastBackground,
+        textColor: theme.colorToastText,
+        shadow: true,
+        animation: true,
+        hideOnPress: true,
+        delay: 0,
+      });
       return;
     }
 

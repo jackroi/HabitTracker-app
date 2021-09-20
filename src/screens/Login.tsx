@@ -59,7 +59,11 @@ const LoginScreen = ({ navigation }: LoginScreenNavigationProps) => {
 
           <TouchableOpacity
             style={dynamicStyles.loginButton}
-            onPress={() => login({ email, password })}
+            onPress={() => {
+              Keyboard.dismiss();
+              // TODO validate input here and in register
+              login({ email, password });
+            }}
           >
             <Text style={dynamicStyles.loginButtonText}>{t('login').toUpperCase()}</Text>
           </TouchableOpacity>
