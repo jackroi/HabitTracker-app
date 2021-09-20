@@ -73,6 +73,7 @@ const mapping: Translation = {
   locationName: 'Nome luogo',
   deleteReminder: 'Elimina promemoria',
   deleteReminderAlertMessage: 'Sei sicuro di voler eliminare questo promemoria?',
+  noRemindersSetted: 'Nessun promemoria impostato',
 
   /* Alert dialog */
   cancel: 'Annulla',

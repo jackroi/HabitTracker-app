@@ -297,13 +297,22 @@ const RemindersScreen = ({ navigation }: RemindersScreenNavigationProps) => {
 
   return (
     <View style={dynamicStyles.container}>
-      <SectionList
-        sections={divideRemindersBySection(state.reminders)}
-        renderItem={renderItem}
-        renderSectionHeader={renderSectionHeader}
-        stickySectionHeadersEnabled={false}
-        keyExtractor={(item) => item.reminderId.toString()}
-      />
+      {
+        state.reminders.length === 0 ?
+        (
+          <Text style={dynamicStyles.text}>{t('noRemindersSetted')}</Text>
+        )
+        :
+        (
+          <SectionList
+            sections={divideRemindersBySection(state.reminders)}
+            renderItem={renderItem}
+            renderSectionHeader={renderSectionHeader}
+            stickySectionHeadersEnabled={false}
+            keyExtractor={(item) => item.reminderId.toString()}
+          />
+        )
+      }
     </View>
   );
 };

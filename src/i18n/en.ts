@@ -73,6 +73,7 @@ const mapping: Translation = {
   locationName: 'Location name',
   deleteReminder: 'Delete reminder',
   deleteReminderAlertMessage: 'Are you sure you want to delete this reminder?',
+  noRemindersSetted: 'No reminders setted',
 
   /* Alert dialog */
   cancel: 'Cancel',

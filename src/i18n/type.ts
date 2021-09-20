@@ -71,6 +71,7 @@ export default interface Translation {
   locationName: string;
   deleteReminder: string;
   deleteReminderAlertMessage: string;
+  noRemindersSetted: string;
 
   /* Alert dialog */
   cancel: string;
