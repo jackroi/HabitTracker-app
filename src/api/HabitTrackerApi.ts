@@ -123,7 +123,7 @@ export class HabitTrackerApi {
     }
     catch (error) {
       const errorMessage: string = this.handleError(error);
-      return err(errorMessage);
+      return err(errorMessage || 'Login failed');
     }
   }
 
@@ -522,7 +522,7 @@ export class HabitTrackerApi {
       // console.warn(error.response.status);
       // console.warn(error.response.headers);
       const errorBody = error.response.data as ErrorResponseBody;
-      errorMessage = errorBody.errorMessage
+      errorMessage = errorBody.errorMessage;      // ! could be undefined (when login using HTTP Basic Authentication)
     }
     else if (error.request) {
       // The request was made but no response was received
