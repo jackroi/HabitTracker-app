@@ -50,6 +50,10 @@ interface Theme {
   colorSkippedHabitCell: string;
   colorNotCompletedHabitCell: string;
 
+  /* Toast colors */
+  colorToastBackground: string;
+  colorToastText: string;
+
   /* Placeholder text color */
   colorPlaceholderText: string;     // TODO valutare meglio che colore usare
                                     // TODO e usarlo nei vari text input
@@ -104,6 +108,10 @@ const lightTheme: Theme = {
   colorSkippedHabitCell: '#967a00',
   colorNotCompletedHabitCell: '#cccccc',
 
+  /* Toast colors */
+  colorToastBackground: Colors.black,
+  colorToastText: Colors.white,
+
   /* Placeholder text color */
   colorPlaceholderText: '#9b9b9b',
 };
@@ -153,6 +161,10 @@ const darkTheme: Theme = {
   colorCompletedHabitCell: '#00EE88',
   colorSkippedHabitCell: '#967a00',
   colorNotCompletedHabitCell: '#333333',
+
+  /* Toast colors */
+  colorToastBackground: '#3b3b3b',
+  colorToastText: Colors.white,
 
   /* Placeholder text color */
   colorPlaceholderText: '#7b7b7b',
