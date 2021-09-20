@@ -2,6 +2,7 @@ import React, { useReducer, useEffect, useMemo, useRef } from 'react';
 import { AppState, AppStateStatus, useColorScheme, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
+import { RootSiblingParent } from 'react-native-root-siblings';
 import * as SecureStore from 'expo-secure-store';
 import * as Localization from 'expo-localization';
 import i18n from 'i18n-js';
@@ -251,13 +252,15 @@ export default function App() {
       theme={theme}
     >
       <StatusBar style="auto" />
-      <AuthContext.Provider value={authContext}>
-        {state.userToken === null ? (
-          <AuthNavigator />
-        ) : (
-          <AppNavigator />
-        )}
-      </AuthContext.Provider>
+      <RootSiblingParent>
+        <AuthContext.Provider value={authContext}>
+          {state.userToken === null ? (
+            <AuthNavigator />
+          ) : (
+            <AppNavigator />
+          )}
+        </AuthContext.Provider>
+      </RootSiblingParent>
     </NavigationContainer>
   );
 }

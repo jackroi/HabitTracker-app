@@ -20,6 +20,7 @@ import { AddHabitScreenNavigationProps } from '../../types/types';
 import ModalPicker from '../../components/ModalPicker';
 import { HabitTrackerApi } from '../../api/HabitTrackerApi';
 import { HabitType } from '../../api/models/Habit';
+import Toast, { ToastOptions } from 'react-native-root-toast';
 
 
 const validateHabitName = (habitName: string): string | null => {
@@ -53,7 +54,7 @@ const validateHabitType = (habitType: string): HabitType | null => {
 
 
 const AddHabitScreen = ({ navigation }: AddHabitScreenNavigationProps) => {
-  const [errorMessage, setErrorMessage] = useState('');
+  // const [errorMessage, setErrorMessage] = useState('');
   const [habitName, setHabitName] = useState('');
   const [habitCategory, setHabitCategory] = useState('');
   const [habitType, setHabitType] = useState('');
@@ -120,27 +121,45 @@ const AddHabitScreen = ({ navigation }: AddHabitScreenNavigationProps) => {
           <TouchableOpacity
             style={dynamicStyles.createButton}
             onPress={async () => {
+              Keyboard.dismiss();
+
+              const toastOptions: ToastOptions = {
+                duration: Toast.durations.LONG,
+                position: -100,
+                backgroundColor: theme.colorToastBackground,
+                textColor: theme.colorToastText,
+                shadow: true,
+                animation: true,
+                hideOnPress: true,
+                delay: 0,
+              };
+
+              // TODO i18n
               // TODO validate input
               const cleanedName = validateHabitName(habitName);
               if (!cleanedName) {
-                setErrorMessage('Missing habit name');
+                // setErrorMessage('Missing habit name');
+                Toast.show('Missing habit name', toastOptions);
                 return;
               }
               const cleanedCategory = validateHabitCategory(habitCategory);
               if (!cleanedCategory) {
-                setErrorMessage('Missing category');
+                // setErrorMessage('Missing category');
+                Toast.show('Missing category', toastOptions);
                 return;
               }
               const cleanedType = validateHabitType(habitType);
               if (!cleanedType) {
-                setErrorMessage('Missing type');
+                // setErrorMessage('Missing type');
+                Toast.show('Missing type', toastOptions);
                 return;
               }
               // TODO send input to server
               const result = await habitTrackerApi.createHabit(cleanedName, cleanedCategory, cleanedType);
               if (!result.success) {
                 console.warn('Create habit failed');
-                setErrorMessage(result.error);
+                // setErrorMessage(result.error);
+                Toast.show(result.error, toastOptions);
                 return;
               }
               // TODO add newly created habit to locally stored habit list
@@ -152,7 +171,7 @@ const AddHabitScreen = ({ navigation }: AddHabitScreenNavigationProps) => {
 
           {/* Error message banner */}
           {/* TODO use toast maybe */}
-          <Text style={{ color: '#FF0000'}}>{errorMessage}</Text>
+          {/* <Text style={{ color: '#FF0000'}}>{errorMessage}</Text> */}
 
         </View>
       </TouchableWithoutFeedback>
