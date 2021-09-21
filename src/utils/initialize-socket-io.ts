@@ -1,10 +1,10 @@
 import { io, Socket } from 'socket.io-client';
 import ClientEvents from '../api/models/eventTypes/ClientEvents';
 import ServerEvents from '../api/models/eventTypes/ServerEvents';
+import environment from "../environments/environment";
 
-// TODO .env ???
-const BASE_SOCKET_URL = 'http://192.168.1.14:8000';
-// const BASE_SOCKET_URL = 'http://192.168.1.136:8000';
+
+const BASE_SOCKET_URL = `http://${environment.API_HOST}:${environment.API_PORT}`;
 
 let socket: Socket<ServerEvents, ClientEvents>;
 

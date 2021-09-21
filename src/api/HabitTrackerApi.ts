@@ -1,34 +1,29 @@
-
-// interface HabitHistoryEntry {
-//   date: Date;
-//   type: 'COMPLETED' | 'SKIPPED'
-// }
-
 import { DateTime } from "luxon";
 import axios, { AxiosInstance, AxiosError } from 'axios';
-import { AddHabitResponseBody, ErrorResponseBody, GetCategoriesResponseBody, GetGeneralStatsResponseBody, GetHabitHistoryResponseBody, GetHabitResponseBody, GetHabitsForDateResponseBody, GetHabitsResponseBody, GetHabitStatsResponseBody, GetUserResponseBody, LoginResponseBody, RegistrationResponseBody, SuccessResponseBody } from "./httpTypes/responses";
+import { AddHabitResponseBody,
+  ErrorResponseBody,
+  GetCategoriesResponseBody,
+  GetGeneralStatsResponseBody,
+  GetHabitHistoryResponseBody,
+  GetHabitResponseBody,
+  GetHabitsForDateResponseBody,
+  GetHabitsResponseBody,
+  GetHabitStatsResponseBody,
+  GetUserResponseBody,
+  LoginResponseBody,
+  RegistrationResponseBody,
+  SuccessResponseBody
+} from "./httpTypes/responses";
 import { HabitType } from "./models/Habit";
 import { HistoryEntryType } from "./models/HistoryEntry";
 import { err, ok, Result } from "../utils/Result";
+import environment from "../environments/environment";
 
-// type HabitHistory = HabitHistoryEntry[];
 
-// const getHabits = () => {
-//   throw new Error("Not implemented yet");
-// }
-
-// const getHistory = (id: string): HabitHistory => {
-//   throw new Error("Not implemented yet");
-// }
-
-/////////////////////////////////////////////////////////
-
-// TODO valutare se fare qualche validazione parametri
-
+// Singleton
 export class HabitTrackerApi {
-  // TODO .env
-  private static BASE_URL = 'http://192.168.1.14:8000/v0.0.1/';
-  // private static BASE_URL = 'http://192.168.1.136:8000/v0.0.1/';
+  private static BASE_URL = `http://${environment.API_HOST}:${environment.API_PORT}/v${environment.API_VERSION}/`;
+
   private http: AxiosInstance;
   private token: string | null;
 
@@ -42,8 +37,8 @@ export class HabitTrackerApi {
     return this.instance;
   }
 
-  // TODO probabilmente singleton
-  constructor() {
+  private constructor() {
+    console.log(HabitTrackerApi.BASE_URL)
     this.http = axios.create({
       baseURL: HabitTrackerApi.BASE_URL,
       timeout: 3000,
@@ -556,13 +551,3 @@ export class HabitTrackerApi {
   }
 
 }
-
-
-/////////////////////////////////////////////////////////
-
-
-
-async function logout() {
-  // TODO capire se va inserita o no
-}
-
