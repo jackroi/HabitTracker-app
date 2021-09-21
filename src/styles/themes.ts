@@ -24,7 +24,8 @@ interface Theme {
   // colorOnSecondary: string;
 
   /* Tab bar color */
-  colorSelectedTab: string;
+  colorActiveTab: string;
+  colorInactiveTab: string;
 
   /* List colors */
   colorListItem: string;
@@ -82,7 +83,8 @@ const lightTheme: Theme = {
   // colorOnSecondary: string,
 
   /* Tab bar */
-  colorSelectedTab: '#ff6347',
+  colorActiveTab: '#ff6347',
+  colorInactiveTab: '#808080',
 
   /* List colors */
   colorListItem: Colors.white,
@@ -136,7 +138,8 @@ const darkTheme: Theme = {
   // colorOnSecondary: string,
 
   /* Tab bar */
-  colorSelectedTab: '#ff6347',
+  colorActiveTab: '#ff6347',
+  colorInactiveTab: '#808080',
 
   /* List colors */
   colorListItem: '#2b2b2b',
