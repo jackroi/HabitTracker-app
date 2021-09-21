@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { useColorScheme, GestureResponderEvent, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useColorScheme, GestureResponderEvent, StyleSheet, Text, TouchableOpacity, View, TouchableWithoutFeedback } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { DateTime } from 'luxon';
 
@@ -12,6 +12,9 @@ type DatePickerProps = {
   onChange: (date: DateTime) => void;
 }
 
+
+let pressCount = 0;
+let pressTimer: NodeJS.Timeout;
 
 const DatePicker = ({ fromDate, currentDate, onChange }: DatePickerProps) => {
   const theme = getTheme(useColorScheme());
@@ -69,13 +72,29 @@ const DatePicker = ({ fromDate, currentDate, onChange }: DatePickerProps) => {
       </TouchableOpacity>
 
       {/* Date display */}
-      <View
-        // TODO double press reset date to today
+      <TouchableWithoutFeedback
+        onPress={() => {
+          // Double press listener
+          pressCount++;
+          if (pressCount === 2) {
+            // Pressed twice
+            clearTimeout(pressTimer);
+            pressCount = 0;
+            const today = DateTime.now().startOf('day');
+            if (!currentDate.hasSame(today, 'day')) {   // if currentDate is not already today
+              onChange(today);
+            }
+          } else {
+            pressTimer = setTimeout(() => {
+              pressCount = 0;
+            }, 500);
+          }
+        }}
       >
         <Text style={dynamicStyles.text}>
           {currentDate.year}/{currentDate.month}/{currentDate.day}
         </Text>
-      </View>
+      </TouchableWithoutFeedback>
 
       {/* Next date button (right button) */}
       <TouchableOpacity
