@@ -2,7 +2,6 @@ import { DateTime } from 'luxon';
 import { HistoryEntry } from './HistoryEntry';
 
 
-// TODO valutare se renderlo un type = 'DAILY' | 'WEEKLY' | 'MONTHLY
 export enum HabitType {
   DAILY = 'DAILY',
   WEEKLY = 'WEEKLY',
@@ -11,14 +10,11 @@ export enum HabitType {
 
 export interface Habit {
   name: string;
-  creationDate: Date;       // TODO valutare se usare luxon
+  creationDate: Date;
   category: string;
   type: HabitType;
   archived: boolean;
-
-  // TODO valutare se ha senso che sia embedded
   history: HistoryEntry[];
-
   userEmail: string;
 }
 
@@ -26,7 +22,7 @@ export interface Habit {
 export interface ClientHabit {
   id: string;
   name: string;
-  creationDate: DateTime;       // TODO valutare se usare luxon
+  creationDate: DateTime;
   category: string;
   type: HabitType;
   archived: boolean;
