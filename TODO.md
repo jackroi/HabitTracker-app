@@ -23,3 +23,5 @@ predisporre un bottone in settings per eseguire rescheduling di tutte le notific
 quando ci sono errori di rete (magari refresh button)
 
 - i18n errori, (magari fare errori generali, tipo 'Something went wrong')
+
+- Notifiche: come toglierle quando habit eliminati, ecc...

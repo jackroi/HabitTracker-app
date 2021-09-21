@@ -96,8 +96,6 @@ export default function App() {
         userToken = await SecureStore.getItemAsync('userToken');
 
         if (userToken) {
-          // TODO validate token
-
           habitTrackerApi.setToken(userToken);
 
           const socket = getSocket();
@@ -105,8 +103,8 @@ export default function App() {
         }
 
       } catch (error) {
-        // Restoring token failed
-        // TODO
+        // Failed to restore token
+        console.error('An error occurred while restoring token');
       }
 
       dispatch({ type: 'RESTORE_TOKEN', token: userToken });
@@ -188,8 +186,6 @@ export default function App() {
           dispatch({ type: 'LOG_IN', token: token });
         }
         else {
-          // TODO error handling ???
-
           Toast.show(result.error, {
             duration: Toast.durations.LONG,
             position: -100,
@@ -215,11 +211,7 @@ export default function App() {
     ) {
       // App has come to the foreground!
       const socket = getSocket();
-      // TODO apparently this is not needed, because it auto reconnects
-      // socket.connect();
-
-      // TODO must find a way to send 'online' events
-
+      // socket.connect();                      // not needed, it auto reconnects
 
       let userToken: string | null = null;
 
@@ -231,14 +223,9 @@ export default function App() {
         }
 
       } catch (error) {
-        // Restoring token failed
-        // TODO
+        // Failed to restore token
+        console.error('An error occurred while restoring token');
       }
-
-      // if (state.userToken) {
-      //   socket.emit('online', state.userToken);
-      //   console.info('Reconnect to socket, sending online event, after coming to the foreground');
-      // }
     }
 
     appState.current = nextAppState;
