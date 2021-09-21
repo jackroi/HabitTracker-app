@@ -26,29 +26,6 @@ import { useNavigation } from '@react-navigation/native';
 import Toast from 'react-native-root-toast';
 
 
-// TODO
-const MENU_ENTRIES = [
-  {
-    key: 'account',
-    onPress: () => {
-      // navigation.navigate('Account' as any);
-    },
-  },
-  {
-    key: 'logout',
-    onPress: () => {
-    },
-  },
-  {
-    key: 'about',
-    onPress: () => {
-      // navigation.navigate('About' as any);
-    }
-  },
-];
-
-
-
 type MenuItemProps = {
   title: string;
   icon: string;
@@ -217,13 +194,13 @@ const ModalMenu = ({ visible, habitId, forArchived, onRequestClose }: CategoryPi
       onRequestClose={onRequestClose}
     >
       <TouchableWithoutFeedback onPress={onRequestClose}>
+
+        {/* View that covers all the screen */}
         <View
-          style={{
-            flex: 1,
-            justifyContent: 'flex-end',
-          }}
+          style={dynamicStyles.container}
         >
-          <View style={{ backgroundColor: theme.colorBackground, paddingBottom: 36 }}>
+          {/* View that contains the actual menu */}
+          <View style={dynamicStyles.innerContainer}>
             {
               forArchived ? (
                 null
@@ -266,10 +243,13 @@ const ModalMenu = ({ visible, habitId, forArchived, onRequestClose }: CategoryPi
 const BORDER_RADIUS = 20;
 
 const styles = (theme: Theme) => StyleSheet.create({
-  container: {
-    backgroundColor: theme.colorSurface,
-    borderRadius: BORDER_RADIUS,
-    width: '100%',
+  container: {                        // covers all the screen
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
+  innerContainer: {                   // contains the actual menu
+    backgroundColor: theme.colorBackground,
+    paddingBottom: 36,
   },
   button: {
     flexDirection: 'row',

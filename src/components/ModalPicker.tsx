@@ -19,6 +19,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { t } from 'i18n-js';
 
 import { Theme, getTheme } from '../styles/themes';
+import Toast from 'react-native-root-toast';
 
 
 type CategoryPickerModalProps = {
@@ -43,8 +44,22 @@ const ModalPicker = ({ visible, data, withTextInput, headerText, textInputText, 
       setList(data);
     }
     else {
-      // TODO valutare se usare async/await
-      data().then((list) => setList(list));
+      data()
+        .then((list) => setList(list))
+        .catch((err) => {
+          // TODO i18n
+          Toast.show('Something went wrong loading the data', {
+            duration: Toast.durations.LONG,
+            position: -100,
+            backgroundColor: theme.colorToastBackground,
+            textColor: theme.colorToastText,
+            shadow: true,
+            animation: true,
+            hideOnPress: true,
+            delay: 0,
+          });
+          console.warn('ModalPicker: something went wrong loading the data');
+        });
     }
   }, [visible]);
 

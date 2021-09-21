@@ -113,7 +113,6 @@ const DatePicker = ({ fromDate, currentDate, onChange }: DatePickerProps) => {
 };
 
 const styles = (theme: Theme) => StyleSheet.create({
-  // TODO
   container: {
     flexDirection: 'row',
     width: '100%',
