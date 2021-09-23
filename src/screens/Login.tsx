@@ -90,15 +90,14 @@ const LoginScreen = ({ navigation }: LoginScreenNavigationProps) => {
                 delay: 0,
               };
 
-              // TODO i18n
               const cleanedEmail = validateEmail(email);
               if (!cleanedEmail) {
-                Toast.show('Invalid email', toastOptions);
+                Toast.show(t('invalidEmail'), toastOptions);
                 return;
               }
               const cleanedPassword = validatePassword(password);
               if (!cleanedPassword) {
-                Toast.show('Missing password', toastOptions);
+                Toast.show(t('missingPassword'), toastOptions);
                 return;
               }
 

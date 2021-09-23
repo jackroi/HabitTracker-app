@@ -47,8 +47,7 @@ const ModalPicker = ({ visible, data, withTextInput, headerText, textInputText, 
       data()
         .then((list) => setList(list))
         .catch((err) => {
-          // TODO i18n
-          Toast.show('Something went wrong loading the data', {
+          Toast.show(t('loadingModalPickerDataError'), {
             duration: Toast.durations.LONG,
             position: -100,
             backgroundColor: theme.colorToastBackground,

@@ -3,6 +3,7 @@ import Constants from 'expo-constants';
 import { NotificationTriggerInput } from 'expo-notifications';
 import { DailyReminderInfo, MonthlyReminderInfo, ReminderInfo, ReminderType, WeeklyReminderInfo } from '../types/Reminder';
 import { Platform } from 'react-native';
+import { t } from 'i18n-js';
 
 
 export const scheduleNotification = async (habitName: string, reminderInfo: ReminderInfo) => {
@@ -40,7 +41,7 @@ const scheduleNotificationHelper = (habitName: string, trigger: NotificationTrig
   const schedulingOptions = {
     content: {
       title: habitName,
-      body: 'Remember to complete the habit',   // TODO i18n
+      body: t('notificationBody'),
       sound: true,
       priority: Notifications.AndroidNotificationPriority.HIGH,
       color: 'blue',      // TODO cos'è ?

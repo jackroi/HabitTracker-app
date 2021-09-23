@@ -17,6 +17,10 @@ export default interface Translation {
   email: string;
   password: string;
   confirmPassword: string;
+  missingName: string;
+  invalidEmail: string;
+  missingPassword: string;
+  passwordNotMatch: string;
 
   /* Habit */
   habit: string;
@@ -29,6 +33,9 @@ export default interface Translation {
   selectType: string;
   typeSelectionHeader: string;
   update: string;
+  missingHabitName: string;
+  missingHabitCategory: string;
+  missingHabitType: string;
 
   /* Statistics */
   activeHabitsStats: string;
@@ -72,6 +79,7 @@ export default interface Translation {
   deleteReminder: string;
   deleteReminderAlertMessage: string;
   noRemindersSetted: string;
+  missingLocationReminderInfo: string;
 
   /* Alert dialog */
   cancel: string;
@@ -81,6 +89,12 @@ export default interface Translation {
   deleteHabitAlertMessage: string;
   archiveHabit: string;
   archiveHabitAlertMessage: string;
+
+  /* Notifications */
+  notificationBody: string;
+
+  /* Errors */
+  loadingModalPickerDataError: string;
 
   /* Misc */
   confirm: string;

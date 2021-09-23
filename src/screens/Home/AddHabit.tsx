@@ -134,23 +134,22 @@ const AddHabitScreen = ({ navigation }: AddHabitScreenNavigationProps) => {
                 delay: 0,
               };
 
-              // TODO i18n
               const cleanedName = validateHabitName(habitName);
               if (!cleanedName) {
                 // setErrorMessage('Missing habit name');
-                Toast.show('Missing habit name', toastOptions);
+                Toast.show(t('missingHabitName'), toastOptions);
                 return;
               }
               const cleanedCategory = validateHabitCategory(habitCategory);
               if (!cleanedCategory) {
                 // setErrorMessage('Missing category');
-                Toast.show('Missing category', toastOptions);
+                Toast.show(t('missingHabitCategory'), toastOptions);
                 return;
               }
               const cleanedType = validateHabitType(habitType);
               if (!cleanedType) {
                 // setErrorMessage('Missing type');
-                Toast.show('Missing type', toastOptions);
+                Toast.show(t('missingHabitType'), toastOptions);
                 return;
               }
               const result = await habitTrackerApi.createHabit(cleanedName, cleanedCategory, cleanedType);

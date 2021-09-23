@@ -19,6 +19,10 @@ const mapping: Translation = {
   email: 'Email',
   password: 'Password',
   confirmPassword: 'Confirm password',
+  missingName: 'Missing name',
+  invalidEmail: 'Invalid email',
+  missingPassword: 'Missing password',
+  passwordNotMatch: 'The passwords don\'t match',
 
   /* Habit */
   habit: 'Habit',
@@ -31,6 +35,9 @@ const mapping: Translation = {
   selectType: 'Select type',
   typeSelectionHeader: 'Select a type of habit',
   update: 'Update',
+  missingHabitName: 'Missing habit name',
+  missingHabitCategory: 'Missing habit category',
+  missingHabitType: 'Missing habit type',
 
   /* Statistics */
   activeHabitsStats: 'Active habits',
@@ -74,6 +81,7 @@ const mapping: Translation = {
   deleteReminder: 'Delete reminder',
   deleteReminderAlertMessage: 'Are you sure you want to delete this reminder?',
   noRemindersSetted: 'No reminders setted',
+  missingLocationReminderInfo: 'Missing location name or location marker',
 
   /* Alert dialog */
   cancel: 'Cancel',
@@ -83,6 +91,12 @@ const mapping: Translation = {
   deleteHabitAlertMessage: 'Are you sure you want to delete this habit?',
   archiveHabit: 'Archive habit',
   archiveHabitAlertMessage: 'Are you sure you want to archive this habit?',
+
+  /* Notifications */
+  notificationBody: 'Remember to complete the habit',
+
+  /* Errors */
+  loadingModalPickerDataError: 'Something went wrong loading the data',
 
   /* Misc */
   confirm: 'Confirm',

@@ -19,6 +19,10 @@ const mapping: Translation = {
   email: 'Email',
   password: 'Password',
   confirmPassword: 'Conferma password',
+  missingName: 'Nome mancante',
+  invalidEmail: 'Email non valida',
+  missingPassword: 'Password mancante',
+  passwordNotMatch: 'Le password sono diverse',
 
   /* Habit */
   habit: 'Habit',
@@ -31,6 +35,9 @@ const mapping: Translation = {
   selectType: 'Seleziona tipologia',
   typeSelectionHeader: 'Seleziona una tipologia di habit',
   update: 'Aggiorna',
+  missingHabitName: 'Nome habit mancante',
+  missingHabitCategory: 'Categoria habit mancante',
+  missingHabitType: 'Tipologia habit mancante',
 
   /* Statistics */
   activeHabitsStats: 'Habit attivi',
@@ -74,6 +81,7 @@ const mapping: Translation = {
   deleteReminder: 'Elimina promemoria',
   deleteReminderAlertMessage: 'Sei sicuro di voler eliminare questo promemoria?',
   noRemindersSetted: 'Nessun promemoria impostato',
+  missingLocationReminderInfo: 'Nome o marker posizione mancante',
 
   /* Alert dialog */
   cancel: 'Annulla',
@@ -83,6 +91,12 @@ const mapping: Translation = {
   deleteHabitAlertMessage: 'Sei sicuro di voler eliminare questo habit?',
   archiveHabit: 'Archivia habit',
   archiveHabitAlertMessage: 'Sei sicuro di voler archiviare questo habit?',
+
+  /* Notifications */
+  notificationBody: 'Ricordati di completare l\'habit',
+
+  /* Errors */
+  loadingModalPickerDataError: 'Qualcosa è andato storto caricando i dati',
 
   /* Misc */
   confirm: 'Conferma',

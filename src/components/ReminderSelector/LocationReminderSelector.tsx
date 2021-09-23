@@ -42,8 +42,7 @@ const LocationReminderSelector = ({ onConfirm }: LocationReminderSelectorProps) 
   const onConfirmCallback = () => {
     const cleanedLocationName = locationName.trim();
     if (!selectedLocation || !cleanedLocationName) {
-      // TODO i18n
-      Toast.show('Missing location name or location marker', {
+      Toast.show(t('missingLocationReminderInfo'), {
         duration: Toast.durations.LONG,
         position: -100,
         backgroundColor: theme.colorToastBackground,

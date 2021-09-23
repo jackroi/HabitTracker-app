@@ -107,7 +107,7 @@ const LoginScreen = ({ navigation }: RegisterScreenNavigationProps) => {
             value={confirmPassword}
             onChangeText={setConfirmPassword}
             secureTextEntry={true}
-            textContentType={'newPassword'}
+            textContentType={'password'}
             placeholder={t('confirmPassword')}
             placeholderTextColor={theme.colorPlaceholderText}
           />
@@ -128,25 +128,24 @@ const LoginScreen = ({ navigation }: RegisterScreenNavigationProps) => {
                 delay: 0,
               };
 
-              // TODO i18n
               const cleanedName = validateName(email);
               if (!cleanedName) {
-                Toast.show('Invalid name', toastOptions);
+                Toast.show(t('missingName'), toastOptions);
                 return;
               }
               const cleanedEmail = validateEmail(email);
               if (!cleanedEmail) {
-                Toast.show('Invalid email', toastOptions);
+                Toast.show(t('invalidEmail'), toastOptions);
                 return;
               }
               const cleanedPassword = validatePassword(password);
               if (!cleanedPassword) {
-                Toast.show('Missing password', toastOptions);
+                Toast.show(t('missingPassword'), toastOptions);
                 return;
               }
               const valid = validateConfirmPassword(password, confirmPassword);
               if (!valid) {
-                Toast.show('The passwords don\'t match', toastOptions);
+                Toast.show(t('passwordNotMatch'), toastOptions);
                 return;
               }
 
