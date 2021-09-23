@@ -16,6 +16,23 @@ import { t } from 'i18n-js';
 import { Theme, getTheme } from '../styles/themes';
 import { LoginScreenNavigationProps } from '../types/types';
 import AuthContext from '../contexts/AuthContext';
+import Toast, { ToastOptions } from 'react-native-root-toast';
+import { validateEmailRegex } from '../utils/utils';
+
+
+const validateEmail = (email: string): string | null => {
+  let cleanedEmail = email.trim();
+
+  let valid = (cleanedEmail.length > 0) && validateEmailRegex(cleanedEmail);
+
+  return valid ? cleanedEmail : null;
+};
+
+const validatePassword = (password: string): string | null => {
+  let valid = password.length > 0;
+
+  return valid ? password : null;
+};
 
 
 const LoginScreen = ({ navigation }: LoginScreenNavigationProps) => {
@@ -61,8 +78,34 @@ const LoginScreen = ({ navigation }: LoginScreenNavigationProps) => {
             style={dynamicStyles.loginButton}
             onPress={() => {
               Keyboard.dismiss();
-              // TODO validate input here and in register
-              login({ email, password });
+
+              const toastOptions: ToastOptions = {
+                duration: Toast.durations.LONG,
+                position: -100,
+                backgroundColor: theme.colorToastBackground,
+                textColor: theme.colorToastText,
+                shadow: true,
+                animation: true,
+                hideOnPress: true,
+                delay: 0,
+              };
+
+              // TODO i18n
+              const cleanedEmail = validateEmail(email);
+              if (!cleanedEmail) {
+                Toast.show('Invalid email', toastOptions);
+                return;
+              }
+              const cleanedPassword = validatePassword(password);
+              if (!cleanedPassword) {
+                Toast.show('Missing password', toastOptions);
+                return;
+              }
+
+              login({
+                email: cleanedEmail,
+                password: cleanedPassword,
+              });
             }}
           >
             <Text style={dynamicStyles.loginButtonText}>{t('login').toUpperCase()}</Text>
