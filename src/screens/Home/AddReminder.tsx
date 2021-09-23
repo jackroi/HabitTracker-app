@@ -41,13 +41,6 @@ const AddReminderScreen = ({ navigation, route }: AddReminderScreenNavigationPro
 
   useEffect(() => {
     NotificationsHelper.askNotificationPermission();
-
-    // TODO probabilmente non serve
-    // If we want to do something with the notification when the app
-    // is active, we need to listen to notification events and
-    // handle them in a callback
-    // const listener = Notifications.addNotificationReceivedListener(handleNotification);
-    // return () => listener.remove();
   }, []);
 
   const { habitId } = route.params;

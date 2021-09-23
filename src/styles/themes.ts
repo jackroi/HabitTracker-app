@@ -58,8 +58,6 @@ interface Theme {
   /* Placeholder text color */
   colorPlaceholderText: string;     // TODO valutare meglio che colore usare
                                     // TODO e usarlo nei vari text input
-
-  /* TODO Placeholder text color */
 }
 
 

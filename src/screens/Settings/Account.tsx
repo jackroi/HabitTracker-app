@@ -26,8 +26,6 @@ const AccountScreen = ({ navigation, route }: AccountScreenNavigationProps) => {
 
   useEffect(() => {
     const fetchAccountInformation = async () => {
-      // TODO
-      // TODO valutare eventualmente utilizzo di jwt token o Storage
       const result = await habitTrackerApi.getAccountInfo();
       if (result.success) {
         setState({
@@ -80,6 +78,7 @@ const AccountScreen = ({ navigation, route }: AccountScreenNavigationProps) => {
     );
   };
 
+  // TODO probably style better
   return (
     <View style={dynamicStyles.container}>
       <Text style={dynamicStyles.text}>{t('name')}: {state.name}</Text>

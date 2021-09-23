@@ -112,7 +112,7 @@ const StatisticsScreen = ({ navigation }: StatisticsScreenNavigationProps) => {
 
   useEffect(() => {
     fetchHabitsAndStats();
-  }, []);   // TODO cosa mettere tra [] ???
+  }, []);
 
   useEffect(() => {
     const socket = getSocket();

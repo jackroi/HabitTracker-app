@@ -96,7 +96,7 @@ const AddHabitScreen = ({ navigation }: AddHabitScreenNavigationProps) => {
             onPress={() => setCategoryModalVisible(true)}
           >
             <Text
-              style={[dynamicStyles.categoryText, habitCategory === '' ? dynamicStyles.categoryTextPlaceholder : {}]}
+              style={[dynamicStyles.inputText, habitCategory === '' ? dynamicStyles.inputTextPlaceholder : {}]}
             >
               {habitCategory === '' ? t('selectCategory') : habitCategory}
             </Text>
@@ -111,7 +111,7 @@ const AddHabitScreen = ({ navigation }: AddHabitScreenNavigationProps) => {
             onPress={() => setHabitTypeModalVisible(true)}
           >
             <Text
-              style={[dynamicStyles.categoryText, habitType === '' ? dynamicStyles.categoryTextPlaceholder : {}]}
+              style={[dynamicStyles.inputText, habitType === '' ? dynamicStyles.inputTextPlaceholder : {}]}
             >
               {habitType === '' ? t('selectType') : habitType}
             </Text>
@@ -240,7 +240,7 @@ const styles = (theme: Theme) => StyleSheet.create({
     fontSize: 20,
     color: theme.colorOnBackground,
   },
-  categoryText: {   // TODO rename
+  inputText: {
     width: '100%',
     color: theme.colorOnBackground,
     paddingVertical: 10,
@@ -251,7 +251,7 @@ const styles = (theme: Theme) => StyleSheet.create({
     alignItems: 'center',
     fontSize: 20,
   },
-  categoryTextPlaceholder: {
+  inputTextPlaceholder: {
     color: theme.colorPlaceholderText,
   },
   createButton: {

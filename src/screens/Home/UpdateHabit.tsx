@@ -215,7 +215,7 @@ const UpdateHabitScreen = ({ navigation, route }: UpdateHabitScreenNavigationPro
             onPress={() => setCategoryModalVisible(true)}
           >
             <Text
-              style={[dynamicStyles.categoryText, state.habit.category === '' ? dynamicStyles.categoryTextPlaceholder : {}]}
+              style={[dynamicStyles.inputText, state.habit.category === '' ? dynamicStyles.inputTextPlaceholder : {}]}
             >
               {state.habit.category === '' ? t('selectCategory') : state.habit.category}
             </Text>
@@ -225,7 +225,7 @@ const UpdateHabitScreen = ({ navigation, route }: UpdateHabitScreenNavigationPro
           <TouchableOpacity
             style={dynamicStyles.createButton}
             onPress={async () => {
-              // TODO validate input
+              // Validate input
               const cleanedName = validateHabitName(state.habit.name);
               if (!cleanedName) {
                 dispatch({ type: 'VALIDATION_ERROR', errorMessage: 'Missing name' });
@@ -258,7 +258,8 @@ const UpdateHabitScreen = ({ navigation, route }: UpdateHabitScreenNavigationPro
                 });
                 return;
               }
-              // TODO send input to server
+
+              // Send input to server
               const result = await habitTrackerApi.updateHabit(habitId, cleanedName, cleanedCategory);
               if (!result.success) {
                 console.warn('Update habit failed');
@@ -276,7 +277,7 @@ const UpdateHabitScreen = ({ navigation, route }: UpdateHabitScreenNavigationPro
                 });
                 return;
               }
-              // TODO update local stored habit ???
+
               navigation.goBack();
             }}
           >
@@ -345,7 +346,7 @@ const styles = (theme: Theme) => StyleSheet.create({
     fontSize: 20,
     color: theme.colorOnBackground,
   },
-  categoryText: {   // TODO rename
+  inputText: {
     width: '100%',
     color: theme.colorOnBackground,
     paddingVertical: 10,
@@ -356,7 +357,7 @@ const styles = (theme: Theme) => StyleSheet.create({
     alignItems: 'center',
     fontSize: 20,
   },
-  categoryTextPlaceholder: {
+  inputTextPlaceholder: {
     color: theme.colorPlaceholderText,
   },
   createButton: {

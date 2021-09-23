@@ -43,7 +43,7 @@ const scheduleNotificationHelper = (habitName: string, trigger: NotificationTrig
       body: 'Remember to complete the habit',   // TODO i18n
       sound: true,
       priority: Notifications.AndroidNotificationPriority.HIGH,
-      color: "blue",      // TODO cos'è ?
+      color: 'blue',      // TODO cos'è ?
     },
     trigger: trigger,
   };

@@ -6,7 +6,6 @@ export enum ReminderType {
   LOCATION = 'LOCATION',
 }
 
-// TODO valutare se fare enum ReminderType
 export type DailyReminderInfo = {
   type: ReminderType.DAILY;
   time: {

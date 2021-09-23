@@ -18,9 +18,6 @@ import { DateTime } from 'luxon';
 import Toast from 'react-native-root-toast';
 
 
-// TODO mostrare testo "non hai impostato alcun promemoria" se non esiste nessun promemoria
-
-
 type ReminderItemData = {
   habit: ClientHabit;
   reminderId: number;

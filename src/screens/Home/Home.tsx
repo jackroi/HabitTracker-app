@@ -218,9 +218,9 @@ const HomeScreen = ({ navigation }: HomeScreenNavigationProps) => {
   return (
     <View style={dynamicStyles.container}>
       <DatePicker
-        fromDate={DateTime.now().startOf('day').minus({ days: 15 })}    // TODO
+        fromDate={DateTime.now().startOf('day').minus({ days: 60 })}    // TODO
         currentDate={date}
-        onChange={setDate}                         // TODO
+        onChange={setDate}
       />
       <SectionList
         sections={divideHabitBySection(state.habits)}
