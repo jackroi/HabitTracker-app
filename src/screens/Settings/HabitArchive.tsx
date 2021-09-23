@@ -77,8 +77,9 @@ const HabitArchiveScreen = ({ navigation }: StatisticsScreenNavigationProps) => 
 
     const result = await habitTrackerApi.getHabits(undefined, undefined, undefined, 'archived');
     if (result.success) {
-      // TODO sort alphabetically
-      const habits = result.value.map((habit) => ({ ...habit, creationDate: DateTime.fromISO(habit.creationDate) }));
+      const habits = result.value
+        .map((habit) => ({ ...habit, creationDate: DateTime.fromISO(habit.creationDate) }))   // creationDate to luxon.DateTime
+        .sort((a, b) => a.name.localeCompare(b.name));            // sort alphabetically
       dispatch({ type: 'FETCH_SUCCESS', habits: habits });
     }
     else {
@@ -99,7 +100,7 @@ const HabitArchiveScreen = ({ navigation }: StatisticsScreenNavigationProps) => 
 
   useEffect(() => {
     fetchArchivedHabits();
-  }, []);   // TODO cosa mettere tra [] ???
+  }, []);
 
   useEffect(() => {
     const socket = getSocket();
