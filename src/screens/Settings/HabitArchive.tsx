@@ -136,20 +136,26 @@ const HabitArchiveScreen = ({ navigation }: StatisticsScreenNavigationProps) => 
 
   return (
     <View style={dynamicStyles.container}>
-      <FlatList
-        data={state.habits}
-        renderItem={renderItem}
-        ItemSeparatorComponent={() => (
-          <View style={dynamicStyles.itemSeparatorView} />
-        )}
-        ListHeaderComponent={() => (
-          <View style={dynamicStyles.itemSeparatorView} />
-        )}
-        ListFooterComponent={() => (
-          <View style={dynamicStyles.itemSeparatorView} />
-        )}
-        keyExtractor={(item) => item.id}
-      />
+      { state.habits.length === 0 ? (
+        <View style={dynamicStyles.noHabitView}>
+          <Text style={dynamicStyles.text}>{t('noHabitArchivedPresent')}</Text>
+        </View>
+      ) : (
+        <FlatList
+          data={state.habits}
+          renderItem={renderItem}
+          ItemSeparatorComponent={() => (
+            <View style={dynamicStyles.itemSeparatorView} />
+          )}
+          ListHeaderComponent={() => (
+            <View style={dynamicStyles.itemSeparatorView} />
+          )}
+          ListFooterComponent={() => (
+            <View style={dynamicStyles.itemSeparatorView} />
+          )}
+          keyExtractor={(item) => item.id}
+        />
+      )}
 
       <ModalMenu
         visible={menuModalVisible}
@@ -167,6 +173,11 @@ const styles = (theme: Theme) => StyleSheet.create({
     flex: 1,
     paddingHorizontal: 0,
     backgroundColor: theme.colorBackground,
+  },
+  noHabitView: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   text: {
     color: theme.colorOnBackground,
