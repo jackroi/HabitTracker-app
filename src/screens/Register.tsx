@@ -128,7 +128,7 @@ const LoginScreen = ({ navigation }: RegisterScreenNavigationProps) => {
                 delay: 0,
               };
 
-              const cleanedName = validateName(email);
+              const cleanedName = validateName(name);
               if (!cleanedName) {
                 Toast.show(t('missingName'), toastOptions);
                 return;
