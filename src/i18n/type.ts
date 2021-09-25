@@ -5,9 +5,16 @@ export default interface Translation {
   registerScreenTitle: string;
   // App
   homeScreenTitle: string;
+  homeAddHabitScreenTitle: string;
+  homeUpdateHabitScreenTitle: string;
+  homeAddReminderScreenTitle: string;
   remindersScreenTitle: string;
   statisticsScreenTitle: string;
+  statisticsDetailsScreenTitle: string;
   settingsScreenTitle: string;
+  settingsAccountScreenTitle: string;
+  settingsArchiveScreenTitle: string;
+  settingsAboutScreenTitle: string;
 
   /* Auth */
   login: string;

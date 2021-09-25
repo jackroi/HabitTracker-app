@@ -259,14 +259,12 @@ const HomeStackScreen = () => {
   return (
     <HomeStack.Navigator
       initialRouteName={'Home'}
-      screenOptions={({ route }) => ({
-        headerTitle: t('homeScreenTitle'),
-      })}
     >
       <HomeStack.Screen
         name="Home"
         component={HomeScreen}
         options={{
+          title: t('homeScreenTitle'),
           headerRight: () => (
             <TouchableOpacity
               onPress={() => navigation.navigate('AddHabit')}
@@ -277,9 +275,21 @@ const HomeStackScreen = () => {
           )
         }}
       />
-      <HomeStack.Screen name={'AddHabit'} component={AddHabitScreen} />
-      <HomeStack.Screen name={'UpdateHabit'} component={UpdateHabitScreen} />
-      <HomeStack.Screen name={'AddReminder'} component={AddReminderScreen} />
+      <HomeStack.Screen
+        name={'AddHabit'}
+        component={AddHabitScreen}
+        options={{ title: t('homeAddHabitScreenTitle') }}
+      />
+      <HomeStack.Screen
+        name={'UpdateHabit'}
+        component={UpdateHabitScreen}
+        options={{ title: t('homeUpdateHabitScreenTitle') }}
+      />
+      <HomeStack.Screen
+        name={'AddReminder'}
+        component={AddReminderScreen}
+        options={{ title: t('homeAddReminderScreenTitle') }}
+      />
     </HomeStack.Navigator>
   );
 }

@@ -92,15 +92,28 @@ const SettingsStack = createStackNavigator<SettingsStackParamList>();
 const SettingsStackScreen = () => {
   return (
     <SettingsStack.Navigator
-      screenOptions={({ route }) => ({
-        headerTitle: t('settingsScreenTitle'),
-      })}
+      initialRouteName={'Settings'}
     >
-      <SettingsStack.Screen name="Settings" component={SettingsScreen} />
-      <SettingsStack.Screen name="Account" component={AccountScreen} />
-      <SettingsStack.Screen name="About" component={AboutScreen} />
-      <SettingsStack.Screen name="HabitArchive" component={HabitArchiveScreen} />
-
+      <SettingsStack.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={{ title: t('settingsScreenTitle') }}
+      />
+      <SettingsStack.Screen
+        name="Account"
+        component={AccountScreen}
+        options={{ title: t('settingsAccountScreenTitle') }}
+      />
+      <SettingsStack.Screen
+        name="HabitArchive"
+        component={HabitArchiveScreen}
+        options={{ title: t('settingsArchiveScreenTitle') }}
+      />
+      <SettingsStack.Screen
+        name="About"
+        component={AboutScreen}
+        options={{ title: t('settingsAboutScreenTitle') }}
+      />
     </SettingsStack.Navigator>
   );
 };

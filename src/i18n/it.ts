@@ -7,9 +7,16 @@ const mapping: Translation = {
   registerScreenTitle: 'Registrati',
   // App
   homeScreenTitle: 'Home',
+  homeAddHabitScreenTitle: 'Nuovo habit',
+  homeUpdateHabitScreenTitle: 'Modifica habit',
+  homeAddReminderScreenTitle: 'Nuovo promemoria',
   remindersScreenTitle: 'Promemoria',
   statisticsScreenTitle: 'Statistiche',
+  statisticsDetailsScreenTitle: 'Statistiche habit',
   settingsScreenTitle: 'Impostazioni',
+  settingsAccountScreenTitle: 'Account',
+  settingsArchiveScreenTitle: 'Archivio habit',
+  settingsAboutScreenTitle: 'About',
 
   /* Auth */
   login: 'Login',

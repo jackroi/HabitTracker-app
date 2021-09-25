@@ -186,12 +186,17 @@ const StatisticsStackScreen = () => {
   return (
     <StatisticsStack.Navigator
       initialRouteName={'Statistics'}
-      screenOptions={({ route }) => ({
-        headerTitle: t('statisticsScreenTitle'),
-      })}
     >
-      <StatisticsStack.Screen name="Statistics" component={StatisticsScreen} />
-      <StatisticsStack.Screen name="StatisticsDetails" component={StatisticsDetailsScreen} />
+      <StatisticsStack.Screen
+        name="Statistics"
+        component={StatisticsScreen}
+        options={{ title: t('statisticsScreenTitle') }}
+      />
+      <StatisticsStack.Screen
+        name="StatisticsDetails"
+        component={StatisticsDetailsScreen}
+        options={{ title: t('statisticsDetailsScreenTitle') }}
+      />
     </StatisticsStack.Navigator>
   );
 }
