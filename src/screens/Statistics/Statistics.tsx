@@ -102,7 +102,9 @@ const StatisticsScreen = ({ navigation }: StatisticsScreenNavigationProps) => {
     }
 
     const habitsResult = results[0] as Ok<GetHabitsResponseBody['habits'], never>;
-    const habits = habitsResult.value.map((habit) => ({ ...habit, creationDate: DateTime.fromISO(habit.creationDate) }));
+    const habits = habitsResult.value
+      .map((habit) => ({ ...habit, creationDate: DateTime.fromISO(habit.creationDate) }))
+      .sort((a, b) => a.name.localeCompare(b.name));
 
     const statsResult = results[1] as Ok<GetGeneralStatsResponseBody['stats'], never>;
     const stats = statsResult.value;

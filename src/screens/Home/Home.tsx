@@ -44,9 +44,12 @@ const divideHabitBySection = (habits: (ClientHabit & { state: HabitState })[]) =
   for (let key of sectionMap.keys()) {
     output.push({
       title: key,
-      data: sectionMap.get(key) as HabitView[],
+      data: (sectionMap.get(key) as HabitView[]),
     });
   }
+
+  // Sort sections alphabetically
+  output.sort((a, b) => a.title.localeCompare(b.title));
 
   return output;
 }
@@ -112,10 +115,12 @@ const HomeScreen = ({ navigation }: HomeScreenNavigationProps) => {
 
     const result = await habitTrackerApi.getHabitsForDate(date.toISODate());
     if (result.success) {
-      const habits: (ClientHabit & { state: HabitState })[] = result.value.map(item => ({
-        ...item,
-        creationDate: DateTime.fromISO(item.creationDate),
-      }));
+      const habits: (ClientHabit & { state: HabitState })[] = result.value
+        .map(item => ({
+          ...item,
+          creationDate: DateTime.fromISO(item.creationDate),
+        }))
+        .sort((a, b) => a.name.localeCompare(b.name));
       dispatch({ type: 'FETCH_SUCCESS', habits: habits });
     }
     else {
