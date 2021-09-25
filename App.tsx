@@ -5,7 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import { RootSiblingParent } from 'react-native-root-siblings';
 import * as SecureStore from 'expo-secure-store';
 import * as Localization from 'expo-localization';
-import i18n from 'i18n-js';
+import i18n, { t } from 'i18n-js';
 import en from './src/i18n/en';
 import it from './src/i18n/it';
 
@@ -142,7 +142,7 @@ export default function App() {
           dispatch({ type: 'LOG_IN', token: token });
         }
         else {
-          Toast.show(result.error, {
+          Toast.show(t('loginFailed'), {
             duration: Toast.durations.LONG,
             position: -100,
             backgroundColor: theme.colorToastBackground,
@@ -186,7 +186,14 @@ export default function App() {
           dispatch({ type: 'LOG_IN', token: token });
         }
         else {
-          Toast.show(result.error, {
+          let i18nKey;
+          if (result.error.includes('already registered')) {
+            i18nKey = 'emailAlreadyRegidtered';
+          }
+          else {
+            i18nKey = 'registrationFailed';
+          }
+          Toast.show(t(i18nKey), {
             duration: Toast.durations.LONG,
             position: -100,
             backgroundColor: theme.colorToastBackground,

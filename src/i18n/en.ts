@@ -23,13 +23,16 @@ const mapping: Translation = {
   invalidEmail: 'Invalid email',
   missingPassword: 'Missing password',
   passwordNotMatch: 'The passwords don\'t match',
+  loginFailed: 'Login failed',
+  emailAlreadyRegidtered: 'This email is already registered',
+  registrationFailed: 'Registration failed',
 
   /* Habit */
   habit: 'Habit',
   category: 'Category',
   type: 'Type',
 
-  /* Habit creation/update */
+  /* Habit creation/update/read */
   selectCategory: 'Select category',
   categorySelectionHeader: 'Select an existing category or create a new one',
   selectType: 'Select type',
@@ -38,6 +41,15 @@ const mapping: Translation = {
   missingHabitName: 'Missing habit name',
   missingHabitCategory: 'Missing habit category',
   missingHabitType: 'Missing habit type',
+  archiveFailed: 'Something went wrong while archiving the habit',
+  unarchiveFailed: 'Something went wrong while unarchiving the habit',
+  habitDeletionFailed: 'Something went wrong while deleting the habit',
+  habitUpdateFailed: 'Something went wrong while updating the habit',
+  habitCreationFailed: 'Something went wrong while creating the habit',
+  habitLoadingFailed: 'Something went wrong while loading the habits',
+  habitArchiveLoadingFailed: 'Something went wrong while loading the habit archive',
+  habitStateUpdateFailed: 'Something went wrong while updating the habit state',
+  habitInfoLoadingFailed: 'Something went wrong while loading the habit information',
 
   /* Statistics */
   activeHabitsStats: 'Active habits',
@@ -47,6 +59,7 @@ const mapping: Translation = {
   bestStreakStats: 'Best streak',
   currentStreakStats: 'Current streak',
   creationDate: 'Creation date',
+  statisticsLoadingFailed: 'Something went wrong while loading the statistics',
 
   /* Settings */
   account: 'Account',
@@ -55,6 +68,7 @@ const mapping: Translation = {
   registrationDate: 'Registration date',
   deleteAccount: 'Delete account',
   deleteAccountAlertMessage: 'Are you sure you want to delete your account?',
+  accountInfoLoadingFailed: 'Something went wrong while loading the account information',
 
   /* Days of week */
   monday: 'Monday',
@@ -82,6 +96,8 @@ const mapping: Translation = {
   deleteReminderAlertMessage: 'Are you sure you want to delete this reminder?',
   noRemindersSetted: 'No reminders setted',
   missingLocationReminderInfo: 'Missing location name or location marker',
+  reminderCreationFailed: 'Something went wrong while creating the reminder',
+  reminderLoadingFailed: 'Something went wrong while loading the reminders',
 
   /* Alert dialog */
   cancel: 'Cancel',

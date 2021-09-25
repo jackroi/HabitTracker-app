@@ -21,13 +21,16 @@ export default interface Translation {
   invalidEmail: string;
   missingPassword: string;
   passwordNotMatch: string;
+  loginFailed: string;
+  emailAlreadyRegidtered: string;
+  registrationFailed: string;
 
   /* Habit */
   habit: string;
   category: string;
   type: string;
 
-  /* Habit creation/update */
+  /* Habit creation/update/read */
   selectCategory: string;
   categorySelectionHeader: string;
   selectType: string;
@@ -36,6 +39,15 @@ export default interface Translation {
   missingHabitName: string;
   missingHabitCategory: string;
   missingHabitType: string;
+  archiveFailed: string;
+  unarchiveFailed: string;
+  habitDeletionFailed: string;
+  habitUpdateFailed: string;
+  habitCreationFailed: string;
+  habitLoadingFailed: string;
+  habitArchiveLoadingFailed: string;
+  habitStateUpdateFailed: string;
+  habitInfoLoadingFailed: string;
 
   /* Statistics */
   activeHabitsStats: string;
@@ -45,6 +57,7 @@ export default interface Translation {
   bestStreakStats: string;
   currentStreakStats: string;
   creationDate: string;
+  statisticsLoadingFailed: string;
 
   /* Settings */
   account: string;
@@ -53,6 +66,7 @@ export default interface Translation {
   registrationDate: string;
   deleteAccount: string;
   deleteAccountAlertMessage: string;
+  accountInfoLoadingFailed: string;
 
   /* Days of week */
   monday: string;
@@ -80,6 +94,8 @@ export default interface Translation {
   deleteReminderAlertMessage: string;
   noRemindersSetted: string;
   missingLocationReminderInfo: string;
+  reminderCreationFailed: string;
+  reminderLoadingFailed: string;
 
   /* Alert dialog */
   cancel: string;

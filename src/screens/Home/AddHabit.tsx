@@ -154,9 +154,9 @@ const AddHabitScreen = ({ navigation }: AddHabitScreenNavigationProps) => {
               }
               const result = await habitTrackerApi.createHabit(cleanedName, cleanedCategory, cleanedType);
               if (!result.success) {
-                console.warn('Create habit failed');
+                console.warn('Create habit failed:', result.error);
                 // setErrorMessage(result.error);
-                Toast.show(result.error, toastOptions);
+                Toast.show(t('habitCreationFailed'), toastOptions);
                 return;
               }
               navigation.goBack();

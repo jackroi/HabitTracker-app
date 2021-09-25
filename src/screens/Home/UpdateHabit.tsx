@@ -169,7 +169,7 @@ const UpdateHabitScreen = ({ navigation, route }: UpdateHabitScreenNavigationPro
       else {
         dispatch({ type: 'FETCH_FAILURE', errorMessage: result.error });
 
-        Toast.show(result.error, {
+        Toast.show(t('habitInfoLoadingFailed'), {
           duration: Toast.durations.LONG,
           position: -100,
           backgroundColor: theme.colorToastBackground,
@@ -230,7 +230,7 @@ const UpdateHabitScreen = ({ navigation, route }: UpdateHabitScreenNavigationPro
               if (!cleanedName) {
                 dispatch({ type: 'VALIDATION_ERROR', errorMessage: 'Missing name' });
 
-                Toast.show('Missing name', {
+                Toast.show(t('missingHabitName'), {
                   duration: Toast.durations.LONG,
                   position: -100,
                   backgroundColor: theme.colorToastBackground,
@@ -246,7 +246,7 @@ const UpdateHabitScreen = ({ navigation, route }: UpdateHabitScreenNavigationPro
               if (!cleanedCategory) {
                 dispatch({ type: 'VALIDATION_ERROR', errorMessage: 'Missing category' });
 
-                Toast.show('Missing category', {
+                Toast.show(t('missingHabitCategory'), {
                   duration: Toast.durations.LONG,
                   position: -100,
                   backgroundColor: theme.colorToastBackground,
@@ -265,7 +265,7 @@ const UpdateHabitScreen = ({ navigation, route }: UpdateHabitScreenNavigationPro
                 console.warn('Update habit failed');
                 dispatch({ type: 'VALIDATION_ERROR', errorMessage: result.error });
 
-                Toast.show(result.error, {
+                Toast.show(t('habitUpdateFailed'), {
                   duration: Toast.durations.LONG,
                   position: -100,
                   backgroundColor: theme.colorToastBackground,

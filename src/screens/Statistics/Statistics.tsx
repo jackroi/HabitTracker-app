@@ -87,7 +87,7 @@ const StatisticsScreen = ({ navigation }: StatisticsScreenNavigationProps) => {
     for (let result of results) {
       if (!result.success) {
         dispatch({ type: 'FETCH_FAILURE', errorMessage: result.error });
-        Toast.show(result.error, {
+        Toast.show(t('statisticsLoadingFailed'), {
           duration: Toast.durations.LONG,
           position: -100,
           backgroundColor: theme.colorToastBackground,

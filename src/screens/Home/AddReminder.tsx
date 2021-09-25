@@ -46,9 +46,12 @@ const AddReminderScreen = ({ navigation, route }: AddReminderScreenNavigationPro
   const { habitId } = route.params;
 
   const onConfirmCallback = async (reminderInfo: ReminderInfo) => {
+    // Create, schedule and save the reminder
+
     const result = await HabitTrackerApi.getInstance().getHabit(habitId);
     if (!result.success) {
-      Toast.show(result.error, {
+      console.warn('An error occurred while creating the reminder:', result.error);
+      Toast.show(t('reminderCreationFailed'), {
         duration: Toast.durations.LONG,
         position: -100,
         backgroundColor: theme.colorToastBackground,

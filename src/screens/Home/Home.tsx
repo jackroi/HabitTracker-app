@@ -121,7 +121,7 @@ const HomeScreen = ({ navigation }: HomeScreenNavigationProps) => {
     else {
       dispatch({ type: 'FETCH_FAILURE', errorMessage: result.error });
 
-      Toast.show(result.error, {
+      Toast.show(t('habitLoadingFailed'), {
         duration: Toast.durations.LONG,
         position: -100,
         backgroundColor: theme.colorToastBackground,
@@ -187,7 +187,7 @@ const HomeScreen = ({ navigation }: HomeScreenNavigationProps) => {
             else {
               console.warn('An error occurred while updating habit state');
 
-              Toast.show(result.error, {
+              Toast.show(t('habitStateUpdateFailed'), {
                 duration: Toast.durations.LONG,
                 position: -100,
                 backgroundColor: theme.colorToastBackground,

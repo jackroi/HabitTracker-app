@@ -88,7 +88,7 @@ const ModalMenu = ({ visible, habitId, forArchived, onRequestClose }: CategoryPi
 
               const result = await habitTrackerApi.archiveHabit(habitId);
               if (!result.success) {
-                Toast.show(result.error, {
+                Toast.show(t('archiveFailed'), {
                   duration: Toast.durations.LONG,
                   position: -100,
                   backgroundColor: theme.colorToastBackground,
@@ -119,7 +119,7 @@ const ModalMenu = ({ visible, habitId, forArchived, onRequestClose }: CategoryPi
     const result = await habitTrackerApi.unarchiveHabit(habitId);
 
     if (!result.success) {
-      Toast.show(result.error, {
+      Toast.show(t('unarchiveFailed'), {
         duration: Toast.durations.LONG,
         position: -100,
         backgroundColor: theme.colorToastBackground,
@@ -155,7 +155,7 @@ const ModalMenu = ({ visible, habitId, forArchived, onRequestClose }: CategoryPi
               const result = await habitTrackerApi.deleteHabit(habitId);
 
               if (!result.success) {
-                Toast.show(result.error, {
+                Toast.show(t('habitDeletionFailed'), {
                   duration: Toast.durations.LONG,
                   position: -100,
                   backgroundColor: theme.colorToastBackground,

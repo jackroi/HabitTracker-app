@@ -85,7 +85,7 @@ const HabitArchiveScreen = ({ navigation }: StatisticsScreenNavigationProps) => 
     else {
       dispatch({ type: 'FETCH_FAILURE', errorMessage: result.error });
 
-      Toast.show(result.error, {
+      Toast.show(t('habitArchiveLoadingFailed'), {
         duration: Toast.durations.LONG,
         position: -100,
         backgroundColor: theme.colorToastBackground,

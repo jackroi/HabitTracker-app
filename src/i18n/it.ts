@@ -23,13 +23,16 @@ const mapping: Translation = {
   invalidEmail: 'Email non valida',
   missingPassword: 'Password mancante',
   passwordNotMatch: 'Le password sono diverse',
+  loginFailed: 'Login fallito',
+  emailAlreadyRegidtered: 'Questa email è gia registrata',
+  registrationFailed: 'Registrazione fallita',
 
   /* Habit */
   habit: 'Habit',
   category: 'Categoria',
   type: 'Tipologia',
 
-  /* Habit creation/update */
+  /* Habit creation/update/read */
   selectCategory: 'Seleziona categoria',
   categorySelectionHeader: 'Seleziona una categoria esistente o creane una nuova',
   selectType: 'Seleziona tipologia',
@@ -38,6 +41,15 @@ const mapping: Translation = {
   missingHabitName: 'Nome habit mancante',
   missingHabitCategory: 'Categoria habit mancante',
   missingHabitType: 'Tipologia habit mancante',
+  archiveFailed: 'Qualcosa è andato storto archiviando l\'habit',
+  unarchiveFailed: 'Qualcosa è andato storto disarchiviando l\'habit',
+  habitDeletionFailed: 'Qualcosa è andato storto eliminando l\'habit',
+  habitUpdateFailed: 'Qualcosa è andato storto aggiornando l\'habit',
+  habitCreationFailed: 'Qualcosa è andato storto creando l\'habit',
+  habitLoadingFailed: 'Qualcosa è andato storto caricando gli habit',
+  habitArchiveLoadingFailed: 'Qualcosa è andato storto caricando l\'archivio degli habit',
+  habitStateUpdateFailed: 'Qualcosa è andato storto aggiornando lo stato dell\'habit',
+  habitInfoLoadingFailed: 'Qualcosa è andato storto caricando informazioni sull\'habit',
 
   /* Statistics */
   activeHabitsStats: 'Habit attivi',
@@ -47,6 +59,7 @@ const mapping: Translation = {
   bestStreakStats: 'Serie migliore',
   currentStreakStats: 'Serie attuale',
   creationDate: 'Data di creazione',
+  statisticsLoadingFailed: 'Qualcosa è andato storto caricando le statistiche',
 
   /* Settings */
   account: 'Account',
@@ -55,6 +68,7 @@ const mapping: Translation = {
   registrationDate: 'Data di registrazione',
   deleteAccount: 'Elimina account',
   deleteAccountAlertMessage: 'Sei sicuro di voler eliminare il tuo account?',
+  accountInfoLoadingFailed: 'Qualcosa è andato storto caricando informazioni sull\'account',
 
   /* Days of week */
   monday: 'Lunedì',
@@ -82,6 +96,8 @@ const mapping: Translation = {
   deleteReminderAlertMessage: 'Sei sicuro di voler eliminare questo promemoria?',
   noRemindersSetted: 'Nessun promemoria impostato',
   missingLocationReminderInfo: 'Nome o marker posizione mancante',
+  reminderCreationFailed: 'Qualcosa è andato storto creando il promemoria',
+  reminderLoadingFailed: 'Qualcosa è andato storto caricando i promemoria',
 
   /* Alert dialog */
   cancel: 'Annulla',

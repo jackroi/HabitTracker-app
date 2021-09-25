@@ -35,7 +35,7 @@ const AccountScreen = ({ navigation, route }: AccountScreenNavigationProps) => {
         });
       }
       else {
-        Toast.show(result.error, {
+        Toast.show(t('accountInfoLoadingFailed'), {
           duration: Toast.durations.LONG,
           position: -100,
           backgroundColor: theme.colorToastBackground,
