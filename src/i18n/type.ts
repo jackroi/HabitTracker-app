@@ -48,6 +48,7 @@ export default interface Translation {
   habitArchiveLoadingFailed: string;
   habitStateUpdateFailed: string;
   habitInfoLoadingFailed: string;
+  noHabitPresent: string;
 
   /* Statistics */
   activeHabitsStats: string;

@@ -222,14 +222,20 @@ const HomeScreen = ({ navigation }: HomeScreenNavigationProps) => {
         currentDate={date}
         onChange={setDate}
       />
-      <SectionList
-        sections={divideHabitBySection(state.habits)}
-        renderItem={renderItem}
-        renderSectionHeader={renderSectionHeader}
-        stickySectionHeadersEnabled={false}
-        keyExtractor={(item) => item.id + ' ' + date + ' ' + item.state}
-        // extraData={date}
-      />
+      { state.habits.length === 0 ? (
+        <View style={dynamicStyles.noHabitView}>
+          <Text style={dynamicStyles.text}>{t('noHabitPresent')}</Text>
+        </View>
+      ) : (
+        <SectionList
+          sections={divideHabitBySection(state.habits)}
+          renderItem={renderItem}
+          renderSectionHeader={renderSectionHeader}
+          stickySectionHeadersEnabled={false}
+          keyExtractor={(item) => item.id + ' ' + date + ' ' + item.state}
+          // extraData={date}
+        />
+      )}
 
       <ModalMenu
         visible={menuModalVisible}
@@ -302,6 +308,14 @@ const styles = (theme: Theme) => StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 16,
+  },
+  noHabitView: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  text: {
+    color: theme.colorOnBackground,
   },
 });
 

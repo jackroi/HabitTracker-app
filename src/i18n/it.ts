@@ -50,6 +50,7 @@ const mapping: Translation = {
   habitArchiveLoadingFailed: 'Qualcosa è andato storto caricando l\'archivio degli habit',
   habitStateUpdateFailed: 'Qualcosa è andato storto aggiornando lo stato dell\'habit',
   habitInfoLoadingFailed: 'Qualcosa è andato storto caricando informazioni sull\'habit',
+  noHabitPresent: 'Nessun habit presente',
 
   /* Statistics */
   activeHabitsStats: 'Habit attivi',

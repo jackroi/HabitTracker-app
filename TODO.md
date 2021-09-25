@@ -22,6 +22,4 @@ predisporre un bottone in settings per eseguire rescheduling di tutte le notific
 - Creare schermate apposite per quando non ci sono habit ('non esistono ancora habit') e forse per
 quando ci sono errori di rete (magari refresh button)
 
-- i18n errori, (magari fare errori generali, tipo 'Something went wrong')
-
 - Notifiche: come toglierle quando habit eliminati, ecc...
