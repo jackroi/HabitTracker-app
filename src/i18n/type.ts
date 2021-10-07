@@ -36,6 +36,9 @@ export default interface Translation {
   habit: string;
   category: string;
   type: string;
+  daily: string;
+  weekly: string;
+  monthly: string;
 
   /* Habit creation/update/read */
   selectCategory: string;
@@ -43,6 +46,7 @@ export default interface Translation {
   selectType: string;
   typeSelectionHeader: string;
   update: string;
+  updateHabit: string;
   missingHabitName: string;
   missingHabitCategory: string;
   missingHabitType: string;
@@ -105,6 +109,7 @@ export default interface Translation {
   missingLocationReminderInfo: string;
   reminderCreationFailed: string;
   reminderLoadingFailed: string;
+  addReminder: string;
 
   /* Alert dialog */
   cancel: string;
@@ -113,6 +118,8 @@ export default interface Translation {
   deleteHabit: string;
   deleteHabitAlertMessage: string;
   archiveHabit: string;
+  archiveHabit2: string;
+  unarchive: string;
   archiveHabitAlertMessage: string;
 
   /* Notifications */

@@ -38,6 +38,9 @@ const mapping: Translation = {
   habit: 'Habit',
   category: 'Category',
   type: 'Type',
+  daily: 'Daily',
+  weekly: 'Weekly',
+  monthly: 'Monthly',
 
   /* Habit creation/update/read */
   selectCategory: 'Select category',
@@ -45,6 +48,7 @@ const mapping: Translation = {
   selectType: 'Select type',
   typeSelectionHeader: 'Select a type of habit',
   update: 'Update',
+  updateHabit: 'Update',
   missingHabitName: 'Missing habit name',
   missingHabitCategory: 'Missing habit category',
   missingHabitType: 'Missing habit type',
@@ -107,6 +111,7 @@ const mapping: Translation = {
   missingLocationReminderInfo: 'Missing location name or location marker',
   reminderCreationFailed: 'Something went wrong while creating the reminder',
   reminderLoadingFailed: 'Something went wrong while loading the reminders',
+  addReminder: 'Add reminder',
 
   /* Alert dialog */
   cancel: 'Cancel',
@@ -115,6 +120,8 @@ const mapping: Translation = {
   deleteHabit: 'Delete habit',
   deleteHabitAlertMessage: 'Are you sure you want to delete this habit?',
   archiveHabit: 'Archive habit',
+  archiveHabit2: 'Archive',
+  unarchive: 'Unarchive',
   archiveHabitAlertMessage: 'Are you sure you want to archive this habit?',
 
   /* Notifications */

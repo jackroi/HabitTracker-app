@@ -206,7 +206,7 @@ const ModalMenu = ({ visible, habitId, forArchived, onRequestClose }: CategoryPi
                 null
               ) : (
                 <MenuItem
-                  title={'Add reminder'}
+                  title={t('addReminder')}
                   icon={'bell-outline'}
                   onPress={onAddReminderCallback}
                 />
@@ -217,19 +217,19 @@ const ModalMenu = ({ visible, habitId, forArchived, onRequestClose }: CategoryPi
                 null
               ) : (
                 <MenuItem
-                  title={'Update'}
+                  title={t('updateHabit')}
                   icon={'pencil-box-outline'}
                   onPress={onUpdateCallback}
                 />
               )
             }
             <MenuItem
-              title={forArchived ? 'Unarchive' : 'Archive'}
+              title={forArchived ? t('unarchive') : t('archiveHabit2')}
               icon={'archive-arrow-down-outline'}
               onPress={forArchived ? unarchiveHabit : showArchiveHabitDialog}
             />
             <MenuItem
-              title={'Delete'}
+              title={t('delete')}
               icon={'delete-outline'}
               onPress={showDeleteHabitDialog}
             />

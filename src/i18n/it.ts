@@ -38,6 +38,9 @@ const mapping: Translation = {
   habit: 'Habit',
   category: 'Categoria',
   type: 'Tipologia',
+  daily: 'Giornaliero',
+  weekly: 'Settimanale',
+  monthly: 'Mensile',
 
   /* Habit creation/update/read */
   selectCategory: 'Seleziona categoria',
@@ -45,6 +48,7 @@ const mapping: Translation = {
   selectType: 'Seleziona tipologia',
   typeSelectionHeader: 'Seleziona una tipologia di habit',
   update: 'Aggiorna',
+  updateHabit: 'Aggiorna',
   missingHabitName: 'Nome habit mancante',
   missingHabitCategory: 'Categoria habit mancante',
   missingHabitType: 'Tipologia habit mancante',
@@ -107,6 +111,7 @@ const mapping: Translation = {
   missingLocationReminderInfo: 'Nome o marker posizione mancante',
   reminderCreationFailed: 'Qualcosa è andato storto creando il promemoria',
   reminderLoadingFailed: 'Qualcosa è andato storto caricando i promemoria',
+  addReminder: 'Aggiungi promemoria',
 
   /* Alert dialog */
   cancel: 'Annulla',
@@ -115,6 +120,8 @@ const mapping: Translation = {
   deleteHabit: 'Elimina habit',
   deleteHabitAlertMessage: 'Sei sicuro di voler eliminare questo habit?',
   archiveHabit: 'Archivia habit',
+  archiveHabit2: 'Archivia',
+  unarchive: 'Disarchivia',
   archiveHabitAlertMessage: 'Sei sicuro di voler archiviare questo habit?',
 
   /* Notifications */
