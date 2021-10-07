@@ -4,7 +4,7 @@ import ServerEvents from '../api/models/eventTypes/ServerEvents';
 import environment from "../environments/environment";
 
 
-const BASE_SOCKET_URL = `http://${environment.API_HOST}:${environment.API_PORT}`;
+const BASE_SOCKET_URL = `${environment.API_PROTOCOL}://${environment.API_HOST}:${environment.API_PORT}`;
 
 let socket: Socket<ServerEvents, ClientEvents>;
 

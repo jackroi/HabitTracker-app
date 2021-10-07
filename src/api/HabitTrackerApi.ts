@@ -22,7 +22,7 @@ import environment from "../environments/environment";
 
 // Singleton
 export class HabitTrackerApi {
-  private static BASE_URL = `http://${environment.API_HOST}:${environment.API_PORT}/v${environment.API_VERSION}/`;
+  private static BASE_URL = `${environment.API_PROTOCOL}://${environment.API_HOST}:${environment.API_PORT}/v${environment.API_VERSION}/`;
 
   private http: AxiosInstance;
   private token: string | null;
