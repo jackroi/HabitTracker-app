@@ -24,6 +24,7 @@
     "expo-sqlite": "~9.1.0",
     "expo-status-bar": "~1.0.4",
     "i18n-js": "^3.8.0",
+    "jwt-decode": "^3.1.2",
     "luxon": "^2.0.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",

@@ -15,6 +15,8 @@ import {
 import { MaterialIcons } from '@expo/vector-icons';
 import Constants from 'expo-constants';
 import { t } from 'i18n-js';
+import * as SecureStore from 'expo-secure-store';
+import jwt_decode from "jwt-decode";
 
 import { Theme, getTheme } from '../../styles/themes';
 import { AddHabitScreenNavigationProps, AddReminderScreenNavigationProps } from '../../types/types';
@@ -30,7 +32,7 @@ import TimeReminderSelector from '../../components/ReminderSelector/TimeReminder
 import * as RemindersDb from '../../db/reminders-db';
 import * as NotificationsHelper from '../../utils/NotificationsHelper';
 import Toast from 'react-native-root-toast';
-
+import { TokenData } from '../../types/TokenData';
 
 
 const AddReminderScreen = ({ navigation, route }: AddReminderScreenNavigationProps) => {
@@ -64,6 +66,9 @@ const AddReminderScreen = ({ navigation, route }: AddReminderScreenNavigationPro
       return;
     }
 
+    const token = await SecureStore.getItemAsync('userToken');
+    const email = token ? (jwt_decode(token) as TokenData).email : '';
+
     const habitName = result.value.name;
 
     // Schedule the notification
@@ -74,6 +79,7 @@ const AddReminderScreen = ({ navigation, route }: AddReminderScreenNavigationPro
     RemindersDb.addReminder(db, {
       habitId: habitId,
       notificationId: notificationId,
+      email: email,
       reminderInfo: reminderInfo,
     });
     console.info('Reminder added to db');

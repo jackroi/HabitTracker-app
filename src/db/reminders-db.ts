@@ -15,6 +15,7 @@ export type DbReminder = {
   id: number,
   habitId: string,
   notificationId: string,
+  email: string,
   reminderInfo: ReminderInfo,
 }
 
@@ -33,11 +34,24 @@ export function createTable(db: SQLite.WebSQLDatabase) {
         id              INTEGER PRIMARY KEY AUTOINCREMENT,
         habitId         STRING,
         notificationId  STRING,
+        email           STRING,
         reminderInfo    STRING
       );
     `,
     undefined,
     () => console.log('Table created'),
+    (_, err) => {
+      console.log('Error', err);
+      return true;
+    });
+  });
+}
+
+export function dropTable(db: SQLite.WebSQLDatabase) {
+  db.transaction((tx) => {
+    tx.executeSql(`DROP TABLE ${TABLE_NAME}`,
+    undefined,
+    () => console.log('Table dropped'),
     (_, err) => {
       console.log('Error', err);
       return true;
@@ -58,6 +72,7 @@ export function getReminders(db: SQLite.WebSQLDatabase): Promise<Result<DbRemind
             id: el.id,
             habitId: el.habitId,
             notificationId: el.notificationId,
+            email: el.email,
             reminderInfo: JSON.parse(el.reminderInfo),
           }));
           resolve(ok(parsedArray));
@@ -80,13 +95,15 @@ export function addReminder(db: SQLite.WebSQLDatabase, data: Omit<DbReminder, 'i
           INSERT INTO ${TABLE_NAME} (
             habitId,
             notificationId,
+            email,
             reminderInfo
           ) values (
             ?,
             ?,
+            ?,
             ?
           )`,
-          [data.habitId, data.notificationId, JSON.stringify(data.reminderInfo)],
+          [data.habitId, data.notificationId, data.email, JSON.stringify(data.reminderInfo)],
           (_, __) => resolve(),
           (_, err) => {
             reject(err);
@@ -98,6 +115,25 @@ export function addReminder(db: SQLite.WebSQLDatabase, data: Omit<DbReminder, 'i
   });
 }
 
+export function updateReminderNotificationId(db: SQLite.WebSQLDatabase, id: number, newNotificationId: string) {
+  return new Promise<void>((resolve, reject) => {
+    db.transaction(
+      (tx) => {
+        tx.executeSql(`
+          UPDATE ${TABLE_NAME}
+          SET notificationId = ?
+          WHERE id = ?`,
+          [newNotificationId, id],
+          (_, __) => resolve(),
+          (_, err) => {
+            reject(err);
+            return true;
+          }
+        );
+      }
+    );
+  });
+}
 
 export function deleteReminder(db: SQLite.WebSQLDatabase, id: number) {
   return new Promise<void>((resolve, reject) => {
