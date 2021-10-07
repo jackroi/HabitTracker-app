@@ -81,9 +81,11 @@ const AccountScreen = ({ navigation, route }: AccountScreenNavigationProps) => {
   // TODO probably style better
   return (
     <View style={dynamicStyles.container}>
-      <Text style={dynamicStyles.text}>{t('name')}: {state.name}</Text>
-      <Text style={dynamicStyles.text}>{t('email')}: {state.email}</Text>
-      <Text style={dynamicStyles.text}>{t('registrationDate')}: {state.registrationDate?.toISODate()}</Text>
+      <View style={dynamicStyles.accountInfoContainer}>
+        <Text style={dynamicStyles.text}>{t('name')}: {state.name}</Text>
+        <Text style={dynamicStyles.text}>{t('email')}: {state.email}</Text>
+        <Text style={dynamicStyles.text}>{t('registrationDate')}: {state.registrationDate?.toISODate()}</Text>
+      </View>
 
       <TouchableOpacity
         style={dynamicStyles.deleteButton}
@@ -104,6 +106,11 @@ const styles = (theme: Theme) => StyleSheet.create({
   },
   text: {
     color: theme.colorOnBackground,
+    fontSize: 18,
+    paddingVertical: 5,
+  },
+  accountInfoContainer: {
+    marginTop: 20,
   },
   deleteButton: {
     width: '100%',
