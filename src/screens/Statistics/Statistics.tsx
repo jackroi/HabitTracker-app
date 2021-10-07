@@ -41,10 +41,9 @@ const StatisticsScreen = ({ navigation }: StatisticsScreenNavigationProps) => {
     (state: State, action: Action): State => {
       switch (action.type) {
         case 'FETCH_INIT':
-          // TODO aggiungere uno spinner per la fase di loading
           return {
             ...state,
-            // habits: [],     // TODO valutare
+            // habits: [],
             isLoading: true,
             errorMessage: '',
           };
@@ -61,7 +60,7 @@ const StatisticsScreen = ({ navigation }: StatisticsScreenNavigationProps) => {
         case 'FETCH_FAILURE':
           return {
             ...state,
-            habits: [],     // TODO valutare se lasciare la lista precedente all'errore
+            habits: [],
             stats: null,
             isLoading: false,
             errorMessage: action.errorMessage,

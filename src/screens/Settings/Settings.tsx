@@ -12,18 +12,6 @@ import AboutScreen from './About';
 import HabitArchiveScreen from './HabitArchive';
 
 
-// TODO elementi da tenere nei settings:
-// - Account info (name, email, creationDate)
-  // - Delete account
-// - Logout
-// - About
-
-// - Preferred theme ??? (dark, light)
-// - Posizione/Notifiche ???
-// - Language ???
-
-
-
 const SettingsScreen = ({ navigation }: SettingsScreenNavigationProps) => {
   const { logout } = useContext(AuthContext);
 

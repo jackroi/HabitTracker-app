@@ -284,10 +284,6 @@ const UpdateHabitScreen = ({ navigation, route }: UpdateHabitScreenNavigationPro
             <Text style={dynamicStyles.updateButtonText}>{t('update')}</Text>
           </TouchableOpacity>
 
-          {/* Error message banner */}
-          {/* TODO use toast maybe */}
-          {/* <Text style={{ color: '#FF0000'}}>{state.errorMessage}</Text> */}
-
         </View>
       </TouchableWithoutFeedback>
 

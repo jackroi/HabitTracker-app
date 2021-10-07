@@ -78,7 +78,6 @@ const AccountScreen = ({ navigation, route }: AccountScreenNavigationProps) => {
     );
   };
 
-  // TODO probably style better
   return (
     <View style={dynamicStyles.container}>
       <View style={dynamicStyles.accountInfoContainer}>

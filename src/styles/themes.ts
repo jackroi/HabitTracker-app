@@ -56,8 +56,7 @@ interface Theme {
   colorToastText: string;
 
   /* Placeholder text color */
-  colorPlaceholderText: string;     // TODO valutare meglio che colore usare
-                                    // TODO e usarlo nei vari text input
+  colorPlaceholderText: string;
 }
 
 

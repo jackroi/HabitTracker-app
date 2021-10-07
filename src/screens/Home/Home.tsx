@@ -78,10 +78,9 @@ const HomeScreen = ({ navigation }: HomeScreenNavigationProps) => {
     (state: State, action: Action): State => {
       switch (action.type) {
         case 'FETCH_INIT':
-          // TODO aggiungere uno spinner per la fase di loading
           return {
             ...state,
-            // habits: [],     // TODO valutare
+            // habits: [],
             isLoading: true,
             errorMessage: '',
           };
@@ -97,7 +96,7 @@ const HomeScreen = ({ navigation }: HomeScreenNavigationProps) => {
         case 'FETCH_FAILURE':
           return {
             ...state,
-            habits: [],     // TODO valutare se lasciare la lista precedente all'errore
+            habits: [],
             isLoading: false,
             errorMessage: action.errorMessage,
           };
@@ -202,7 +201,6 @@ const HomeScreen = ({ navigation }: HomeScreenNavigationProps) => {
                 hideOnPress: true,
                 delay: 0,
               });
-              // TODO maybe i should change the UI state back
             }
           }}
           onLongPress={(habitId) => {
@@ -223,7 +221,7 @@ const HomeScreen = ({ navigation }: HomeScreenNavigationProps) => {
   return (
     <View style={dynamicStyles.container}>
       <DatePicker
-        fromDate={DateTime.now().startOf('day').minus({ days: 60 })}    // TODO
+        fromDate={DateTime.now().startOf('day').minus({ days: 60 })}
         currentDate={date}
         onChange={setDate}
       />

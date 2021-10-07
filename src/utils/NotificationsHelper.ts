@@ -20,12 +20,11 @@ export const scheduleNotification = async (habitName: string, reminderInfo: Remi
 
     case ReminderType.MONTHLY:
       // notificationId = await scheduleMonthlyNotification(habitName, reminderInfo.time);
-      notificationId = 'TODO';
+      notificationId = '---';
       break;
 
     case ReminderType.LOCATION:
-      // TODO
-      notificationId = 'TODO';
+      notificationId = '---';
       break;
 
     default:
@@ -44,7 +43,7 @@ const scheduleNotificationHelper = (habitName: string, trigger: NotificationTrig
       body: t('notificationBody'),
       sound: true,
       priority: Notifications.AndroidNotificationPriority.HIGH,
-      color: 'blue',      // TODO cos'è ?
+      color: 'blue',
     },
     trigger: trigger,
   };
@@ -113,7 +112,6 @@ const scheduleWeeklyNotification = (habitName: string, time: WeeklyReminderInfo[
 
 
 const scheduleMonthlyNotification = (habitName: string, time: MonthlyReminderInfo['time']) => {
-  // TODO
   // const trigger: NotificationTriggerInput = {
 
   //   repeats: true,

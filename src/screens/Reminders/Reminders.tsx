@@ -164,10 +164,9 @@ const RemindersScreen = ({ navigation }: RemindersScreenNavigationProps) => {
     (state: State, action: Action): State => {
       switch (action.type) {
         case 'FETCH_INIT':
-          // TODO aggiungere uno spinner per la fase di loading
           return {
             ...state,
-            // habits: [],     // TODO valutare
+            // habits: [],
             isLoading: true,
             // errorMessage: '',
           };
@@ -183,7 +182,7 @@ const RemindersScreen = ({ navigation }: RemindersScreenNavigationProps) => {
         case 'FETCH_FAILURE':
           return {
             ...state,
-            reminders: [],    // TODO valutare se lasciare la lista precedente all'errore
+            reminders: [],
             isLoading: false,
             // errorMessage: action.errorMessage,
           };

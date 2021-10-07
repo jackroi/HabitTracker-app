@@ -165,10 +165,6 @@ const AddHabitScreen = ({ navigation }: AddHabitScreenNavigationProps) => {
             <Text style={dynamicStyles.createButtonText}>{t('create')}</Text>
           </TouchableOpacity>
 
-          {/* Error message banner */}
-          {/* TODO use toast maybe */}
-          {/* <Text style={{ color: '#FF0000'}}>{errorMessage}</Text> */}
-
         </View>
       </TouchableWithoutFeedback>
 
