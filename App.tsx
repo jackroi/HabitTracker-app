@@ -5,6 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import { RootSiblingParent } from 'react-native-root-siblings';
 import * as SecureStore from 'expo-secure-store';
 import * as Localization from 'expo-localization';
+import jwt_decode from "jwt-decode";
 import i18n, { t } from 'i18n-js';
 import en from './src/i18n/en';
 import it from './src/i18n/it';
@@ -24,6 +25,12 @@ import * as NotificationsHelper from './src/utils/NotificationsHelper';
 import { encode, decode } from 'base-64';
 import getSocket from './src/utils/initialize-socket-io';
 import Toast from 'react-native-root-toast';
+import { TokenData } from './src/types/TokenData';
+import { Ok } from './src/utils/Result';
+import { GetHabitsResponseBody } from './src/api/httpTypes/responses';
+import { DbReminder } from './src/db/reminders-db';
+import { DateTime } from 'luxon';
+import { ClientHabit } from './src/api/models/Habit';
 if (!global.btoa) { global.btoa = encode; }
 if (!global.atob) { global.atob = decode; }
 
@@ -38,6 +45,12 @@ i18n.translations = {
   it
 };
 i18n.locale = Localization.locale.split('-')[0];
+
+
+const getHabitFromId = (habits: ClientHabit[], habitId: string): ClientHabit | null => {
+  const habit = habits.find((item) => item.id === habitId);
+  return habit || null;
+};
 
 
 interface State {
@@ -120,6 +133,47 @@ export default function App() {
     RemindersDb.createTable(db);
   }, []);
 
+
+  const scheduleAllNotificationsAfterLogin = async () => {
+    console.info('Rescheduling all notification');
+
+    const token = await SecureStore.getItemAsync('userToken');
+    const email = token ? (jwt_decode(token) as TokenData).email : '';
+
+    const db = RemindersDb.openDatabase();
+
+    const results = await Promise.all([
+      habitTrackerApi.getHabits(),
+      RemindersDb.getReminders(db),
+    ]);
+
+    NotificationsHelper.askNotificationPermission();
+
+    for (let result of results) {
+      if (!result.success) {
+        console.error('Something went wrong while rescheduling notifications after login, ', result.error);
+        return;
+      }
+    }
+
+    const habitsResult = results[0] as Ok<GetHabitsResponseBody['habits'], never>;
+    const habits = habitsResult.value.map((habit) => ({ ...habit, creationDate: DateTime.fromISO(habit.creationDate) }));
+
+    const remindersResult = results[1] as Ok<DbReminder[], never>;
+
+    for (let reminder of remindersResult.value) {
+      if (reminder.email === email) {
+        // Schedule all the reminders of the logged in user
+        const habitName = getHabitFromId(habits, reminder.habitId)?.name;
+        if (habitName) {      // The reminder refers to an existing habit
+          const notificationId = await NotificationsHelper.scheduleNotification(habitName, reminder.reminderInfo);
+          RemindersDb.updateReminderNotificationId(db, reminder.id, notificationId);
+        }
+      }
+    }
+  };
+
+
   const authContext = useMemo(() => ({
       login: async (data : { email: string, password: string }) => {
 
@@ -139,6 +193,8 @@ export default function App() {
           const socket = getSocket();
           socket.emit('online', token);
 
+          scheduleAllNotificationsAfterLogin();
+
           dispatch({ type: 'LOG_IN', token: token });
         }
         else {
@@ -155,13 +211,14 @@ export default function App() {
           console.warn('Login went wrong');
         }
       },
-      logout: () => {
+      logout: async () => {
         SecureStore.deleteItemAsync('userToken');
         habitTrackerApi.unsetToken();
         const socket = getSocket();
         socket.emit('offline');
 
-        // TODO eliminare tutte le notifiche
+        // Disable reminders
+        Notifications.cancelAllScheduledNotificationsAsync();
 
         dispatch({ type: 'LOG_OUT' })
       },
@@ -182,6 +239,8 @@ export default function App() {
 
           const socket = getSocket();
           socket.emit('online', token);
+
+          scheduleAllNotificationsAfterLogin();
 
           dispatch({ type: 'LOG_IN', token: token });
         }
