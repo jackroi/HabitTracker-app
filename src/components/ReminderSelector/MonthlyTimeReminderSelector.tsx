@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { useColorScheme, GestureResponderEvent, StyleSheet, Text, TouchableOpacity, View, TextInput, Dimensions, ActivityIndicator } from 'react-native';
+import { useColorScheme, GestureResponderEvent, StyleSheet, Text, TouchableOpacity, View, TextInput, Dimensions, ActivityIndicator, Platform } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Picker } from '@react-native-picker/picker';
 
@@ -52,7 +52,7 @@ const MonthlyTimeReminderSelector = ({ onConfirm }: MonthlyTimeReminderSelectorP
                 key={monthTime}
                 label={t(monthTime)}
                 value={monthTime}
-                color={theme.colorOnBackground}
+                color={Platform.OS === 'ios' ? theme.colorOnBackground : '#888888' }
               />
             ))
           }

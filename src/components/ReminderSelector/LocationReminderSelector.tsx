@@ -78,6 +78,7 @@ const LocationReminderSelector = ({ onConfirm }: LocationReminderSelectorProps) 
         autoCorrect={false}
         textContentType={'location'}
         placeholder={t('locationName')}
+        placeholderTextColor={theme.colorPlaceholderText}
       />
 
       {/* Map */}

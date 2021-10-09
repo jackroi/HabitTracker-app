@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { useColorScheme, GestureResponderEvent, StyleSheet, Text, TouchableOpacity, View, TextInput, Dimensions, ActivityIndicator } from 'react-native';
+import { useColorScheme, GestureResponderEvent, StyleSheet, Text, TouchableOpacity, View, TextInput, Dimensions, ActivityIndicator, Platform } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Picker } from '@react-native-picker/picker';
 
@@ -54,7 +54,7 @@ const DailyTimeReminderSelector = ({ onConfirm }: DailyTimeReminderSelectorProps
                 key={hour}
                 label={hour.toString()}
                 value={hour}
-                color={theme.colorOnBackground}
+                color={Platform.OS === 'ios' ? theme.colorOnBackground : '#888888' }
               />
             ))
           }
@@ -74,7 +74,7 @@ const DailyTimeReminderSelector = ({ onConfirm }: DailyTimeReminderSelectorProps
                 key={minute}
                 label={minute.toString().padStart(2, '0')}
                 value={minute}
-                color={theme.colorOnBackground}
+                color={Platform.OS === 'ios' ? theme.colorOnBackground : '#888888' }
               />
             ))
           }
