@@ -31,7 +31,8 @@ const LocationReminderSelector = ({ onConfirm }: LocationReminderSelectorProps) 
         return;
       }
 
-      let location = await Location.getCurrentPositionAsync({});
+      // let location = await Location.getCurrentPositionAsync({ });
+      let location = await Location.getLastKnownPositionAsync({ });
       setLocation(location);
     })();
   }, []);
@@ -103,7 +104,7 @@ const LocationReminderSelector = ({ onConfirm }: LocationReminderSelectorProps) 
         </MapView>
       ) : (
         <View style={dynamicStyles.activityIndicatorView}>
-          <ActivityIndicator size={'large'} />
+          <ActivityIndicator size={'large'} color={'gray'} />
         </View>
       )}
 

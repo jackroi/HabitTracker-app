@@ -48,7 +48,7 @@ const TimeReminderSelector = ({ habitId, onConfirm }: TimeReminderSelectorProps)
   if (!habitType) {
     return (
       <View style={dynamicStyles.activityIndicatorView}>
-        <ActivityIndicator size={'large'} />
+        <ActivityIndicator size={'large'} color={'gray'} />
       </View>
     );
   }
