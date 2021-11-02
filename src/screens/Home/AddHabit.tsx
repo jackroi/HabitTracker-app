@@ -194,7 +194,7 @@ const AddHabitScreen = ({ navigation }: AddHabitScreenNavigationProps) => {
 
       {/* Habit type picker modal */}
       <ModalPicker
-        data={[t('daily'),t('weekly'),t('monthly')]}
+        data={['Daily','Weekly','Monthly']}
         withTextInput={false}
         headerText={t('typeSelectionHeader')}
         visible={habitTypeModalVisible}
